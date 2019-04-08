@@ -14,7 +14,7 @@ allprojects {
     apply plugin: 'com.github.johnrengelman.shadow' // Shadow jar
 
     group 'com.alessiodp.lastloginapi'
-    version '1.0.0-SNAPSHOT'
+    version '1.0.0'
 
     // Info
     ext.pluginName = "LastLoginAPI"

@@ -1,13 +1,12 @@
 <p align="center"><img src="logo.png"></p>
 
 # LastLoginAPI
-<b>LastLoginAPI</b> is a plugin for Minecraft servers that collects data whenever a player digs an ore (can be sset with any block).  
-You can send an alert to users/admins or just store every block they destroy to easily track x-ray players.
+<b>LastLoginAPI</b> is a library for developers used to store player names and login/logout timestamps.
 
 [Official project page here!](https://alessiodp.com/lastloginapi/)
 
 ## Downloads
-[Download from Spigot](#)  
+[Download from Spigot](https://www.spigotmc.org/resources/lastloginapi.66348/)  
 
 ## Documentation
 [Documentation page here](https://alessiodp.com/docs/lastloginapi/).

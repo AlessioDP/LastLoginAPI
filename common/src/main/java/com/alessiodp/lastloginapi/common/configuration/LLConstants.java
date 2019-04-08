@@ -7,7 +7,7 @@ public class LLConstants {
 	public static final String PLUGIN_NAME = "LastLoginAPI";
 	public static final String PLUGIN_FALLBACK = "lastloginapi";
 	public static final ConsoleColor PLUGIN_CONSOLECOLOR = ConsoleColor.YELLOW;
-	public static final String PLUGIN_SPIGOTCODE = "";
+	public static final String PLUGIN_SPIGOTCODE = "66348";
 	
 	
 	// Versions
