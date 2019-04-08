@@ -1,0 +1,11 @@
+name: ${pluginName}
+description: ${pluginDescription}
+author: ${pluginAuthor}
+website: ${pluginWebsite}
+version: ${pluginVersion}
+main: com.alessiodp.lastloginapi.bukkit.bootstrap.BukkitLastLoginBootstrap
+api-version: 1.13
+softdepend: [PlaceholderAPI]
+permissions:
+  lastloginapi.updates:
+    description: Send a message if there is an update

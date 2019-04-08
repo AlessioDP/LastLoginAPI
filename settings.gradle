@@ -1,0 +1,9 @@
+rootProject.name = 'lastloginapi'
+include (
+        'api',
+        'common',
+        'bukkit'
+)
+
+project(':api').name = 'lastloginapi-api'
+
