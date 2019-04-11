@@ -2,8 +2,8 @@ rootProject.name = 'lastloginapi'
 include (
         'api',
         'common',
-        'bukkit'
+        'bukkit',
+        'bungeecord'
 )
 
 project(':api').name = 'lastloginapi-api'
-

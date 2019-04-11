@@ -7,6 +7,7 @@ import com.alessiodp.core.common.configuration.Constants;
 import com.alessiodp.lastloginapi.bukkit.addons.BukkitAddonManager;
 import com.alessiodp.lastloginapi.bukkit.addons.external.BukkitMetricsHandler;
 import com.alessiodp.lastloginapi.bukkit.configuration.BukkitLLConfigurationManager;
+import com.alessiodp.lastloginapi.bukkit.configuration.data.BukkitConfigMain;
 import com.alessiodp.lastloginapi.bukkit.listeners.BukkitJoinLeaveListener;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import org.bukkit.plugin.Plugin;
@@ -41,5 +42,10 @@ public class BukkitLastLoginPlugin extends LastLoginPlugin {
 		getLoggerManager().logDebug(Constants.DEBUG_PLUGIN_REGISTERING, true);
 		PluginManager pm = ((Plugin) getBootstrap()).getServer().getPluginManager();
 		pm.registerEvents(new BukkitJoinLeaveListener(this), ((Plugin) getBootstrap()));
+	}
+	
+	@Override
+	public boolean isBungeeCordEnabled() {
+		return BukkitConfigMain.LASTLOGINAPI_BUNGEECORD_ENABLE;
 	}
 }

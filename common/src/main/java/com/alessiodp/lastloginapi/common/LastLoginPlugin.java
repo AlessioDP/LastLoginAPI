@@ -100,4 +100,6 @@ public abstract class LastLoginPlugin extends ADPPlugin {
 		);
 		getAdpUpdater().asyncTaskCheckUpdates();
 	}
+	
+	public abstract boolean isBungeeCordEnabled();
 }

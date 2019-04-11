@@ -55,7 +55,7 @@ public class PlayerManager {
 			// Get player from database
 			ret = plugin.getDatabaseManager().getPlayer(uuid);
 			
-			if (ret != null) {
+			if (ret != null && plugin.isBungeeCordEnabled()) {
 				// Check for username changes
 				ret.updateName();
 			}

@@ -28,12 +28,6 @@ lastloginapi:
       # Log file name
       file: "log.txt"
 
-  bungeecord:
-    # Everything is handled by LastLoginAPI into BungeeCord
-    # This plugin will only get data from the database without write into it
-    # Be sure to use a remote database synchronized with BungeeCord version
-    enable: false
-
 
 # / = = = = = = = = = = = = = = = = \
 # |        STORAGE  SETTINGS        |
@@ -115,4 +109,4 @@ placeholders:
     format-unknown: "Unknown"
 
 dont-edit-this:
-  version: 2
+  version: 1
