@@ -36,7 +36,7 @@ public class MessageUtils {
 					case LLConstants.PLACEHOLDER_LAST_LOGIN_DATE:
 						if (player.isOnline()) {
 							// Online
-							replacement = ConfigMain.PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_ONLINE;
+							replacement = formatDate(player.getLastLogin(), ConfigMain.PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_ONLINE);
 						} else if (player.getLastLogin() > 0) {
 							// Offline
 							replacement = formatDate(player.getLastLogin(), ConfigMain.PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT);
@@ -48,7 +48,7 @@ public class MessageUtils {
 					case LLConstants.PLACEHOLDER_LAST_LOGIN_ELAPSED:
 						if (player.isOnline()) {
 							// Online
-							replacement = ConfigMain.PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_ONLINE;
+							replacement = formatElapsed(player.getLastLogin(), ConfigMain.PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_ONLINE);
 						} else if (player.getLastLogin() > 0) {
 							// Offline
 							replacement = formatElapsed(player.getLastLogin(), ConfigMain.PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT);
@@ -60,7 +60,7 @@ public class MessageUtils {
 					case LLConstants.PLACEHOLDER_LAST_LOGOUT_DATE:
 						if (player.getLastLogout() > 0) {
 							// Offline
-							replacement = formatDate(player.getLastLogin(), ConfigMain.PLACEHOLDERS_LAST_LOGOUT_DATE_FORMAT);
+							replacement = formatDate(player.getLastLogout(), ConfigMain.PLACEHOLDERS_LAST_LOGOUT_DATE_FORMAT);
 						} else {
 							// Unknown
 							replacement = ConfigMain.PLACEHOLDERS_LAST_LOGOUT_DATE_FORMAT_UNKNOWN;
@@ -69,7 +69,7 @@ public class MessageUtils {
 					case LLConstants.PLACEHOLDER_LAST_LOGOUT_ELAPSED:
 						if (player.getLastLogout() > 0) {
 							// Offline
-							replacement = formatElapsed(player.getLastLogin(), ConfigMain.PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT);
+							replacement = formatElapsed(player.getLastLogout(), ConfigMain.PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT);
 						} else {
 							// Unknown
 							replacement = ConfigMain.PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT_UNKNOWN;
