@@ -95,7 +95,7 @@ placeholders:
   last-login-elapsed:
     # Elapsed time since latest login
     format: "%days%d, %hours%h, %minutes%m"
-    format-online: ""
+    format-online: "%hours%h, %minutes%m"
     format-unknown: "Unknown"
 
   last-logout-date:
