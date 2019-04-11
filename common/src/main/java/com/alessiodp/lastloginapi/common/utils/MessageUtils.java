@@ -20,7 +20,7 @@ public class MessageUtils {
 		if (player != null) {
 			Matcher matcher = PLACEHOLDER_PATTERN.matcher(ret);
 			while (matcher.find()) {
-				String replacement = null;
+				String replacement;
 				String identifier = matcher.group(1);
 				switch (identifier.toLowerCase()) {
 					case LLConstants.PLACEHOLDER_NAME:
@@ -74,6 +74,9 @@ public class MessageUtils {
 							// Unknown
 							replacement = ConfigMain.PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT_UNKNOWN;
 						}
+						break;
+					default:
+						replacement = null;
 						break;
 				}
 				

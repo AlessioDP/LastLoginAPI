@@ -2,7 +2,6 @@ package com.alessiodp.lastloginapi.bungeecord;
 
 import com.alessiodp.core.bungeecord.scheduling.ADPBungeeScheduler;
 import com.alessiodp.core.bungeecord.utils.BungeeColorUtils;
-import com.alessiodp.core.common.addons.AddonManager;
 import com.alessiodp.core.common.bootstrap.ADPBootstrap;
 import com.alessiodp.core.common.configuration.Constants;
 import com.alessiodp.lastloginapi.bungeecord.addons.BungeeAddonManager;
