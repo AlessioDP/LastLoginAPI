@@ -1,11 +1,14 @@
 package com.alessiodp.lastloginapi.bukkit;
 
+import com.alessiodp.core.bukkit.addons.internal.json.BukkitJsonHandler;
+import com.alessiodp.core.bukkit.addons.internal.json.SpigotJsonHandler;
 import com.alessiodp.core.bukkit.scheduling.ADPBukkitScheduler;
 import com.alessiodp.core.bukkit.utils.BukkitColorUtils;
 import com.alessiodp.core.common.bootstrap.ADPBootstrap;
 import com.alessiodp.core.common.configuration.Constants;
 import com.alessiodp.lastloginapi.bukkit.addons.BukkitAddonManager;
 import com.alessiodp.lastloginapi.bukkit.addons.external.BukkitMetricsHandler;
+import com.alessiodp.lastloginapi.bukkit.bootstrap.BukkitLastLoginBootstrap;
 import com.alessiodp.lastloginapi.bukkit.configuration.BukkitLLConfigurationManager;
 import com.alessiodp.lastloginapi.bukkit.configuration.data.BukkitConfigMain;
 import com.alessiodp.lastloginapi.bukkit.listeners.BukkitJoinLeaveListener;
@@ -35,6 +38,14 @@ public class BukkitLastLoginPlugin extends LastLoginPlugin {
 		super.postHandle();
 		
 		new BukkitMetricsHandler(this);
+	}
+	
+	@Override
+	protected void initializeJsonHandler() {
+		if (((BukkitLastLoginBootstrap) getBootstrap()).isSpigot())
+			jsonHandler = new SpigotJsonHandler();
+		else
+			jsonHandler = new BukkitJsonHandler();
 	}
 	
 	@Override

@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public abstract class JoinLeaveListener {
-	private final LastLoginPlugin plugin;
+	protected final LastLoginPlugin plugin;
 	
 	protected void onPlayerJoin(User user) {
 		// Make it async

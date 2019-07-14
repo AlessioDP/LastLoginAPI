@@ -13,8 +13,8 @@ import com.alessiodp.lastloginapi.common.configuration.LLConstants;
 import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
 import com.alessiodp.lastloginapi.common.storage.interfaces.ILLDatabaseDispatcher;
+import com.alessiodp.lastloginapi.common.storage.sql.LLSQLUpgradeManager;
 import com.alessiodp.lastloginapi.common.storage.sql.SQLTable;
-import com.alessiodp.lastloginapi.common.storage.sql.SQLUpgradeManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,11 +29,12 @@ public class LLSQLDispatcher extends SQLDispatcher implements ILLDatabaseDispatc
 	
 	public LLSQLDispatcher(ADPPlugin plugin) {
 		super(plugin);
-		upgradeManager = new SQLUpgradeManager();
 	}
 	
 	@Override
 	public void init(StorageType type) {
+		upgradeManager = new LLSQLUpgradeManager(plugin, this, type);
+		
 		switch (type) {
 			case MYSQL:
 				SQLTable.setupTables(
