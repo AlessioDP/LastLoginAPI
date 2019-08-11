@@ -91,7 +91,11 @@ public class MessageUtils {
 		Instant instant = Instant.ofEpochSecond(timestamp);
 		LocalDateTime date = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
 		
-		return DateTimeFormatter.ofPattern(message).format(date);
+		String ret = message;
+		try {
+			ret = DateTimeFormatter.ofPattern(message).format(date);
+		} catch (IllegalArgumentException ignored) {}
+		return ret;
 	}
 	
 	private String formatElapsed(long timestamp, String message) {

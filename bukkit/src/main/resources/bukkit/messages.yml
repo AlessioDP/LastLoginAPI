@@ -1,0 +1,55 @@
+#
+# Messages configuration file
+#
+
+# / = = = = = = = = = = = = = = = = \
+# |      LASTLOGINAPI MESSAGES      |
+# \ = = = = = = = = = = = = = = = = /
+lastloginapi:
+  # Special tags:
+  # => %version%     = New version found
+  # => %thisversion% = Version installed
+  update-available: "&9New version of LastLoginAPI found: %version% (Current: %thisversion%)"
+  invalid-command: "&cInvalid command"
+  # Special tag:
+  # => %config%      = The configuration file name that is outdated
+  configuration-outdated: "&cThe configuration file '%config%' of LastLoginAPI is outdated!"
+  # Special tag:
+  # => %permission%   = Missing permission
+  no-permission: "&cYou do not have access to that command"
+
+
+# / = = = = = = = = = = = = = = = = \
+# |        COMMANDS MESSAGES        |
+# \ = = = = = = = = = = = = = = = = /
+commands:
+  reload:
+    reloaded: "&aConfiguration reloaded"
+
+  version:
+    # Special tags:
+    # => %version%    = LastLoginAPI version
+    # => %newversion% = Latest LastLoginAPI version
+    # => %platform%   = Platform of the plugin (e.g. Bukkit, BungeeCord)
+    updated: "&6&lLastLoginAPI &6%version% &7(%platform%) - Developed by &6AlessioDP"
+    outdated: "&6&lLastLoginAPI &6%version% &7(%platform%) - Developed by &6AlessioDP\n&aNew version found: &2%newversion%"
+
+
+# / = = = = = = = = = = = = = = = = \
+# |          HELP MESSAGES          |
+# \ = = = = = = = = = = = = = = = = /
+help:
+  header: "&6============ &lLastLoginAPI Help Page &r&6============"
+  footer: ""
+  console-help:
+    - "You can only make these commands:"
+    - " > llapi reload - Reload the configuration"
+    - " > llapi version - Show LastLoginAPI information"
+  commands:
+    help: "&6/oa help&7 - Show help pages"
+    reload: "&6/oa reload&7 - Reload the configuration"
+    version: "&6/oa version&7 - Show LastLoginAPI information"
+
+
+dont-edit-this:
+  version: 1

@@ -1,5 +1,7 @@
 package com.alessiodp.lastloginapi.api.interfaces;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.util.UUID;
 
 public interface LastLoginPlayer {
@@ -8,21 +10,21 @@ public interface LastLoginPlayer {
 	 *
 	 * @return Returns the {@link UUID} of the player
 	 */
-	UUID getPlayerUUID();
+	@NonNull UUID getPlayerUUID();
 	
 	/**
 	 * Get the name
 	 *
 	 * @return Returns the name of the player
 	 */
-	String getName();
+	@NonNull String getName();
 	
 	/**
 	 * Set the name
 	 *
 	 * @param name The name to set
 	 */
-	void setName(String name);
+	void setName(@NonNull String name);
 	
 	/**
 	 * Get the last login timestamp

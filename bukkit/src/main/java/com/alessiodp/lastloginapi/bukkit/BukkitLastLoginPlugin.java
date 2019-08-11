@@ -9,6 +9,7 @@ import com.alessiodp.core.common.configuration.Constants;
 import com.alessiodp.lastloginapi.bukkit.addons.BukkitAddonManager;
 import com.alessiodp.lastloginapi.bukkit.addons.external.BukkitMetricsHandler;
 import com.alessiodp.lastloginapi.bukkit.bootstrap.BukkitLastLoginBootstrap;
+import com.alessiodp.lastloginapi.bukkit.commands.BukkitLLCommandManager;
 import com.alessiodp.lastloginapi.bukkit.configuration.BukkitLLConfigurationManager;
 import com.alessiodp.lastloginapi.bukkit.configuration.data.BukkitConfigMain;
 import com.alessiodp.lastloginapi.bukkit.listeners.BukkitJoinLeaveListener;
@@ -28,6 +29,13 @@ public class BukkitLastLoginPlugin extends LastLoginPlugin {
 		configurationManager = new BukkitLLConfigurationManager(this);
 		
 		super.initializeCore();
+	}
+	
+	@Override
+	protected void loadCore() {
+		commandManager = new BukkitLLCommandManager(this);
+		
+		super.loadCore();
 	}
 	
 	@Override

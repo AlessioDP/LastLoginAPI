@@ -11,6 +11,7 @@ import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.players.LastLoginPermission;
 import com.alessiodp.lastloginapi.common.players.PlayerManager;
 import com.alessiodp.lastloginapi.common.storage.LLDatabaseManager;
+import com.alessiodp.lastloginapi.common.utils.LLPlayerUtils;
 import com.alessiodp.lastloginapi.common.utils.MessageUtils;
 import lombok.Getter;
 
@@ -51,8 +52,10 @@ public abstract class LastLoginPlugin extends ADPPlugin {
 	@Override
 	protected void postHandle() {
 		ApiHandler api = new ApiHandler(this);
+		playerUtils = new LLPlayerUtils();
 		
 		getPlayerManager().reload();
+		getCommandManager().setup();
 		registerListeners();
 		
 		reloadAdpUpdater();
@@ -65,12 +68,14 @@ public abstract class LastLoginPlugin extends ADPPlugin {
 	@Override
 	public void reloadConfiguration() {
 		getLoggerManager().logDebug(Constants.DEBUG_PLUGIN_RELOADING, true);
+		getLoginAlertsManager().reload();
 		getConfigurationManager().reload();
 		reloadLoggerManager();
 		getDatabaseManager().reload();
 		
 		getPlayerManager().reload();
 		getAddonManager().loadAddons();
+		getCommandManager().setup();
 		
 		reloadAdpUpdater();
 	}
@@ -95,7 +100,7 @@ public abstract class LastLoginPlugin extends ADPPlugin {
 				LLConstants.PLUGIN_SPIGOTCODE,
 				ConfigMain.LASTLOGINAPI_UPDATES_CHECK,
 				ConfigMain.LASTLOGINAPI_UPDATES_WARN,
-				LastLoginPermission.ADMIN_UPDATES.toString(),
+				LastLoginPermission.ADMIN_ALERTS.toString(),
 				ConfigMain.LASTLOGINAPI_UPDATES_WARNMESSAGE
 		);
 		getAdpUpdater().asyncTaskCheckUpdates();

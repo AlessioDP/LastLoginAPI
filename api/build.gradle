@@ -1,5 +1,9 @@
 apply plugin: 'maven-publish'
 
+dependencies {
+    compileOnly 'org.checkerframework:checker-qual:2.9.0' // Null checkers
+}
+
 javadoc {
     options.docTitle = project.ext.pluginName + ' ' + project.version + ' API'
     options.windowTitle = options.docTitle

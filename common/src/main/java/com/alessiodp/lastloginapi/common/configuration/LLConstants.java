@@ -12,7 +12,9 @@ public class LLConstants {
 	
 	// Versions
 	public static final int VERSION_BUKKIT_CONFIG = 2;
+	public static final int VERSION_BUKKIT_MESSAGES = 1;
 	public static final int VERSION_BUNGEE_CONFIG = 1;
+	public static final int VERSION_BUNGEE_MESSAGES = 1;
 	public static final int VERSION_DATABASE_MYSQL = 1;
 	public static final int VERSION_DATABASE_SQLITE = 1;
 	
@@ -39,4 +41,12 @@ public class LLConstants {
 	public static final String DEBUG_DB_GETPLAYER_BYNAME = "Get player request by name for '{player}'";
 	public static final String DEBUG_PLACEHOLDER_RECEIVE = "Received PAPI placeholder request for '{placeholder}'";
 	public static final String DEBUG_PLAYER_UPDATENAME = "Changed name of '{uuid}' from '{old}' to '{new}'";
+	
+	public static final String DEBUG_CMD_HELP = "{player} performed help command";
+	public static final String DEBUG_CMD_RELOAD = "{player} performed reload command";
+	public static final String DEBUG_CMD_RELOAD_CONSOLE = "Console performed reload command";
+	public static final String DEBUG_CMD_RELOADED = "Configuration reloaded by {player}";
+	public static final String DEBUG_CMD_RELOADED_CONSOLE = "Configuration reloaded";
+	public static final String DEBUG_CMD_VERSION = "{player} performed version command";
+	public static final String DEBUG_CMD_VERSION_CONSOLE = "Performed version command";
 }

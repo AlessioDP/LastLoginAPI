@@ -20,17 +20,9 @@ public abstract class JoinLeaveListener {
 			
 				// Update login timestamp
 				player.updateLastLogin();
-			} else {
-				player = plugin.getPlayerManager().getPlayer(user.getUUID());
 			}
 			
-			if (ConfigMain.LASTLOGINAPI_UPDATES_WARN
-					&& user.hasPermission(LastLoginPermission.ADMIN_UPDATES.toString())
-					&& !plugin.getAdpUpdater().getFoundVersion().isEmpty()) {
-				player.sendMessage(ConfigMain.LASTLOGINAPI_UPDATES_WARNMESSAGE
-						.replace("%version%", plugin.getAdpUpdater().getFoundVersion())
-						.replace("%thisversion%", plugin.getVersion()));
-			}
+			plugin.getLoginAlertsManager().sendAlerts(user);
 		});
 	}
 	

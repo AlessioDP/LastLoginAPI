@@ -5,6 +5,7 @@ import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.configuration.LLConstants;
 import lombok.Getter;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.UUID;
 import java.util.concurrent.locks.ReentrantLock;
@@ -64,7 +65,7 @@ public class LLPlayerImpl implements LastLoginPlayer {
 	}
 	
 	@Override
-	public void setName(String name) {
+	public void setName(@NonNull String name) {
 		lock.lock();
 		this.name = name;
 		updatePlayer();

@@ -7,5 +7,19 @@ main: com.alessiodp.lastloginapi.bukkit.bootstrap.BukkitLastLoginBootstrap
 api-version: 1.13
 softdepend: [PlaceholderAPI]
 permissions:
-  lastloginapi.updates:
-    description: Send a message if there is an update
+  lastloginapi.alerts:
+    description: Send an alert if there is an error
+  lastloginapi.help:
+    description: Allow access to /llapi help
+  lastloginapi.reload:
+    description: Allow access to /llapi reload
+  lastloginapi.version:
+    description: Allow access to /llapi version
+  lastloginapi.*:
+    default: op
+    description: Can use all llapi commands
+    children:
+      lastloginapi.alerts: true
+      lastloginapi.help: true
+      lastloginapi.reload: true
+      lastloginapi.version: true

@@ -7,6 +7,7 @@ import com.alessiodp.core.common.bootstrap.ADPBootstrap;
 import com.alessiodp.core.common.configuration.Constants;
 import com.alessiodp.lastloginapi.bungeecord.addons.BungeeAddonManager;
 import com.alessiodp.lastloginapi.bungeecord.addons.external.BungeeMetricsHandler;
+import com.alessiodp.lastloginapi.bungeecord.commands.BungeeLLCommandManager;
 import com.alessiodp.lastloginapi.bungeecord.configuration.BungeeLLConfigurationManager;
 import com.alessiodp.lastloginapi.bungeecord.listeners.BungeeJoinLeaveListener;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
@@ -25,6 +26,13 @@ public class BungeeLastLoginPlugin extends LastLoginPlugin {
 		configurationManager = new BungeeLLConfigurationManager(this);
 		
 		super.initializeCore();
+	}
+	
+	@Override
+	protected void loadCore() {
+		commandManager = new BungeeLLCommandManager(this);
+		
+		super.loadCore();
 	}
 	
 	@Override
