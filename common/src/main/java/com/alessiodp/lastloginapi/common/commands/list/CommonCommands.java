@@ -1,7 +1,6 @@
 package com.alessiodp.lastloginapi.common.commands.list;
 
 import com.alessiodp.core.common.commands.list.ADPCommand;
-import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.configuration.data.Messages;
 import com.alessiodp.lastloginapi.common.players.LastLoginPermission;
 import lombok.Getter;

@@ -1,6 +1,7 @@
 package com.alessiodp.lastloginapi.bukkit.listeners;
 
 import com.alessiodp.core.bukkit.user.BukkitUser;
+import com.alessiodp.lastloginapi.bukkit.configuration.data.BukkitConfigMain;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.listeners.JoinLeaveListener;
 import org.bukkit.event.EventHandler;
@@ -17,7 +18,7 @@ public class BukkitJoinLeaveListener extends JoinLeaveListener implements Listen
 	
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.LOW)
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		super.onPlayerJoin(new BukkitUser(plugin, event.getPlayer()));
+		super.onPlayerJoin(new BukkitUser(plugin, event.getPlayer()), !BukkitConfigMain.LASTLOGINAPI_AUTHME_ENABLE);
 	}
 	
 	@EventHandler(ignoreCancelled = true)

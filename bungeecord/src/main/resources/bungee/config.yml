@@ -94,8 +94,9 @@ placeholders:
 
   last-login-elapsed:
     # Elapsed time since latest login
-    format: "%days%d, %hours%h, %minutes%m"
-    format-online: "%hours%h, %minutes%m"
+    # Format: https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html
+    format: "d'd' H'h' m'm'"
+    format-online: "H'h' m'm'"
     format-unknown: "Unknown"
 
   last-logout-date:
@@ -105,7 +106,8 @@ placeholders:
 
   last-logout-elapsed:
     # Elapsed time since latest logout
-    format: "%days%d, %hours%h, %minutes%m"
+    # Format: https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html
+    format: "d'd' H'h' m'm'"
     format-unknown: "Unknown"
 
 dont-edit-this:

@@ -5,7 +5,7 @@ website: ${pluginWebsite}
 version: ${pluginVersion}
 main: com.alessiodp.lastloginapi.bukkit.bootstrap.BukkitLastLoginBootstrap
 api-version: 1.13
-softdepend: [PlaceholderAPI]
+softdepend: [AuthMe, PlaceholderAPI]
 permissions:
   lastloginapi.alerts:
     description: Send an alert if there is an error

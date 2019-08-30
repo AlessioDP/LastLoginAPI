@@ -6,11 +6,12 @@ import com.alessiodp.core.bungeecord.utils.BungeeColorUtils;
 import com.alessiodp.core.common.bootstrap.ADPBootstrap;
 import com.alessiodp.core.common.configuration.Constants;
 import com.alessiodp.lastloginapi.bungeecord.addons.BungeeAddonManager;
-import com.alessiodp.lastloginapi.bungeecord.addons.external.BungeeMetricsHandler;
 import com.alessiodp.lastloginapi.bungeecord.commands.BungeeLLCommandManager;
-import com.alessiodp.lastloginapi.bungeecord.configuration.BungeeLLConfigurationManager;
-import com.alessiodp.lastloginapi.bungeecord.listeners.BungeeJoinLeaveListener;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
+import com.alessiodp.lastloginapi.bungeecord.addons.external.BungeeMetricsHandler;
+import com.alessiodp.lastloginapi.bungeecord.configuration.BungeeLLConfigurationManager;
+import com.alessiodp.lastloginapi.bungeecord.events.BungeeEventManager;
+import com.alessiodp.lastloginapi.bungeecord.listeners.BungeeJoinLeaveListener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
 
@@ -39,10 +40,13 @@ public class BungeeLastLoginPlugin extends LastLoginPlugin {
 	protected void postHandle() {
 		colorUtils = new BungeeColorUtils();
 		addonManager = new BungeeAddonManager(this);
+		eventManager = new BungeeEventManager(this);
 		
 		super.postHandle();
 		
 		new BungeeMetricsHandler(this);
+		
+		eventManager.callEvent(eventManager.prepareUpdateLoginTimestamp(null, 0));
 	}
 	
 	@Override

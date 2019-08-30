@@ -7,6 +7,7 @@ dependencies {
     compile project(':common')
     compile group: 'com.alessiodp.core', name: 'bukkit', version: project.ext.adpCore
 
+    compileOnly group: 'fr.xephi', name: 'authme', version: project.ext.authMe
     compileOnly group: 'me.clip', name: 'placeholderapi', version: project.ext.placeholderApi
 }
 

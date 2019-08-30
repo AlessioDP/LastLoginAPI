@@ -3,12 +3,12 @@ package com.alessiodp.lastloginapi.common.utils;
 import com.alessiodp.lastloginapi.common.configuration.LLConstants;
 import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
+import org.apache.commons.lang.time.DurationFormatUtils;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -87,34 +87,18 @@ public class MessageUtils {
 		return ret;
 	}
 	
-	private String formatDate(long timestamp, String message) {
+	private String formatDate(long timestamp, String format) {
 		Instant instant = Instant.ofEpochSecond(timestamp);
 		LocalDateTime date = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
 		
-		String ret = message;
+		String ret = format;
 		try {
-			ret = DateTimeFormatter.ofPattern(message).format(date);
+			ret = DateTimeFormatter.ofPattern(format).format(date);
 		} catch (IllegalArgumentException ignored) {}
 		return ret;
 	}
 	
-	private String formatElapsed(long timestamp, String message) {
-		long time = (System.currentTimeMillis() / 1000L) - timestamp;
-		long days = TimeUnit.SECONDS.toDays(time);
-		time -= TimeUnit.DAYS.toSeconds(days);
-		
-		long hours = TimeUnit.SECONDS.toHours(time);
-		time -= TimeUnit.HOURS.toSeconds(hours);
-		
-		long minutes = TimeUnit.SECONDS.toMinutes(time);
-		time -= TimeUnit.MINUTES.toSeconds(days);
-		
-		long seconds = time;
-		
-		return message
-				.replace("%days%", Long.toString(days))
-				.replace("%hours%", Long.toString(hours))
-				.replace("%minutes%", Long.toString(minutes))
-				.replace("%seconds%", Long.toString(seconds));
+	private String formatElapsed(long timestamp, String format) {
+		return DurationFormatUtils.formatDuration(System.currentTimeMillis() - (timestamp * 1000L), format);
 	}
 }

@@ -5,9 +5,11 @@ import com.alessiodp.core.common.bootstrap.ADPBootstrap;
 import com.alessiodp.core.common.configuration.Constants;
 import com.alessiodp.core.common.logging.ConsoleColor;
 import com.alessiodp.lastloginapi.api.LastLogin;
+import com.alessiodp.lastloginapi.api.interfaces.LastLoginAPI;
 import com.alessiodp.lastloginapi.common.api.ApiHandler;
 import com.alessiodp.lastloginapi.common.configuration.LLConstants;
 import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
+import com.alessiodp.lastloginapi.common.events.EventManager;
 import com.alessiodp.lastloginapi.common.players.LastLoginPermission;
 import com.alessiodp.lastloginapi.common.players.PlayerManager;
 import com.alessiodp.lastloginapi.common.storage.LLDatabaseManager;
@@ -22,6 +24,8 @@ public abstract class LastLoginPlugin extends ADPPlugin {
 	@Getter private final ConsoleColor consoleColor = LLConstants.PLUGIN_CONSOLECOLOR;
 	
 	// LastLoginPlugin fields
+	@Getter protected LastLoginAPI api;
+	@Getter protected EventManager eventManager;
 	@Getter protected MessageUtils messageUtils;
 	@Getter protected PlayerManager playerManager;
 	
@@ -51,7 +55,7 @@ public abstract class LastLoginPlugin extends ADPPlugin {
 	
 	@Override
 	protected void postHandle() {
-		ApiHandler api = new ApiHandler(this);
+		api = new ApiHandler(this);
 		playerUtils = new LLPlayerUtils();
 		
 		getPlayerManager().reload();

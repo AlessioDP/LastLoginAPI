@@ -12,6 +12,7 @@ import com.alessiodp.lastloginapi.bukkit.bootstrap.BukkitLastLoginBootstrap;
 import com.alessiodp.lastloginapi.bukkit.commands.BukkitLLCommandManager;
 import com.alessiodp.lastloginapi.bukkit.configuration.BukkitLLConfigurationManager;
 import com.alessiodp.lastloginapi.bukkit.configuration.data.BukkitConfigMain;
+import com.alessiodp.lastloginapi.bukkit.events.BukkitEventManager;
 import com.alessiodp.lastloginapi.bukkit.listeners.BukkitJoinLeaveListener;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import org.bukkit.plugin.Plugin;
@@ -42,6 +43,7 @@ public class BukkitLastLoginPlugin extends LastLoginPlugin {
 	protected void postHandle() {
 		colorUtils = new BukkitColorUtils();
 		addonManager = new BukkitAddonManager(this);
+		eventManager = new BukkitEventManager(this);
 		
 		super.postHandle();
 		

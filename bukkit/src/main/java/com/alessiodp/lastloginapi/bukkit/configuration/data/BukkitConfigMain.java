@@ -13,6 +13,7 @@ public class BukkitConfigMain extends ConfigMain {
 	
 	// LastLoginAPI settings
 	public static boolean		LASTLOGINAPI_BUNGEECORD_ENABLE;
+	public static boolean		LASTLOGINAPI_AUTHME_ENABLE;
 	
 	public BukkitConfigMain(LastLoginPlugin plugin) {
 		super(plugin);
@@ -24,6 +25,7 @@ public class BukkitConfigMain extends ConfigMain {
 		
 		// LastLoginAPI settings
 		LASTLOGINAPI_BUNGEECORD_ENABLE = false;
+		LASTLOGINAPI_AUTHME_ENABLE = false;
 	}
 	
 	@Override
@@ -32,5 +34,6 @@ public class BukkitConfigMain extends ConfigMain {
 		
 		// LastLoginAPI settings
 		LASTLOGINAPI_BUNGEECORD_ENABLE = confAdapter.getBoolean("lastloginapi.bungeecord.enable", LASTLOGINAPI_BUNGEECORD_ENABLE);
+		LASTLOGINAPI_AUTHME_ENABLE = confAdapter.getBoolean("lastloginapi.authme.enable", LASTLOGINAPI_AUTHME_ENABLE);
 	}
 }

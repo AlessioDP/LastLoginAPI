@@ -17,11 +17,6 @@ public abstract class LLCommandManager extends CommandManager {
 	}
 	
 	@Override
-	protected void registerCommands() {
-	
-	}
-	
-	@Override
 	public CommandData initializeCommandData() {
 		return new LLCommandData();
 	}

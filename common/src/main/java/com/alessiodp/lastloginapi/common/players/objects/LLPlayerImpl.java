@@ -1,6 +1,7 @@
 package com.alessiodp.lastloginapi.common.players.objects;
 
 import com.alessiodp.core.common.user.User;
+import com.alessiodp.lastloginapi.api.events.common.IUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.configuration.LLConstants;
@@ -52,16 +53,21 @@ public class LLPlayerImpl implements LastLoginPlayer {
 					.replace("{old}", getName())
 					.replace("{new}", serverName), true);
 			
+			plugin.getEventManager().callEvent(plugin.getEventManager().prepareUpdateName(this, serverName, getName()));
 			setName(serverName);
 		}
 	}
 	
 	public void updateLastLogin() {
-		setLastLogin(System.currentTimeMillis() / 1000L);
+		IUpdateTimestamp event = plugin.getEventManager().prepareUpdateLoginTimestamp(this, System.currentTimeMillis() / 1000L);
+		plugin.getEventManager().callEvent(event);
+		setLastLogin(event.getTimestamp());
 	}
 	
 	public void updateLastLogout() {
-		setLastLogout(System.currentTimeMillis() / 1000L);
+		IUpdateTimestamp event = plugin.getEventManager().prepareUpdateLogoutTimestamp(this, System.currentTimeMillis() / 1000L);
+		plugin.getEventManager().callEvent(event);
+		setLastLogout(event.getTimestamp());
 	}
 	
 	@Override

@@ -20,13 +20,11 @@ public class CommandVersion extends ADPSubCommand {
 	@Override
 	public boolean preRequisites(CommandData commandData) {
 		User sender = commandData.getSender();
-		if (sender.isPlayer()) {
-			// If the sender is a player
-			if (!sender.hasPermission(LastLoginPermission.ADMIN_VERSION.toString())) {
-				sender.sendMessage(Messages.LLAPI_NO_PERMISSION
-						.replace("%permission%", LastLoginPermission.ADMIN_VERSION.toString()), true);
-				return false;
-			}
+		if (sender.isPlayer()
+				&& !sender.hasPermission(LastLoginPermission.ADMIN_VERSION.toString())) {
+			sender.sendMessage(Messages.LLAPI_NO_PERMISSION
+					.replace("%permission%", LastLoginPermission.ADMIN_VERSION.toString()), true);
+			return false;
 		}
 		return true;
 	}
