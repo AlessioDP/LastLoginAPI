@@ -36,7 +36,7 @@ public class LLSQLDispatcher extends SQLDispatcher implements ILLDatabaseDispatc
 			case MYSQL:
 				SQLTable.setupTables(
 						LLConstants.VERSION_DATABASE_MYSQL,
-						plugin.getResource("schemas/" + type.name().toLowerCase() + ".sql")
+						plugin.getResource("schemas/" + type.name().toLowerCase(Locale.ENGLISH) + ".sql")
 				);
 				MySQLHikariConfiguration hikari = new MySQLHikariConfiguration(
 						plugin.getPluginFallbackName(),

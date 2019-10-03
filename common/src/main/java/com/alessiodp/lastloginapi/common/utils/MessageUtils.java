@@ -9,6 +9,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +23,7 @@ public class MessageUtils {
 			while (matcher.find()) {
 				String replacement;
 				String identifier = matcher.group(1);
-				switch (identifier.toLowerCase()) {
+				switch (identifier.toLowerCase(Locale.ENGLISH)) {
 					case LLConstants.PLACEHOLDER_NAME:
 						if (!player.getName().isEmpty()) {
 							// Known
