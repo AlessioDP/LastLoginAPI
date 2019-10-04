@@ -13,6 +13,7 @@ import org.bukkit.OfflinePlayer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @RequiredArgsConstructor
 public class PAPIHook extends PlaceholderExpansion {
@@ -43,7 +44,7 @@ public class PAPIHook extends PlaceholderExpansion {
 	public List<String> getPlaceholders() {
 		List<String> ret = new ArrayList<>();
 		for (LLPlaceholder placeholder : LLPlaceholder.values()) {
-			ret.add("%" + getIdentifier() + "_" + placeholder.name().toLowerCase() + "%");
+			ret.add("%" + getIdentifier() + "_" + placeholder.name().toLowerCase(Locale.ENGLISH) + "%");
 		}
 		return ret;
 	}

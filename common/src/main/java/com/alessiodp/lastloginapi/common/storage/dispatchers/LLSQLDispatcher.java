@@ -20,10 +20,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class LLSQLDispatcher extends SQLDispatcher implements ILLDatabaseDispatcher {
 	
@@ -39,7 +36,7 @@ public class LLSQLDispatcher extends SQLDispatcher implements ILLDatabaseDispatc
 			case MYSQL:
 				SQLTable.setupTables(
 						LLConstants.VERSION_DATABASE_MYSQL,
-						plugin.getResource("schemas/" + type.name().toLowerCase() + ".sql")
+						plugin.getResource("schemas/" + type.name().toLowerCase(Locale.ENGLISH) + ".sql")
 				);
 				MySQLHikariConfiguration hikari = new MySQLHikariConfiguration(
 						plugin.getPluginFallbackName(),
@@ -59,7 +56,7 @@ public class LLSQLDispatcher extends SQLDispatcher implements ILLDatabaseDispatc
 			case SQLITE:
 				SQLTable.setupTables(
 						LLConstants.VERSION_DATABASE_SQLITE,
-						plugin.getResource("schemas/" + type.name().toLowerCase() + ".sql")
+						plugin.getResource("schemas/" + type.name().toLowerCase(Locale.ENGLISH) + ".sql")
 				);
 				database = new SQLiteDao(plugin, ConfigMain.STORAGE_SETTINGS_SQLITE_DBFILE);
 				database.initSQL();

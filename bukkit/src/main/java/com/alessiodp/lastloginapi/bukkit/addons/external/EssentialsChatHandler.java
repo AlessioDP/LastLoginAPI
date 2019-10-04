@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,7 +35,7 @@ public class EssentialsChatHandler implements Listener {
 	@EventHandler
 	public void onChatPlayer(AsyncPlayerChatEvent event) {
 		String old = event.getFormat();
-		if (old.toLowerCase().contains("{lastloginapi_")) {
+		if (old.toLowerCase(Locale.ENGLISH).contains("{lastloginapi_")) {
 			// Bypass useless checks if this isn't a LastLoginAPI placeholder
 			boolean somethingChanged = false;
 			LLPlayerImpl player = plugin.getPlayerManager().getPlayer(event.getPlayer().getUniqueId());
