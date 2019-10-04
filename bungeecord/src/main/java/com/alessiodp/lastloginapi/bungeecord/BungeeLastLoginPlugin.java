@@ -6,12 +6,12 @@ import com.alessiodp.core.bungeecord.utils.BungeeColorUtils;
 import com.alessiodp.core.common.bootstrap.ADPBootstrap;
 import com.alessiodp.core.common.configuration.Constants;
 import com.alessiodp.lastloginapi.bungeecord.addons.BungeeAddonManager;
-import com.alessiodp.lastloginapi.bungeecord.addons.external.BungeeMetricsHandler;
 import com.alessiodp.lastloginapi.bungeecord.commands.BungeeLLCommandManager;
+import com.alessiodp.lastloginapi.common.LastLoginPlugin;
+import com.alessiodp.lastloginapi.bungeecord.addons.external.BungeeMetricsHandler;
 import com.alessiodp.lastloginapi.bungeecord.configuration.BungeeLLConfigurationManager;
 import com.alessiodp.lastloginapi.bungeecord.events.BungeeEventManager;
 import com.alessiodp.lastloginapi.bungeecord.listeners.BungeeJoinLeaveListener;
-import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
 
