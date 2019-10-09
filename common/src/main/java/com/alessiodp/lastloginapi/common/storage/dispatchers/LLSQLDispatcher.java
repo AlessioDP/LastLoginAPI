@@ -138,7 +138,9 @@ public class LLSQLDispatcher extends SQLDispatcher implements ILLDatabaseDispatc
 		Set<LLPlayerImpl> ret = new HashSet<>();
 		try (Connection connection = getConnection()) {
 			if (connection != null) {
-				String query = LLConstants.QUERY_PLAYER_GET_BYNAME;
+				String query = LLConstants.QUERY_PLAYER_GET_BYNAME_SQLITE;
+				if (databaseType == StorageType.MYSQL)
+					query = LLConstants.QUERY_PLAYER_GET_BYNAME_MYSQL;
 				
 				try (PreparedStatement preStatement = connection.prepareStatement(SQLTable.formatGenericQuery(query))) {
 					preStatement.setString(1, playerName);

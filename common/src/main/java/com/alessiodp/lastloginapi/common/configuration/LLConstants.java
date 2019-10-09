@@ -32,7 +32,8 @@ public class LLConstants {
 	public static final String QUERY_PLAYER_INSERT_SQLITE = "INSERT OR REPLACE INTO {table_players} (`uuid`, `name`, `lastLogin`, `lastLogout`) VALUES (?,?,?,?);";
 	public static final String QUERY_PLAYER_DELETE = "DELETE FROM {table_players} WHERE `uuid`=?;";
 	public static final String QUERY_PLAYER_GET = "SELECT * FROM {table_players} WHERE `uuid`=?;";
-	public static final String QUERY_PLAYER_GET_BYNAME = "SELECT * FROM {table_players} WHERE `name`=?;";
+	public static final String QUERY_PLAYER_GET_BYNAME_MYSQL = "SELECT * FROM {table_players} WHERE `name`=?;";
+	public static final String QUERY_PLAYER_GET_BYNAME_SQLITE = "SELECT * FROM {table_players} WHERE `name`=? COLLATE NOCASE;";
 	
 	
 	// Debug messages
