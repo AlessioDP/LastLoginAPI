@@ -13,25 +13,19 @@ public abstract class JoinLeaveListener {
 	
 	protected void onPlayerJoin(User user, boolean updateLastLogin) {
 		// Make it async
-		plugin.getScheduler().runAsync(() -> {
-			if (updateLastLogin)
-				updateLastLogin(plugin, user.getUUID());
-			
-			plugin.getLoginAlertsManager().sendAlerts(user);
-		});
+		if (updateLastLogin)
+			updateLastLogin(plugin, user.getUUID());
+		plugin.getLoginAlertsManager().sendAlerts(user);
 	}
 	
 	protected void onPlayerQuit(User user) {
-		// Make it async
-		plugin.getScheduler().runAsync(() -> {
-			if (!plugin.isBungeeCordEnabled()) {
-				LLPlayerImpl player = plugin.getPlayerManager().getPlayer(user.getUUID());
-				plugin.getPlayerManager().unloadPlayer(user.getUUID());
-				
-				// Update logout timestamp
-				player.updateLastLogout();
-			}
-		});
+		if (!plugin.isBungeeCordEnabled()) {
+			LLPlayerImpl player = plugin.getPlayerManager().getPlayer(user.getUUID());
+			plugin.getPlayerManager().unloadPlayer(user.getUUID());
+			
+			// Update logout timestamp
+			player.updateLastLogout();
+		}
 	}
 	
 	public static void updateLastLogin(LastLoginPlugin plugin, UUID uuid) {
