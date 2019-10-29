@@ -41,6 +41,11 @@ public class PAPIHook extends PlaceholderExpansion {
 	}
 	
 	@Override
+	public boolean persist(){
+		return true;
+	}
+	
+	@Override
 	public List<String> getPlaceholders() {
 		List<String> ret = new ArrayList<>();
 		for (LLPlaceholder placeholder : LLPlaceholder.values()) {
