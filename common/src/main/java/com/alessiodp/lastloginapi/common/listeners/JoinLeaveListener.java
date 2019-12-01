@@ -12,7 +12,6 @@ public abstract class JoinLeaveListener {
 	protected final LastLoginPlugin plugin;
 	
 	protected void onPlayerJoin(User user, boolean updateLastLogin) {
-		// Make it async
 		if (updateLastLogin)
 			updateLastLogin(plugin, user.getUUID());
 		plugin.getLoginAlertsManager().sendAlerts(user);

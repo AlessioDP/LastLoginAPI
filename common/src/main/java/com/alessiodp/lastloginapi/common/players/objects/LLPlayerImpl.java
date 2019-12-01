@@ -48,13 +48,17 @@ public class LLPlayerImpl implements LastLoginPlayer {
 	public void updateName() {
 		String serverName = plugin.getOfflinePlayer(getPlayerUUID()).getName();
 		if (!serverName.isEmpty() && !serverName.equals(getName())) {
-			plugin.getLoggerManager().logDebug(LLConstants.DEBUG_PLAYER_UPDATENAME
-					.replace("{uuid}", getPlayerUUID().toString())
-					.replace("{old}", getName())
-					.replace("{new}", serverName), true);
-			
-			plugin.getEventManager().callEvent(plugin.getEventManager().prepareUpdateName(this, serverName, getName()));
+			String oldName = getName();
 			setName(serverName);
+			
+			plugin.getScheduler().runAsync(() -> {
+				plugin.getLoggerManager().logDebug(LLConstants.DEBUG_PLAYER_UPDATENAME
+						.replace("{uuid}", getPlayerUUID().toString())
+						.replace("{old}", oldName)
+						.replace("{new}", serverName), true);
+				
+				plugin.getEventManager().callEvent(plugin.getEventManager().prepareUpdateName(this, serverName, oldName));
+			});
 		}
 	}
 	

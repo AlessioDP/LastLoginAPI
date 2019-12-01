@@ -45,8 +45,6 @@ public class BungeeLastLoginPlugin extends LastLoginPlugin {
 		super.postHandle();
 		
 		new BungeeMetricsHandler(this);
-		
-		eventManager.callEvent(eventManager.prepareUpdateLoginTimestamp(null, 0));
 	}
 	
 	@Override
