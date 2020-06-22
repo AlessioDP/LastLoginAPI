@@ -5,6 +5,7 @@ import com.alessiodp.core.common.storage.sql.ISQLTable;
 import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.google.common.io.ByteStreams;
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -79,7 +80,7 @@ public enum SQLTable implements ISQLTable {
 				.replace("{varcharsize}", varcharSize);
 	}
 	
-	public static void parseSchema(InputStream schema) {
+	public static void parseSchema(@NonNull InputStream schema) {
 		try {
 			byte[] data = ByteStreams.toByteArray(schema);
 			String dataString = new String(data, StandardCharsets.UTF_8);

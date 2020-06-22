@@ -1,6 +1,6 @@
 dependencies {
-    compile project(':common')
-    compile group: 'com.alessiodp.core', name: 'bungeecord', version: project.ext.adpCore
+    api project(':common')
+    api group: 'com.alessiodp.core', name: 'bungeecord', version: project.ext.adpCore
 }
 
 

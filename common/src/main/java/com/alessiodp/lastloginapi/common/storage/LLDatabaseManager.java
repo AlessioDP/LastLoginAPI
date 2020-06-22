@@ -48,7 +48,7 @@ public class LLDatabaseManager extends DatabaseManager {
 					.replace("{uuid}", player.getPlayerUUID().toString()), true);
 			
 			((ILLDatabaseDispatcher) database).updatePlayer(player);
-		}).join();
+		});
 	}
 	
 	public LLPlayerImpl getPlayer(UUID playerUuid) {

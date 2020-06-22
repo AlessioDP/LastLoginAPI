@@ -17,11 +17,16 @@ public class BukkitJoinLeaveListener extends JoinLeaveListener implements Listen
 	}
 	
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.LOW)
-	public void onPlayerJoin(PlayerJoinEvent event) {
-		super.onPlayerJoin(new BukkitUser(plugin, event.getPlayer()), !BukkitConfigMain.LASTLOGINAPI_AUTHME_ENABLE);
+	public void onPlayerJoinLow(PlayerJoinEvent event) {
+		super.onPlayerJoinLow(new BukkitUser(plugin, event.getPlayer()));
 	}
 	
-	@EventHandler(ignoreCancelled = true)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onPlayerJoinMonitor(PlayerJoinEvent event) {
+		super.onPlayerJoinMonitor(new BukkitUser(plugin, event.getPlayer()), !BukkitConfigMain.LASTLOGINAPI_AUTHME_ENABLE);
+	}
+	
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		super.onPlayerQuit(new BukkitUser(plugin, event.getPlayer()));
 	}

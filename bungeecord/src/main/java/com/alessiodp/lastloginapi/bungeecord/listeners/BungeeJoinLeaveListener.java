@@ -16,8 +16,10 @@ public class BungeeJoinLeaveListener extends JoinLeaveListener implements Listen
 	}
 	
 	@EventHandler(priority = EventPriority.LOW)
-	public void onPlayerJoin(PostLoginEvent event) {
-		super.onPlayerJoin(new BungeeUser(plugin, event.getPlayer()), true);
+	public void onPlayerJoinLow(PostLoginEvent event) {
+		BungeeUser user = new BungeeUser(plugin, event.getPlayer());
+		super.onPlayerJoinLow(user);
+		super.onPlayerJoinMonitor(user, true);
 	}
 	
 	@EventHandler
