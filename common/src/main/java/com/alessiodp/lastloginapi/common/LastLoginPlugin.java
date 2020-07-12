@@ -9,8 +9,9 @@ import com.alessiodp.lastloginapi.api.interfaces.LastLoginAPI;
 import com.alessiodp.lastloginapi.common.api.ApiHandler;
 import com.alessiodp.lastloginapi.common.configuration.LLConstants;
 import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
+import com.alessiodp.lastloginapi.common.configuration.data.Messages;
 import com.alessiodp.lastloginapi.common.events.EventManager;
-import com.alessiodp.lastloginapi.common.players.LastLoginPermission;
+import com.alessiodp.lastloginapi.common.utils.LastLoginPermission;
 import com.alessiodp.lastloginapi.common.players.PlayerManager;
 import com.alessiodp.lastloginapi.common.storage.LLDatabaseManager;
 import com.alessiodp.lastloginapi.common.utils.LLPlayerUtils;
@@ -22,6 +23,7 @@ public abstract class LastLoginPlugin extends ADPPlugin {
 	@Getter private final String pluginName = LLConstants.PLUGIN_NAME;
 	@Getter private final String pluginFallbackName = LLConstants.PLUGIN_FALLBACK;
 	@Getter private final ConsoleColor consoleColor = LLConstants.PLUGIN_CONSOLECOLOR;
+	@Getter private final String packageName = LLConstants.PLUGIN_PACKAGENAME;
 	
 	// LastLoginPlugin fields
 	@Getter protected LastLoginAPI api;
@@ -56,7 +58,7 @@ public abstract class LastLoginPlugin extends ADPPlugin {
 	@Override
 	protected void postHandle() {
 		api = new ApiHandler(this);
-		playerUtils = new LLPlayerUtils();
+		playerUtils = new LLPlayerUtils(this);
 		
 		getPlayerManager().reload();
 		getCommandManager().setup();
@@ -104,8 +106,8 @@ public abstract class LastLoginPlugin extends ADPPlugin {
 				LLConstants.PLUGIN_SPIGOTCODE,
 				ConfigMain.LASTLOGINAPI_UPDATES_CHECK,
 				ConfigMain.LASTLOGINAPI_UPDATES_WARN,
-				LastLoginPermission.ADMIN_ALERTS.toString(),
-				ConfigMain.LASTLOGINAPI_UPDATES_WARNMESSAGE
+				LastLoginPermission.ADMIN_WARNINGS,
+				Messages.LLAPI_UPDATEAVAILABLE
 		);
 		getAdpUpdater().asyncTaskCheckUpdates();
 	}

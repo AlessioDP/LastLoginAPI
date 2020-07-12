@@ -6,7 +6,9 @@ import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.UUID;
 
 public class PlayerManager {
@@ -23,11 +25,12 @@ public class PlayerManager {
 		listPlayers = new HashMap<>();
 		
 		for (User user : plugin.getOnlinePlayers()) {
-			loadPlayer(user.getUUID());
+			LLPlayerImpl player = loadPlayer(user.getUUID());
+			player.setLoggedIn(true); // Mark current players as logged so the logout timestamp will be saved
 		}
 	}
 	
-	private LLPlayerImpl initializePlayer(UUID playerUUID) {
+	public LLPlayerImpl initializePlayer(UUID playerUUID) {
 		return new LLPlayerImpl(plugin, playerUUID);
 	}
 	
@@ -65,5 +68,16 @@ public class PlayerManager {
 				ret = initializePlayer(uuid);
 		}
 		return ret;
+	}
+	
+	public Set<LLPlayerImpl> getPlayerByName(String name) {
+		LLPlayerImpl player = listPlayers.values().stream()
+				.filter((p) -> p.getName().equalsIgnoreCase(name))
+				.findAny().orElse(null);
+		
+		if (player == null) {
+			return plugin.getDatabaseManager().getPlayerByName(name);
+		}
+		return Collections.singleton(player);
 	}
 }

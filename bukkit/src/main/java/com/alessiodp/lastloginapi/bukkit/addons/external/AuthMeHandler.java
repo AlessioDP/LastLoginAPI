@@ -10,6 +10,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 @RequiredArgsConstructor
@@ -38,7 +39,7 @@ public class AuthMeHandler implements Listener {
 		}
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerLogin(LoginEvent event) {
 		if (active && BukkitConfigMain.LASTLOGINAPI_AUTHME_ENABLE) {
 			JoinLeaveListener.updateLastLogin(plugin, event.getPlayer().getUniqueId());

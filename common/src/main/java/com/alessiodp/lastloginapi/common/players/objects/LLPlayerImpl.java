@@ -1,25 +1,42 @@
 package com.alessiodp.lastloginapi.common.players.objects;
 
+import com.alessiodp.core.common.commands.list.ADPCommand;
+import com.alessiodp.core.common.commands.utils.ADPPermission;
 import com.alessiodp.core.common.user.User;
+import com.alessiodp.core.common.utils.Color;
+import com.alessiodp.lastloginapi.api.events.common.IPostUpdateTimestamp;
+import com.alessiodp.lastloginapi.api.events.common.IPreUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.events.common.IUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
+import com.alessiodp.lastloginapi.common.commands.list.CommonCommands;
 import com.alessiodp.lastloginapi.common.configuration.LLConstants;
+import com.alessiodp.lastloginapi.common.configuration.data.Messages;
+import com.alessiodp.lastloginapi.common.utils.LastLoginPermission;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.locks.ReentrantLock;
 
+@EqualsAndHashCode(doNotUseGetters = true)
 public class LLPlayerImpl implements LastLoginPlayer {
-	private final LastLoginPlugin plugin;
+	@EqualsAndHashCode.Exclude private final LastLoginPlugin plugin;
 	
 	@Getter private UUID playerUUID;
 	@Getter private String name;
 	@Getter private long lastLogin;
 	@Getter private long lastLogout;
 	
-	private final ReentrantLock lock = new ReentrantLock();
+	@EqualsAndHashCode.Exclude @Getter @Setter private boolean isLoggedIn;
+	
+	@EqualsAndHashCode.Exclude @Getter private final ReentrantLock lock = new ReentrantLock();
+	@EqualsAndHashCode.Exclude @ToString.Exclude private boolean accessible = false;
 	
 	public LLPlayerImpl(LastLoginPlugin plugin, UUID uuid) {
 		this.plugin = plugin;
@@ -41,8 +58,43 @@ public class LLPlayerImpl implements LastLoginPlayer {
 		this.lastLogout = lastLogout;
 	}
 	
-	private void updatePlayer() {
+	public void setAccessible(boolean accessible) {
+		this.accessible = accessible;
+	}
+	
+	public void updatePlayer() {
 		plugin.getDatabaseManager().updatePlayer(this);
+	}
+	
+	private void updateValue(Runnable runnable) {
+		if (accessible) {
+			runnable.run();
+		} else {
+			lock.lock();
+			runnable.run();
+			updatePlayer();
+			lock.unlock();
+		}
+	}
+	
+	@Override
+	public void setName(@NonNull String name) {
+		updateValue(() -> this.name = name);
+	}
+	
+	@Override
+	public void setLastLogin(long lastLogin) {
+		updateValue(() -> this.lastLogin = lastLogin);
+	}
+	
+	@Override
+	public void setLastLogout(long lastLogout) {
+		updateValue(() -> this.lastLogout = lastLogout);
+	}
+	
+	@Override
+	public boolean isOnline() {
+		return plugin.getOfflinePlayer(playerUUID).isOnline();
 	}
 	
 	public void updateName() {
@@ -63,47 +115,82 @@ public class LLPlayerImpl implements LastLoginPlayer {
 	}
 	
 	public void updateLastLogin() {
-		IUpdateTimestamp event = plugin.getEventManager().prepareUpdateLoginTimestamp(this, System.currentTimeMillis() / 1000L);
-		plugin.getEventManager().callEvent(event);
-		setLastLogin(event.getTimestamp());
+		// Deprecated event
+		IUpdateTimestamp eventDeprecated = plugin.getEventManager().prepareDeprecatedUpdateLoginTimestamp(this, System.currentTimeMillis() / 1000L);
+		plugin.getEventManager().callEvent(eventDeprecated);
+		
+		IPreUpdateTimestamp eventPre = plugin.getEventManager().preparePreUpdateLoginTimestamp(this, eventDeprecated.getTimestamp());
+		eventPre.setCancelled(eventDeprecated.isCancelled());
+		plugin.getEventManager().callEvent(eventPre);
+		
+		if (!eventPre.isCancelled()) {
+			setLastLogin(eventPre.getTimestamp());
+			
+			plugin.getScheduler().runAsync(() -> {
+				IPostUpdateTimestamp eventPost = plugin.getEventManager().preparePostUpdateLoginTimestamp(this, eventPre.getTimestamp());
+				plugin.getEventManager().callEvent(eventPost);
+			});
+		} else {
+			plugin.getLoggerManager().logDebug(LLConstants.DEBUG_API_CANCELLED_UPDATE_LAST_LOGIN, true);
+		}
 	}
 	
 	public void updateLastLogout() {
-		IUpdateTimestamp event = plugin.getEventManager().prepareUpdateLogoutTimestamp(this, System.currentTimeMillis() / 1000L);
-		plugin.getEventManager().callEvent(event);
-		setLastLogout(event.getTimestamp());
+		// Deprecated event
+		IUpdateTimestamp eventDeprecated = plugin.getEventManager().prepareDeprecatedUpdateLogoutTimestamp(this, System.currentTimeMillis() / 1000L);
+		plugin.getEventManager().callEvent(eventDeprecated);
+		
+		IPreUpdateTimestamp eventPre = plugin.getEventManager().preparePreUpdateLogoutTimestamp(this, eventDeprecated.getTimestamp());
+		eventPre.setCancelled(eventDeprecated.isCancelled());
+		plugin.getEventManager().callEvent(eventPre);
+		
+		if (!eventPre.isCancelled()) {
+			setLastLogout(eventPre.getTimestamp());
+			
+			plugin.getScheduler().runAsync(() -> {
+				IPostUpdateTimestamp eventPost = plugin.getEventManager().preparePostUpdateLogoutTimestamp(this, eventPre.getTimestamp());
+				plugin.getEventManager().callEvent(eventPost);
+			});
+		} else {
+			plugin.getLoggerManager().logDebug(LLConstants.DEBUG_API_CANCELLED_UPDATE_LAST_LOGOUT, true);
+		}
 	}
 	
-	@Override
-	public void setName(@NonNull String name) {
-		lock.lock();
-		this.name = name;
-		updatePlayer();
-		lock.unlock();
+	public List<ADPCommand> getAllowedCommands() {
+		List<ADPCommand> ret = new ArrayList<>();
+		User player = plugin.getPlayer(getPlayerUUID());
+		
+		if (player.hasPermission(LastLoginPermission.ADMIN_HELP))
+			ret.add(CommonCommands.HELP);
+		if (player.hasPermission(LastLoginPermission.ADMIN_INFO))
+			ret.add(CommonCommands.INFO);
+		if (player.hasPermission(LastLoginPermission.ADMIN_RELOAD))
+			ret.add(CommonCommands.RELOAD);
+		if (player.hasPermission(LastLoginPermission.ADMIN_VERSION))
+			ret.add(CommonCommands.VERSION);
+		
+		return ret;
 	}
 	
-	@Override
-	public void setLastLogin(long lastLogin) {
-		lock.lock();
-		this.lastLogin = lastLogin;
-		updatePlayer();
-		lock.unlock();
-	}
-	
-	@Override
-	public void setLastLogout(long lastLogout) {
-		lock.lock();
-		this.lastLogout = lastLogout;
-		updatePlayer();
-		lock.unlock();
-	}
-	
-	@Override
-	public boolean isOnline() {
-		return plugin.getOfflinePlayer(playerUUID).isOnline();
+	public void sendNoPermission(ADPPermission perm) {
+		sendMessage(Messages.LLAPI_NOPERMISSION
+				.replace("%permission%", perm.toString()));
 	}
 	
 	public void sendMessage(String message) {
+		sendMessage(message, this);
+	}
+	
+	public void sendMessage(String message, LLPlayerImpl victim) {
+		if (message == null || message.isEmpty())
+			return;
+		
+		String formattedMessage = plugin.getMessageUtils().convertPlaceholders(message, victim);
+		formattedMessage = Color.translateAlternateColorCodes(formattedMessage);
+		sendDirect(formattedMessage);
+	}
+	
+	public void sendDirect(String message) {
 		User player = plugin.getPlayer(getPlayerUUID());
 		if (player != null) {
 			player.sendMessage(message, false);

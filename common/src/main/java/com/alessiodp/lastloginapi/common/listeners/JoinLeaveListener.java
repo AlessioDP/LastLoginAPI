@@ -28,8 +28,10 @@ public abstract class JoinLeaveListener {
 				LLPlayerImpl player = plugin.getPlayerManager().getPlayer(uuid);
 				plugin.getPlayerManager().unloadPlayer(user.getUUID());
 				
-				// Update logout timestamp
-				player.updateLastLogout();
+				if (player.isLoggedIn()) {
+					// Update logout timestamp
+					player.updateLastLogout();
+				}
 			});
 		}
 	}
@@ -39,6 +41,7 @@ public abstract class JoinLeaveListener {
 			plugin.getScheduler().runAsync(() -> {
 				LLPlayerImpl player = plugin.getPlayerManager().loadPlayer(uuid);
 				
+				player.setLoggedIn(true);
 				// Update login timestamp
 				player.updateLastLogin();
 			});

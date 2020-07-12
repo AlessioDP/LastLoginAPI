@@ -4,6 +4,10 @@ import com.alessiodp.lastloginapi.api.events.common.IUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+/**
+ * @deprecated Use {@link BukkitLastLoginPreUpdateLoginTimestampEvent} instead
+ */
+@Deprecated
 public class BukkitLastLoginUpdateLoginTimestampEvent extends BukkitLastLoginEvent implements IUpdateTimestamp {
 	private boolean cancelled;
 	private final LastLoginPlayer player;

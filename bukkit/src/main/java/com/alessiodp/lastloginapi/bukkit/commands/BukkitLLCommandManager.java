@@ -14,14 +14,14 @@ public class BukkitLLCommandManager extends LLCommandManager {
 	}
 	
 	@Override
-	protected void prepareCommands() {
+	public void prepareCommands() {
 		commandOrder = null; // Command order disabled
 		commandUtils = new BukkitCommandUtils(plugin, "on", "off");
 		super.prepareCommands();
 	}
 	
 	@Override
-	protected void registerCommands() {
+	public void registerCommands() {
 		mainCommands = new ArrayList<>();
 		mainCommands.add(new CommandLLAPI((LastLoginPlugin) plugin));
 	}

@@ -1,31 +1,36 @@
 package com.alessiodp.lastloginapi.common.commands.main;
 
+import com.alessiodp.core.common.commands.list.ADPCommand;
+import com.alessiodp.core.common.commands.utils.ADPExecutableCommand;
 import com.alessiodp.core.common.commands.utils.ADPMainCommand;
 import com.alessiodp.core.common.user.User;
+import com.alessiodp.core.common.utils.Color;
+import com.alessiodp.core.common.utils.CommonUtils;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.commands.list.CommonCommands;
 import com.alessiodp.lastloginapi.common.commands.sub.CommandHelp;
+import com.alessiodp.lastloginapi.common.commands.sub.CommandInfo;
 import com.alessiodp.lastloginapi.common.commands.sub.CommandReload;
 import com.alessiodp.lastloginapi.common.commands.sub.CommandVersion;
+import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.configuration.data.Messages;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.Map;
 
 public class CommandLLAPI extends ADPMainCommand {
 	public CommandLLAPI(LastLoginPlugin plugin) {
-		super(plugin);
+		super(plugin, CommonCommands.LLAPI, ConfigMain.COMMANDS_CMD_LLAPI, true);
 		
-		commandName = "llapi";
-		description = "LastLoginAPI main command";
+		description = ConfigMain.COMMANDS_DESCRIPTION_LLAPI;
 		subCommands = new HashMap<>();
-		enabledSubCommands = new ArrayList<>();
-		tabSupport = true;
+		subCommandsByEnum = new HashMap<>();
+		tabSupport = ConfigMain.COMMANDS_TABSUPPORT;
 		
-		register(CommonCommands.HELP, new CommandHelp(plugin, this));
-		register(CommonCommands.RELOAD, new CommandReload(plugin, this));
-		register(CommonCommands.VERSION, new CommandVersion(plugin, this));
+		register(new CommandHelp(plugin, this));
+		register(new CommandInfo(plugin, this));
+		register(new CommandReload(plugin, this));
+		register(new CommandVersion(plugin, this));
 	}
 	
 	@Override
@@ -34,29 +39,34 @@ public class CommandLLAPI extends ADPMainCommand {
 		if (sender.isPlayer()) {
 			if (args.length == 0) {
 				// Set /llapi to /llapi help
-				subCommand = CommonCommands.HELP.getCommand().toLowerCase(Locale.ENGLISH);
+				subCommand = CommonUtils.toLowerCase(ConfigMain.COMMANDS_CMD_HELP);
 			} else {
-				subCommand = args[0].toLowerCase(Locale.ENGLISH);
+				subCommand = CommonUtils.toLowerCase(args[0]);
 			}
 			
 			if (exists(subCommand)) {
 				plugin.getCommandManager().getCommandUtils().executeCommand(sender, getCommandName(), getSubCommand(subCommand), args);
 			} else {
-				sender.sendMessage(Messages.LLAPI_INVALID_COMMAND, true);
+				sender.sendMessage(Messages.LLAPI_COMMON_INVALIDCMD, true);
 			}
 		} else {
 			// Console
 			if (args.length > 0) {
-				subCommand = args[0].toLowerCase(Locale.ENGLISH);
+				subCommand = CommonUtils.toLowerCase(args[0]);
 				if (exists(subCommand) && getSubCommand(subCommand).isExecutableByConsole()) {
 					plugin.getCommandManager().getCommandUtils().executeCommand(sender, getCommandName(), getSubCommand(subCommand), args);
 				} else {
-					plugin.logConsole(plugin.getColorUtils().removeColors(Messages.LLAPI_INVALID_COMMAND), false);
+					plugin.logConsole(Color.translateAndStripColor(Messages.LLAPI_COMMON_INVALIDCMD), false);
 				}
 			} else {
 				// Print help
-				for (String str : Messages.HELP_CONSOLEHELP) {
-					plugin.logConsole(str, false);
+				plugin.logConsole(Messages.HELP_CONSOLEHELP_HEADER, false);
+				for(Map.Entry<ADPCommand, ADPExecutableCommand> e : plugin.getCommandManager().getOrderedCommands().entrySet()) {
+					if (e.getValue().isExecutableByConsole()  && e.getValue().isListedInHelp()) {
+						plugin.logConsole(Messages.HELP_CONSOLEHELP_COMMAND
+								.replace("%command%", e.getValue().getConsoleSyntax())
+								.replace("%description%", e.getValue().getDescription()), false);
+					}
 				}
 			}
 		}

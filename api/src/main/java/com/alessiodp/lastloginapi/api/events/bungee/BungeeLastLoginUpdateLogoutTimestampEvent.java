@@ -4,6 +4,10 @@ import com.alessiodp.lastloginapi.api.events.common.IUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+/**
+ * @deprecated Use {@link BungeeLastLoginPreUpdateLoginTimestampEvent} instead
+ */
+@Deprecated
 public class BungeeLastLoginUpdateLogoutTimestampEvent extends BungeeLastLoginEvent implements IUpdateTimestamp {
 	private boolean cancelled;
 	private final LastLoginPlayer player;

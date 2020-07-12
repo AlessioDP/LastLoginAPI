@@ -1,9 +1,0 @@
-rootProject.name = 'lastloginapi'
-include (
-        'api',
-        'common',
-        'bukkit',
-        'bungeecord'
-)
-
-project(':api').name = 'lastloginapi-api'

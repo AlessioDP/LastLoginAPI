@@ -5,47 +5,72 @@ import com.alessiodp.core.common.commands.utils.ADPMainCommand;
 import com.alessiodp.core.common.commands.utils.ADPSubCommand;
 import com.alessiodp.core.common.commands.utils.CommandData;
 import com.alessiodp.core.common.user.User;
+import com.alessiodp.lastloginapi.common.LastLoginPlugin;
+import com.alessiodp.lastloginapi.common.commands.list.CommonCommands;
+import com.alessiodp.lastloginapi.common.commands.utils.LLCommandData;
 import com.alessiodp.lastloginapi.common.configuration.LLConstants;
+import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.configuration.data.Messages;
-import com.alessiodp.lastloginapi.common.players.LastLoginPermission;
-import lombok.Getter;
+import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
+import com.alessiodp.lastloginapi.common.utils.LastLoginPermission;
 
 public class CommandReload extends ADPSubCommand {
-	@Getter private final boolean executableByConsole = true;
 	
 	public CommandReload(ADPPlugin plugin, ADPMainCommand mainCommand) {
-		super(plugin, mainCommand);
+		super(
+				plugin,
+				mainCommand,
+				CommonCommands.RELOAD,
+				LastLoginPermission.ADMIN_RELOAD,
+				ConfigMain.COMMANDS_CMD_RELOAD,
+				true
+		);
+		
+		syntax = baseSyntax();
+		
+		description = Messages.HELP_CMD_DESCRIPTIONS_RELOAD;
+		help = Messages.HELP_CMD_RELOAD;
+	}
+	
+	@Override
+	public String getRunCommand() {
+		return baseSyntax();
 	}
 	
 	@Override
 	public boolean preRequisites(CommandData commandData) {
 		User sender = commandData.getSender();
-		if (sender.isPlayer()
-				&& !sender.hasPermission(LastLoginPermission.ADMIN_RELOAD.toString())) {
-			sender.sendMessage(Messages.LLAPI_NO_PERMISSION
-					.replace("%permission%", LastLoginPermission.ADMIN_RELOAD.toString()), true);
-			return false;
+		if (sender.isPlayer()) {
+			// If the sender is a player
+			LLPlayerImpl player = ((LastLoginPlugin) plugin).getPlayerManager().getPlayer(sender.getUUID());
+			
+			if (player != null && !sender.hasPermission(permission)) {
+				player.sendNoPermission(permission);
+				return false;
+			}
+			
+			((LLCommandData) commandData).setPlayer(player);
 		}
 		return true;
 	}
 	
 	@Override
 	public void onCommand(CommandData commandData) {
-		User sender = commandData.getSender();
+		LLPlayerImpl player = ((LLCommandData) commandData).getPlayer();
 		
-		if (sender.isPlayer())
+		if (player != null)
 			plugin.getLoggerManager().logDebug(LLConstants.DEBUG_CMD_RELOAD
-					.replace("{player}", sender.getName()), true);
+					.replace("{player}", player.getName()), true);
 		else
 			plugin.getLoggerManager().logDebug(LLConstants.DEBUG_CMD_RELOAD_CONSOLE, true);
 		
 		plugin.reloadConfiguration();
 		
-		if (sender.isPlayer()) {
-			sender.sendMessage(Messages.CMD_RELOAD_RELOADED, true);
+		if (player != null) {
+			player.sendMessage(Messages.LLAPI_COMMON_CONFIGRELOAD);
 			
 			plugin.getLoggerManager().log(LLConstants.DEBUG_CMD_RELOADED
-					.replace("{player}", sender.getName()), true);
+					.replace("{player}", player.getName()), true);
 		} else {
 			plugin.getLoggerManager().log(LLConstants.DEBUG_CMD_RELOADED_CONSOLE, true);
 		}

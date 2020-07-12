@@ -1,6 +1,7 @@
 package com.alessiodp.lastloginapi.bukkit.addons.external.hooks;
 
 import com.alessiodp.core.common.configuration.Constants;
+import com.alessiodp.core.common.utils.CommonUtils;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.addons.internal.LLPlaceholder;
 import com.alessiodp.lastloginapi.common.configuration.LLConstants;
@@ -13,7 +14,6 @@ import org.bukkit.OfflinePlayer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @RequiredArgsConstructor
 public class PAPIHook extends PlaceholderExpansion {
@@ -49,7 +49,7 @@ public class PAPIHook extends PlaceholderExpansion {
 	public List<String> getPlaceholders() {
 		List<String> ret = new ArrayList<>();
 		for (LLPlaceholder placeholder : LLPlaceholder.values()) {
-			ret.add("%" + getIdentifier() + "_" + placeholder.name().toLowerCase(Locale.ENGLISH) + "%");
+			ret.add("%" + getIdentifier() + "_" + CommonUtils.toLowerCase(placeholder.name()) + "%");
 		}
 		return ret;
 	}
@@ -77,6 +77,7 @@ public class PAPIHook extends PlaceholderExpansion {
 		LLPlayerImpl player = plugin.getPlayerManager().getPlayer(offlinePlayer.getUniqueId());
 		
 		LLPlaceholder placeholder = LLPlaceholder.getPlaceholder(identifier);
-		return placeholder != null ? placeholder.formatPlaceholder(player) : "";
+		
+		return placeholder != null ? placeholder.formatPlaceholder(player, identifier) : "";
 	}
 }

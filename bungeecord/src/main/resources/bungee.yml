@@ -1,6 +1,6 @@
-name: ${pluginName}
-description: ${pluginDescription}
-author: ${pluginAuthor}
-website: ${pluginWebsite}
-version: ${pluginVersion}
+name: ${plugin.name}
+description: ${plugin.description}
+author: ${plugin.author}
+website: ${plugin.website}
+version: ${plugin.version}
 main: com.alessiodp.lastloginapi.bungeecord.bootstrap.BungeeLastLoginBootstrap

@@ -3,8 +3,10 @@ package com.alessiodp.lastloginapi.common.commands;
 import com.alessiodp.core.common.ADPPlugin;
 import com.alessiodp.core.common.commands.CommandManager;
 import com.alessiodp.core.common.commands.utils.CommandData;
-import com.alessiodp.lastloginapi.common.commands.list.CommonCommands;
 import com.alessiodp.lastloginapi.common.commands.utils.LLCommandData;
+import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
+
+import java.util.LinkedList;
 
 public abstract class LLCommandManager extends CommandManager {
 	protected LLCommandManager(ADPPlugin plugin) {
@@ -12,8 +14,9 @@ public abstract class LLCommandManager extends CommandManager {
 	}
 	
 	@Override
-	protected void prepareCommands() {
-		CommonCommands.setup();
+	public void prepareCommands() {
+		commandOrder = new LinkedList<>();
+		commandOrder.addAll(ConfigMain.COMMANDS_ORDER);
 	}
 	
 	@Override

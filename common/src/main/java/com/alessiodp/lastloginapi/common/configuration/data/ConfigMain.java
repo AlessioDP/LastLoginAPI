@@ -1,51 +1,121 @@
 package com.alessiodp.lastloginapi.common.configuration.data;
 
+import com.alessiodp.core.common.configuration.ConfigOption;
 import com.alessiodp.core.common.configuration.ConfigurationFile;
-import com.alessiodp.core.common.configuration.adapter.ConfigurationAdapter;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
+
+import java.util.List;
 
 public abstract class ConfigMain extends ConfigurationFile {
 	// LastLoginAPI settings
+	@ConfigOption(path = "lastloginapi.updates.check")
 	public static boolean		LASTLOGINAPI_UPDATES_CHECK;
+	@ConfigOption(path = "lastloginapi.updates.warn")
 	public static boolean		LASTLOGINAPI_UPDATES_WARN;
-	public static String		LASTLOGINAPI_UPDATES_WARNMESSAGE;
+	@ConfigOption(path = "lastloginapi.logging.debug")
 	public static boolean		LASTLOGINAPI_LOGGING_DEBUG;
+	@ConfigOption(path = "lastloginapi.logging.save-file.enable")
 	public static boolean		LASTLOGINAPI_LOGGING_SAVE_ENABLE;
+	@ConfigOption(path = "lastloginapi.logging.save-file.format")
 	public static String		LASTLOGINAPI_LOGGING_SAVE_FORMAT;
+	@ConfigOption(path = "lastloginapi.logging.save-file.file")
 	public static String		LASTLOGINAPI_LOGGING_SAVE_FILE;
 	
+	
 	// Storage settings
+	@ConfigOption(path = "storage.database-storage-type")
 	public static String		STORAGE_TYPE_DATABASE;
-	public static int			STORAGE_SETTINGS_GENERAL_SQL_VARCHARSIZE;
-	public static boolean		STORAGE_SETTINGS_GENERAL_SQL_UPGRADE_SAVEOLD;
-	public static String		STORAGE_SETTINGS_GENERAL_SQL_UPGRADE_OLDSUFFIX;
-	public static String		STORAGE_SETTINGS_GENERAL_SQL_TABLES_PLAYERS;
-	public static String		STORAGE_SETTINGS_GENERAL_SQL_TABLES_VERSIONS;
+	@ConfigOption(path = "storage.storage-settings.general-sql-settings.prefix")
+	public static String		STORAGE_SETTINGS_GENERAL_SQL_PREFIX;
+	@ConfigOption(path = "storage.storage-settings.sqlite.database-file")
 	public static String		STORAGE_SETTINGS_SQLITE_DBFILE;
+	@ConfigOption(path = "storage.storage-settings.h2.database-file")
+	public static String		STORAGE_SETTINGS_H2_DBFILE;
+	@ConfigOption(path = "storage.storage-settings.mysql.address")
 	public static String		STORAGE_SETTINGS_MYSQL_ADDRESS;
+	@ConfigOption(path = "storage.storage-settings.mysql.port")
 	public static String		STORAGE_SETTINGS_MYSQL_PORT;
+	@ConfigOption(path = "storage.storage-settings.mysql.database")
 	public static String		STORAGE_SETTINGS_MYSQL_DATABASE;
+	@ConfigOption(path = "storage.storage-settings.mysql.username")
 	public static String		STORAGE_SETTINGS_MYSQL_USERNAME;
+	@ConfigOption(path = "storage.storage-settings.mysql.password")
 	public static String		STORAGE_SETTINGS_MYSQL_PASSWORD;
+	@ConfigOption(path = "storage.storage-settings.mysql.pool-size")
 	public static int			STORAGE_SETTINGS_MYSQL_POOLSIZE;
+	@ConfigOption(path = "storage.storage-settings.mysql.connection-lifetime")
 	public static int			STORAGE_SETTINGS_MYSQL_CONNLIFETIME;
+	@ConfigOption(path = "storage.storage-settings.mysql.use-ssl")
 	public static boolean		STORAGE_SETTINGS_MYSQL_USESSL;
+	@ConfigOption(path = "storage.storage-settings.mysql.charset")
 	public static String		STORAGE_SETTINGS_MYSQL_CHARSET;
 	
 	
 	// Placeholders
+	@ConfigOption(path = "placeholders.name.format")
 	public static String		PLACEHOLDERS_NAME_FORMAT;
+	@ConfigOption(path = "placeholders.name.format-unknown")
 	public static String		PLACEHOLDERS_NAME_FORMAT_UNKNOWN;
+	@ConfigOption(path = "placeholders.last-login-date.format")
 	public static String		PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT;
+	@ConfigOption(path = "placeholders.last-login-date.format-online")
 	public static String		PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_ONLINE;
+	@ConfigOption(path = "placeholders.last-login-date.format-unknown")
 	public static String		PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_UNKNOWN;
-	public static String		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT;
-	public static String		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_ONLINE;
+	@ConfigOption(path = "placeholders.last-login-elapsed.format.large")
+	public static String		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_LARGE;
+	@ConfigOption(path = "placeholders.last-login-elapsed.format.medium")
+	public static String		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_MEDIUM;
+	@ConfigOption(path = "placeholders.last-login-elapsed.format.small")
+	public static String		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_SMALL;
+	@ConfigOption(path = "placeholders.last-login-elapsed.format.smallest")
+	public static String		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_SMALLEST;
+	@ConfigOption(path = "placeholders.last-login-elapsed.format-online.large")
+	public static String		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_ONLINE_LARGE;
+	@ConfigOption(path = "placeholders.last-login-elapsed.format-online.medium")
+	public static String		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_ONLINE_MEDIUM;
+	@ConfigOption(path = "placeholders.last-login-elapsed.format-online.small")
+	public static String		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_ONLINE_SMALL;
+	@ConfigOption(path = "placeholders.last-login-elapsed.format-online.smallest")
+	public static String		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_ONLINE_SMALLEST;
+	@ConfigOption(path = "placeholders.last-login-elapsed.format-unknown")
 	public static String		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_UNKNOWN;
+	@ConfigOption(path = "placeholders.last-logout-date.format")
 	public static String		PLACEHOLDERS_LAST_LOGOUT_DATE_FORMAT;
+	@ConfigOption(path = "placeholders.last-logout-date.format-unknown")
 	public static String		PLACEHOLDERS_LAST_LOGOUT_DATE_FORMAT_UNKNOWN;
-	public static String		PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT;
+	@ConfigOption(path = "placeholders.last-logout-elapsed.format.large")
+	public static String		PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT_LARGE;
+	@ConfigOption(path = "placeholders.last-logout-elapsed.format.medium")
+	public static String		PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT_MEDIUM;
+	@ConfigOption(path = "placeholders.last-logout-elapsed.format.small")
+	public static String		PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT_SMALL;
+	@ConfigOption(path = "placeholders.last-logout-elapsed.format.smallest")
+	public static String		PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT_SMALLEST;
+	@ConfigOption(path = "placeholders.last-logout-elapsed.format-unknown")
 	public static String		PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT_UNKNOWN;
+	
+	
+	// Commands settings
+	@ConfigOption(path = "commands.tab-support")
+	public static boolean		COMMANDS_TABSUPPORT;
+	@ConfigOption(path = "commands.llapi-description")
+	public static String		COMMANDS_DESCRIPTION_LLAPI;
+	
+	@ConfigOption(path = "commands.main-commands.help")
+	public static String		COMMANDS_CMD_HELP;
+	@ConfigOption(path = "commands.main-commands.llapi")
+	public static String		COMMANDS_CMD_LLAPI;
+	@ConfigOption(path = "commands.main-commands.info")
+	public static String		COMMANDS_CMD_INFO;
+	@ConfigOption(path = "commands.main-commands.reload")
+	public static String		COMMANDS_CMD_RELOAD;
+	@ConfigOption(path = "commands.main-commands.version")
+	public static String		COMMANDS_CMD_VERSION;
+	
+	@ConfigOption(path = "commands.order")
+	public static List<String> COMMANDS_ORDER;
+	
 	
 	protected ConfigMain(LastLoginPlugin plugin) {
 		super(plugin);
@@ -53,93 +123,11 @@ public abstract class ConfigMain extends ConfigurationFile {
 	
 	@Override
 	public void loadDefaults() {
-		// General settings
-		LASTLOGINAPI_UPDATES_CHECK = true;
-		LASTLOGINAPI_UPDATES_WARN = true;
-		LASTLOGINAPI_UPDATES_WARNMESSAGE = "&aNew version of LastLoginAPI found: %version% (Current: %thisversion%)";
-		LASTLOGINAPI_LOGGING_DEBUG = false;
-		LASTLOGINAPI_LOGGING_SAVE_ENABLE = false;
-		LASTLOGINAPI_LOGGING_SAVE_FORMAT = "%date% [%time%] %message%\n";
-		LASTLOGINAPI_LOGGING_SAVE_FILE = "log.txt";
-		
-		
-		// Storage settings
-		STORAGE_TYPE_DATABASE = "sqlite";
-		STORAGE_SETTINGS_GENERAL_SQL_VARCHARSIZE = 255;
-		STORAGE_SETTINGS_GENERAL_SQL_UPGRADE_SAVEOLD = true;
-		STORAGE_SETTINGS_GENERAL_SQL_UPGRADE_OLDSUFFIX = "_backup";
-		STORAGE_SETTINGS_GENERAL_SQL_TABLES_PLAYERS = "lastloginapi_players";
-		STORAGE_SETTINGS_GENERAL_SQL_TABLES_VERSIONS = "lastloginapi_versions";
-		STORAGE_SETTINGS_SQLITE_DBFILE = "database.db";
-		STORAGE_SETTINGS_MYSQL_ADDRESS = "localhost";
-		STORAGE_SETTINGS_MYSQL_PORT = "3306";
-		STORAGE_SETTINGS_MYSQL_DATABASE = "database";
-		STORAGE_SETTINGS_MYSQL_USERNAME = "username";
-		STORAGE_SETTINGS_MYSQL_PASSWORD = "password";
-		STORAGE_SETTINGS_MYSQL_POOLSIZE = 10;
-		STORAGE_SETTINGS_MYSQL_CONNLIFETIME = 1800000;
-		STORAGE_SETTINGS_MYSQL_USESSL = false;
-		STORAGE_SETTINGS_MYSQL_CHARSET = "utf8";
-		
-		
-		// Placeholders
-		PLACEHOLDERS_NAME_FORMAT = "%name%";
-		PLACEHOLDERS_NAME_FORMAT_UNKNOWN = "Unknown";
-		PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT = "yyyy-MM-dd";
-		PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_ONLINE = "Online";
-		PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_UNKNOWN = "Unknown";
-		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT = "d'd' H'h' m'm'";
-		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_ONLINE = "H'h' m'm'";
-		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_UNKNOWN = "Unknown";
-		PLACEHOLDERS_LAST_LOGOUT_DATE_FORMAT = "yyyy-MM-dd";
-		PLACEHOLDERS_LAST_LOGOUT_DATE_FORMAT_UNKNOWN = "Unknown";
-		PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT = "d'd' H'h' m'm'";
-		PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT_UNKNOWN = "Unknown";
+		loadDefaultConfigOptions();
 	}
 	
 	@Override
-	public void loadConfiguration(ConfigurationAdapter confAdapter) {
-		// LastLoginAPI settings
-		LASTLOGINAPI_UPDATES_CHECK = confAdapter.getBoolean("lastloginapi.updates.check", LASTLOGINAPI_UPDATES_CHECK);
-		LASTLOGINAPI_UPDATES_WARN = confAdapter.getBoolean("lastloginapi.updates.warn", LASTLOGINAPI_UPDATES_WARN);
-		LASTLOGINAPI_UPDATES_WARNMESSAGE = confAdapter.getString("lastloginapi.updates.warn-message", LASTLOGINAPI_UPDATES_WARNMESSAGE);
-		LASTLOGINAPI_LOGGING_DEBUG = confAdapter.getBoolean("lastloginapi.logging.debug", LASTLOGINAPI_LOGGING_DEBUG);
-		LASTLOGINAPI_LOGGING_SAVE_ENABLE = confAdapter.getBoolean("lastloginapi.logging.save-file.enable", LASTLOGINAPI_LOGGING_SAVE_ENABLE);
-		LASTLOGINAPI_LOGGING_SAVE_FORMAT = confAdapter.getString("lastloginapi.logging.save-file.format", LASTLOGINAPI_LOGGING_SAVE_FORMAT);
-		LASTLOGINAPI_LOGGING_SAVE_FILE = confAdapter.getString("lastloginapi.logging.save-file.file", LASTLOGINAPI_LOGGING_SAVE_FILE);
-		
-		
-		// Storage settings
-		STORAGE_TYPE_DATABASE = confAdapter.getString("storage.database-storage-type", STORAGE_TYPE_DATABASE);
-		STORAGE_SETTINGS_GENERAL_SQL_VARCHARSIZE = confAdapter.getInt("storage.storage-settings.general-sql-settings.varchar-size", STORAGE_SETTINGS_GENERAL_SQL_VARCHARSIZE);
-		STORAGE_SETTINGS_GENERAL_SQL_UPGRADE_SAVEOLD = confAdapter.getBoolean("storage.storage-settings.general-sql-settings.upgrade.save-old-table", STORAGE_SETTINGS_GENERAL_SQL_UPGRADE_SAVEOLD);
-		STORAGE_SETTINGS_GENERAL_SQL_UPGRADE_OLDSUFFIX = confAdapter.getString("storage.storage-settings.general-sql-settings.upgrade.old-table-suffix", STORAGE_SETTINGS_GENERAL_SQL_UPGRADE_OLDSUFFIX);
-		STORAGE_SETTINGS_GENERAL_SQL_TABLES_PLAYERS = confAdapter.getString("storage.storage-settings.general-sql-settings.tables.players", STORAGE_SETTINGS_GENERAL_SQL_TABLES_PLAYERS);
-		STORAGE_SETTINGS_GENERAL_SQL_TABLES_VERSIONS = confAdapter.getString("storage.storage-settings.general-sql-settings.tables.versions", STORAGE_SETTINGS_GENERAL_SQL_TABLES_VERSIONS);
-		STORAGE_SETTINGS_SQLITE_DBFILE = confAdapter.getString("storage.storage-settings.sqlite.database-file", STORAGE_SETTINGS_SQLITE_DBFILE);
-		STORAGE_SETTINGS_MYSQL_ADDRESS = confAdapter.getString("storage.storage-settings.mysql.address", STORAGE_SETTINGS_MYSQL_ADDRESS);
-		STORAGE_SETTINGS_MYSQL_PORT = confAdapter.getString("storage.storage-settings.mysql.port", STORAGE_SETTINGS_MYSQL_PORT);
-		STORAGE_SETTINGS_MYSQL_DATABASE = confAdapter.getString("storage.storage-settings.mysql.database", STORAGE_SETTINGS_MYSQL_DATABASE);
-		STORAGE_SETTINGS_MYSQL_USERNAME = confAdapter.getString("storage.storage-settings.mysql.username", STORAGE_SETTINGS_MYSQL_USERNAME);
-		STORAGE_SETTINGS_MYSQL_PASSWORD = confAdapter.getString("storage.storage-settings.mysql.password", STORAGE_SETTINGS_MYSQL_PASSWORD);
-		STORAGE_SETTINGS_MYSQL_POOLSIZE = confAdapter.getInt("storage.storage-settings.mysql.pool-size", STORAGE_SETTINGS_MYSQL_POOLSIZE);
-		STORAGE_SETTINGS_MYSQL_CONNLIFETIME = confAdapter.getInt("storage.storage-settings.mysql.connection-lifetime", STORAGE_SETTINGS_MYSQL_CONNLIFETIME);
-		STORAGE_SETTINGS_MYSQL_USESSL = confAdapter.getBoolean("storage.storage-settings.mysql.use-ssl", STORAGE_SETTINGS_MYSQL_USESSL);
-		STORAGE_SETTINGS_MYSQL_CHARSET = confAdapter.getString("storage.storage-settings.mysql.charset", STORAGE_SETTINGS_MYSQL_CHARSET);
-		
-		
-		// Placeholders
-		PLACEHOLDERS_NAME_FORMAT = confAdapter.getString("placeholders.name.format", PLACEHOLDERS_NAME_FORMAT);
-		PLACEHOLDERS_NAME_FORMAT_UNKNOWN = confAdapter.getString("placeholders.name.format-unknown", PLACEHOLDERS_NAME_FORMAT_UNKNOWN);
-		PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT = confAdapter.getString("placeholders.last-login-date.format", PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT);
-		PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_ONLINE = confAdapter.getString("placeholders.last-login-date.format-online", PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_ONLINE);
-		PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_UNKNOWN = confAdapter.getString("placeholders.last-login-date.format-unknown", PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_UNKNOWN);
-		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT = confAdapter.getString("placeholders.last-login-elapsed.format", PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT);
-		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_ONLINE = confAdapter.getString("placeholders.last-login-elapsed.format-online", PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_ONLINE);
-		PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_UNKNOWN = confAdapter.getString("placeholders.last-login-elapsed.format-unknown", PLACEHOLDERS_LAST_LOGIN_ELAPSED_FORMAT_UNKNOWN);
-		PLACEHOLDERS_LAST_LOGOUT_DATE_FORMAT = confAdapter.getString("placeholders.last-logout-date.format", PLACEHOLDERS_LAST_LOGOUT_DATE_FORMAT);
-		PLACEHOLDERS_LAST_LOGOUT_DATE_FORMAT_UNKNOWN = confAdapter.getString("placeholders.last-logout-date.format-unknown", PLACEHOLDERS_LAST_LOGOUT_DATE_FORMAT_UNKNOWN);
-		PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT = confAdapter.getString("placeholders.last-logout-elapsed.format", PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT);
-		PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT_UNKNOWN = confAdapter.getString("placeholders.last-logout-elapsed.format-unknown", PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT_UNKNOWN);
+	public void loadConfiguration() {
+		loadConfigOptions();
 	}
 }

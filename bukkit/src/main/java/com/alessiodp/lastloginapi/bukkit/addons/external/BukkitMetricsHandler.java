@@ -14,7 +14,7 @@ public class BukkitMetricsHandler extends MetricsHandler {
 	
 	@Override
 	protected void registerMetrics() {
-		Metrics metrics = new Metrics((Plugin) plugin.getBootstrap());
+		Metrics metrics = new Metrics((Plugin) plugin.getBootstrap(), plugin.getBstatsId());
 		
 		metrics.addCustomChart(new Metrics.SimplePie("authme_support", () -> {
 			if (BukkitConfigMain.LASTLOGINAPI_AUTHME_ENABLE)

@@ -1,6 +1,8 @@
 package com.alessiodp.lastloginapi.bukkit.addons.external;
 
 import com.alessiodp.core.common.configuration.Constants;
+import com.alessiodp.core.common.utils.Color;
+import com.alessiodp.core.common.utils.CommonUtils;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.addons.internal.LLPlaceholder;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
@@ -12,7 +14,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.Plugin;
 
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,7 +36,7 @@ public class EssentialsChatHandler implements Listener {
 	@EventHandler
 	public void onChatPlayer(AsyncPlayerChatEvent event) {
 		String old = event.getFormat();
-		if (old.toLowerCase(Locale.ENGLISH).contains("{lastloginapi_")) {
+		if (CommonUtils.toLowerCase(old).contains("{lastloginapi_")) {
 			// Bypass useless checks if this isn't a LastLoginAPI placeholder
 			boolean somethingChanged = false;
 			LLPlayerImpl player = plugin.getPlayerManager().getPlayer(event.getPlayer().getUniqueId());
@@ -47,7 +48,7 @@ public class EssentialsChatHandler implements Listener {
 				if (identifier != null) {
 					LLPlaceholder placeholder = LLPlaceholder.getPlaceholder(identifier);
 					if (placeholder != null) {
-						old = old.replace(base, plugin.getColorUtils().convertColors(placeholder.formatPlaceholder(player)));
+						old = old.replace(base, Color.translateAlternateColorCodes(placeholder.formatPlaceholder(player, identifier)));
 						somethingChanged = true;
 					}
 				}

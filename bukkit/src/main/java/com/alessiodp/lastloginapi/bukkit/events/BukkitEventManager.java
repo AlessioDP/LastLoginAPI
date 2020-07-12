@@ -1,9 +1,15 @@
 package com.alessiodp.lastloginapi.bukkit.events;
 
 import com.alessiodp.core.bukkit.events.BukkitEventDispatcher;
+import com.alessiodp.lastloginapi.api.events.bukkit.BukkitLastLoginPostUpdateLoginTimestampEvent;
+import com.alessiodp.lastloginapi.api.events.bukkit.BukkitLastLoginPostUpdateLogoutTimestampEvent;
+import com.alessiodp.lastloginapi.api.events.bukkit.BukkitLastLoginPreUpdateLoginTimestampEvent;
 import com.alessiodp.lastloginapi.api.events.bukkit.BukkitLastLoginUpdateLoginTimestampEvent;
 import com.alessiodp.lastloginapi.api.events.bukkit.BukkitLastLoginUpdateLogoutTimestampEvent;
 import com.alessiodp.lastloginapi.api.events.bukkit.BukkitLastLoginUpdateNameEvent;
+import com.alessiodp.lastloginapi.api.events.bukkit.BukkitLastLoginPreUpdateLogoutTimestampEvent;
+import com.alessiodp.lastloginapi.api.events.common.IPostUpdateTimestamp;
+import com.alessiodp.lastloginapi.api.events.common.IPreUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.events.common.IUpdateName;
 import com.alessiodp.lastloginapi.api.events.common.IUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
@@ -17,13 +23,33 @@ public class BukkitEventManager extends EventManager {
 	}
 	
 	@Override
-	public IUpdateTimestamp prepareUpdateLoginTimestamp(LastLoginPlayer player, long timestamp) {
+	public IUpdateTimestamp prepareDeprecatedUpdateLoginTimestamp(LastLoginPlayer player, long timestamp) {
 		return new BukkitLastLoginUpdateLoginTimestampEvent(player, timestamp);
 	}
 	
 	@Override
-	public IUpdateTimestamp prepareUpdateLogoutTimestamp(LastLoginPlayer player, long timestamp) {
+	public IPreUpdateTimestamp preparePreUpdateLoginTimestamp(LastLoginPlayer player, long timestamp) {
+		return new BukkitLastLoginPreUpdateLoginTimestampEvent(player, timestamp);
+	}
+	
+	@Override
+	public IPostUpdateTimestamp preparePostUpdateLoginTimestamp(LastLoginPlayer player, long timestamp) {
+		return new BukkitLastLoginPostUpdateLoginTimestampEvent(player, timestamp);
+	}
+	
+	@Override
+	public IUpdateTimestamp prepareDeprecatedUpdateLogoutTimestamp(LastLoginPlayer player, long timestamp) {
 		return new BukkitLastLoginUpdateLogoutTimestampEvent(player, timestamp);
+	}
+	
+	@Override
+	public IPreUpdateTimestamp preparePreUpdateLogoutTimestamp(LastLoginPlayer player, long timestamp) {
+		return new BukkitLastLoginPreUpdateLogoutTimestampEvent(player, timestamp);
+	}
+	
+	@Override
+	public IPostUpdateTimestamp preparePostUpdateLogoutTimestamp(LastLoginPlayer player, long timestamp) {
+		return new BukkitLastLoginPostUpdateLogoutTimestampEvent(player, timestamp);
 	}
 	
 	@Override

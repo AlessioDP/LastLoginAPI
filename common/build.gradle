@@ -1,4 +1,0 @@
-dependencies {
-    api project(':lastloginapi-api')
-    api group: 'com.alessiodp.core', name: 'common', version: project.ext.adpCore
-}

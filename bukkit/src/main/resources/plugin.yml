@@ -1,25 +1,28 @@
-name: ${pluginName}
-description: ${pluginDescription}
-author: ${pluginAuthor}
-website: ${pluginWebsite}
-version: ${pluginVersion}
+name: ${plugin.name}
+description: ${plugin.description}
+author: ${plugin.author}
+website: ${plugin.website}
+version: ${plugin.version}
 main: com.alessiodp.lastloginapi.bukkit.bootstrap.BukkitLastLoginBootstrap
 api-version: 1.13
-softdepend: [AuthMe, PlaceholderAPI]
+softdepend: [AuthMe, LoginSecurity, PlaceholderAPI]
 permissions:
-  lastloginapi.alerts:
-    description: Send an alert if there is an error
   lastloginapi.help:
     description: Allow access to /llapi help
+  lastloginapi.info:
+    description: Allow access to /llapi info
   lastloginapi.reload:
     description: Allow access to /llapi reload
   lastloginapi.version:
     description: Allow access to /llapi version
+  lastloginapi.warnings:
+    description: Send an alert if there is an error
   lastloginapi.*:
     default: op
     description: Can use all llapi commands
     children:
-      lastloginapi.alerts: true
       lastloginapi.help: true
+      lastloginapi.info: true
       lastloginapi.reload: true
       lastloginapi.version: true
+      lastloginapi.warnings: true

@@ -5,6 +5,10 @@ import com.alessiodp.lastloginapi.api.events.LastLoginEvent;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+/**
+ * @deprecated Use {@link IPreUpdateTimestamp} instead
+ */
+@Deprecated
 public interface IUpdateTimestamp extends LastLoginEvent, Cancellable {
 	/**
 	 * Get the player

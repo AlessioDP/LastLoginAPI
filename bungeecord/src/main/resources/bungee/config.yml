@@ -1,114 +1,152 @@
+# / ===================================================== \
+# |  This is the main configuration file of LastLoginAPI  |
+# \ ===================================================== /
 #
-# Main configuration file
+# For any problem be sure to:
+# - Read the entire documentation on: https://alessiodp.com/docs/lastloginapi/
+# - Join our Discord for further help: https://discord.alessiodp.com/
 #
 
-# / = = = = = = = = = = = = = = = = \
+# / =============================== \
 # |      LASTLOGINAPI SETTINGS      |
-# \ = = = = = = = = = = = = = = = = /
+# \ =============================== /
 lastloginapi:
+  # [Check for plugins updates]
+  # LastLoginAPI will check for updates when the server finishes to load.
   updates:
-    # Check for updates, recommended. LastLoginAPI will check for updates when the server finish to load
     check: true
-    # Send a message to admins if an update is available
-    # To see the warning you have to give 'lastloginapi.updates' permission
     warn: true
-    # Special tags:
-    # => %version%     = New version found
-    # => %thisversion% = Version installed
-    warn-message: "&aNew version of LastLoginAPI found: %version% (Current: %thisversion%)"
 
+  # [Enable logging system]
+  # => debug:      Print debug messages
+  # => save-file:  Save any log into a text file
   logging:
-    # Enable debug messages
     debug: false
     save-file:
-      # Save to file log messages
       enable: false
-      # Format of messages
       format: "%date% [%time%] %message%\n"
-      # Log file name
-      file: "log.txt"
+      file: log.txt
+
+  # [Enable BungeeCord support]
+  # Everything is handled by LastLoginAPI in BungeeCord
+  # This plugin will only get data from the database without write into it
+  # Be sure to use a remote database synchronized with BungeeCord version
+  bungeecord:
+    enable: false
 
 
-# / = = = = = = = = = = = = = = = = \
+
+# / =============================== \
 # |        STORAGE  SETTINGS        |
-# \ = = = = = = = = = = = = = = = = /
+# \ =============================== /
 storage:
-  # What type of storage the plugin should use?
-  # Database storage types:
+  # [Database type]
+  # What type of storage the plugin should use? Database storage types:
   # => mysql      | [Remote] Save the data into a MySQL database
-  # => sqlite     | [File]   Save the data into a SQLite database (default)
-  database-storage-type: sqlite
+  # => sqlite     | [File]   Save the data into a SQLite database
+  # => h2         | [File]   Save the data into a H2 database (default)
+  database-storage-type: h2
 
   storage-settings:
-    # General settings of SQL databases
+    # [General SQL settings]
+    # General settings for sql databases, recommended to use default values
     general-sql-settings:
-      varchar-size: 255
-      upgrade:
-        save-old-table: true
-        old-table-suffix: "_backup"
-      tables:
-        players: "lastloginapi_players"
-        versions: "lastloginapi_versions"
+      prefix: 'lastloginapi_'
 
-    # SQLite settings
+    # [SQLite settings]
     sqlite:
-      database-file: "database.db"
+      database-file: database.db
 
-    # MySQL settings
+    # [H2 settings]
+    h2:
+      database-file: database
+
+    # [MySQL settings]
     mysql:
-      address: "localhost"
-      port: "3306"
-      database: "database"
-      username: "username"
-      password: "password"
+      address: localhost
+      port: '3306'
+      database: database
+      username: username
+      password: password
       # Size of the connection pool
       pool-size: 10
       # Lifetime of each connection, in milliseconds (Default: 30 minutes = 1800000ms)
       connection-lifetime: 1800000
       # Property used to alert when the connection is not using a valid SSL certificate
       use-ssl: false
-      # Charset used by tables
-      charset: "utf8"
+      charset: 'utf8'
 
 
-# / = = = = = = = = = = = = = = = = \
+# / =============================== \
 # |      PLACEHOLDERS SETTINGS      |
-# \ = = = = = = = = = = = = = = = = /
+# \ =============================== /
 placeholders:
   # Formats:
   # => format: The text to show when the player is offline
   # => online: The text to show when the player is online
   # => unknown: The text to show when a player isn't found
-  # Elapsed:
-  # %days%, %hours%, %minutes% and %seconds%
+  #   You can use %time_elapsed% and %date% to insert above formats
+  # Time elapsed formats:
+  # => large    = More than 1 day
+  # => medium   = More than 1 hour
+  # => small    = More than 1 minute
+  # => smallest = More than 1 second
   name:
     # The name of the player
-    format: "%name%"
-    format-unknown: "Unknown"
+    format: '%name%'
+    format-unknown: 'Unknown'
 
   last-login-date:
     # Date of latest login
-    format: "yyyy-MM-dd"
-    format-online: "Online"
-    format-unknown: "Unknown"
+    format: 'yyyy-MM-dd'
+    format-online: 'Online'
+    format-unknown: 'Unknown'
 
   last-login-elapsed:
-    # Elapsed time since latest login
-    # Format: https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html
-    format: "d'd' H'h' m'm'"
-    format-online: "H'h' m'm'"
-    format-unknown: "Unknown"
+    format:
+      large: "d'd' H'h'"
+      medium: "H'h' m'm'"
+      small: "m'm' s's'"
+      smallest: "s's'"
+    format-online:
+      large: "d'd' H'h'"
+      medium: "H'h' m'm'"
+      small: "m'm' s's'"
+      smallest: "s's'"
+    format-unknown: 'Unknown'
 
   last-logout-date:
     # Date of latest logout
-    format: "yyyy-MM-dd"
-    format-unknown: "Unknown"
+    format: 'yyyy-MM-dd'
+    format-unknown: 'Unknown'
 
   last-logout-elapsed:
-    # Elapsed time since latest logout
-    # Format: https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html
-    format: "d'd' H'h' m'm'"
-    format-unknown: "Unknown"
+    format:
+      large: "d'd' H'h'"
+      medium: "H'h' m'm'"
+      small: "m'm' s's'"
+      smallest: "s's'"
+    format-unknown: 'Unknown'
+
+
+# / =============================== \
+# |        COMMANDS SETTINGS        |
+# \ =============================== /
+commands:
+  # Enable tab support (/llapib <tab> to see every allowed command)
+  tab-support: true
+  llapi-description: LastLoginAPI help page
+  main-commands:
+    help: help
+    llapi: llapib
+    info: info
+    reload: reload
+    version: version
+  order:
+    - help
+    - info
+    - reload
+    - version
 
 dont-edit-this:
-  version: 1
+  version: 2

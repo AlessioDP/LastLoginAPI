@@ -1,8 +1,8 @@
 package com.alessiodp.lastloginapi.bukkit;
 
-import com.alessiodp.core.bukkit.configuration.adapter.BukkitConfigurationAdapter;
+import com.alessiodp.core.common.addons.external.simpleyaml.configuration.file.YamlFile;
+import com.alessiodp.core.common.configuration.ConfigOption;
 import com.alessiodp.core.common.configuration.ConfigurationFile;
-import com.alessiodp.core.common.configuration.adapter.ConfigurationAdapter;
 import com.alessiodp.lastloginapi.bukkit.configuration.data.BukkitConfigMain;
 import com.alessiodp.lastloginapi.bukkit.configuration.data.BukkitMessages;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
@@ -14,26 +14,22 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.regex.Pattern;
+import java.util.Collections;
+import java.util.List;
 
-import static org.junit.Assert.fail;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({
+		LastLoginPlugin.class,
+		ConfigurationFile.class,
 		BukkitConfigMain.class,
-		BukkitMessages.class,
-		BukkitConfigurationAdapter.class,
-		LastLoginPlugin.class
+		BukkitMessages.class
 })
 public class BukkitConfigurationTest {
 	private LastLoginPlugin mockPlugin;
-	private final Pattern pattern = Pattern.compile("[A-Z_]+");
 	
 	@Before
 	public void setUp() {
@@ -41,67 +37,45 @@ public class BukkitConfigurationTest {
 	}
 	
 	@Test
-	public void testConfigMain() throws URISyntaxException {
+	public void testConfigMain() throws IllegalAccessException {
 		BukkitConfigMain configMain = new BukkitConfigMain(mockPlugin);
 		
-		testConfiguration(configMain);
+		List<String> skipPaths = Collections.emptyList();
+		
+		testConfiguration(configMain, skipPaths);
 	}
 	
 	@Test
-	public void testMessages() throws URISyntaxException {
+	public void testMessages() throws IllegalAccessException {
 		BukkitMessages messages = new BukkitMessages(mockPlugin);
 		
-		testConfiguration(messages);
+		List<String> skipPaths = Collections.emptyList();
+		
+		testConfiguration(messages, skipPaths);
 	}
 	
-	private void testConfiguration(ConfigurationFile configurationFile) throws URISyntaxException {
+	private void testConfiguration(ConfigurationFile configurationFile, List<String> skipPaths) throws IllegalAccessException {
 		Field[] fields = PowerMockito.fields(configurationFile.getClass());
 		
-		// Load defaults
-		configurationFile.loadDefaults();
+		// Initialize YAML
+		YamlFile yf = YamlFile.loadConfiguration(new InputStreamReader(getClass().getResourceAsStream("/" + configurationFile.getResourceName())));
 		
-		// Save default values
-		HashMap<String, Object> savedMap = populateMap(fields, configurationFile);
-		
-		// Get config file
-		Path path = Paths.get(getClass().getResource("/" + configurationFile.getResourceName()).toURI());
-		Assert.assertNotNull(path);
-		
-		// Initialize configuration
-		ConfigurationAdapter configurationAdapter = new BukkitConfigurationAdapter(path);
-		
-		// Load configuration
-		configurationFile.loadConfiguration(configurationAdapter);
-		
-		// Match configuration
-		match(fields, savedMap, configurationFile);
-	}
-	
-	private HashMap<String, Object> populateMap(Field[] fields, ConfigurationFile configurationFile) {
-		HashMap<String, Object> ret = new HashMap<>();
+		// Check fields
 		for (Field f : fields) {
-			if (pattern.matcher(f.getName()).matches()) {
-				try {
-					ret.put(f.getName(), f.get(configurationFile));
-				} catch (Exception ex) {
-					ex.printStackTrace();
-					fail(ex.getMessage());
-				}
+			ConfigOption co = f.getAnnotation(ConfigOption.class);
+			if (co != null && !skippablePath(co.path(), skipPaths)) {
+				Object value = yf.get(co.path());
+				Assert.assertNotNull("The " + configurationFile.getClass().getSimpleName() + " path '" + co.path() + "' is null.", value);
+				f.set(null, value);
 			}
 		}
-		return ret;
 	}
 	
-	private void match(Field[] fields, HashMap<String, Object> savedMap, ConfigurationFile configurationFile) {
-		for (Field f : fields) {
-			try {
-				if (savedMap.containsKey(f.getName()) && !savedMap.get(f.getName()).equals(f.get(configurationFile))) {
-					fail("Fields are mismatched: " + f.getName() + "\n" + savedMap.get(f.getName()) + " != " + f.get(configurationFile));
-				}
-			} catch (Exception ex) {
-				fail("Error at field " + f.getName());
-				ex.printStackTrace();
-			}
+	private boolean skippablePath(String path, List<String> skipPaths) {
+		for (String sp : skipPaths) {
+			if (path.startsWith(sp))
+				return true;
 		}
+		return false;
 	}
 }
