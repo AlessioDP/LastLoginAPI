@@ -38,8 +38,8 @@ commands:
   info:
     header: '&6============== &l%player%''s Info &r&6=============='
     text:
-      - '&6Last login since: &7%last_login_elapsed%'
-      - '&6Last logout since: &7%last_logout_elapsed%'
+      - "&6Last login since: &7%last_login_elapsed%"
+      - "&6Last logout since: &7%last_logout_elapsed%"
     footer: ''
     player-not-found: '&c%player% not found!'
 
