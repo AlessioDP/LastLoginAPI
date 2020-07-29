@@ -7,7 +7,7 @@
 	<parent>
 		<artifactId>lastloginapi</artifactId>
 		<groupId>com.alessiodp.lastloginapi</groupId>
-		<version>1.4.0</version>
+		<version>1.4.1</version>
 	</parent>
 	
 	<artifactId>lastloginapi-api</artifactId>
@@ -59,7 +59,7 @@
 		<dependency>
 			<groupId>net.md-5</groupId>
 			<artifactId>bungeecord-api</artifactId>
-			<version>1.16-R0.3</version>
+			<version>1.16-R0.4-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	

@@ -4,6 +4,7 @@ import com.alessiodp.core.common.utils.CommonUtils;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
+import lombok.Getter;
 
 public enum LLPlaceholder {
 	NAME,
@@ -25,15 +26,17 @@ public enum LLPlaceholder {
 	LAST_LOGOUT_TIMESTAMP;
 	
 	private final LastLoginPlugin plugin;
+	@Getter private final String syntax;
 	
 	LLPlaceholder() {
 		plugin = ((LastLoginPlugin) LastLoginPlugin.getInstance());
+		syntax = CommonUtils.toLowerCase(name());
 	}
 	
 	public static LLPlaceholder getPlaceholder(String identifier) {
 		String identifierLower = CommonUtils.toLowerCase(identifier);
 		for (LLPlaceholder en : LLPlaceholder.values()) {
-			if (CommonUtils.toLowerCase(en.name()).equals(identifierLower)) {
+			if (en.syntax.equals(identifierLower)) {
 				return en;
 			}
 		}

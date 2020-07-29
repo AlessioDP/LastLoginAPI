@@ -3,7 +3,7 @@
   <parent>
     <artifactId>lastloginapi</artifactId>
     <groupId>com.alessiodp.lastloginapi</groupId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>lastloginapi-bukkit</artifactId>
@@ -48,19 +48,19 @@
   </build>
   <repositories>
     <repository>
-      <id>codemc-repo</id>
-      <url>https://repo.codemc.io/repository/maven-public/</url>
+      <id>placeholderapi</id>
+      <url>https://repo.extendedclip.com/content/repositories/dev/</url>
     </repository>
     <repository>
-      <id>papi-repo</id>
-      <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+      <id>codemc-repo</id>
+      <url>https://repo.codemc.io/repository/maven-public/</url>
     </repository>
   </repositories>
   <dependencies>
     <dependency>
       <groupId>com.alessiodp.lastloginapi</groupId>
       <artifactId>lastloginapi-common</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -89,9 +89,23 @@
     </dependency>
     <dependency>
       <groupId>me.clip</groupId>
-      <artifactId>placeholderapi</artifactId>
-      <version>2.10.6</version>
+      <artifactId>PlaceholderAPI</artifactId>
+      <version>2.10.8-DEV-66</version>
       <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>gson</artifactId>
+          <groupId>com.google.code.gson</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>bstats-bukkit</artifactId>
+          <groupId>org.bstats</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jsonmessage</artifactId>
+          <groupId>me.rayzr522</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>

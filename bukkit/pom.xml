@@ -7,7 +7,7 @@
 	<parent>
 		<artifactId>lastloginapi</artifactId>
 		<groupId>com.alessiodp.lastloginapi</groupId>
-		<version>1.4.0</version>
+		<version>1.4.1</version>
 	</parent>
 	
 	<artifactId>lastloginapi-bukkit</artifactId>
@@ -55,14 +55,14 @@
 	
 	<repositories>
 		<repository>
+			<!-- PAPI repo -->
+			<id>placeholderapi</id>
+			<url>https://repo.extendedclip.com/content/repositories/dev/</url>
+		</repository>
+		<repository>
 			<!-- CodeMC repo (used by AuthMe & LoginSecurity) -->
 			<id>codemc-repo</id>
 			<url>https://repo.codemc.io/repository/maven-public/</url>
-		</repository>
-		<repository>
-			<!-- PAPI repo -->
-			<id>papi-repo</id>
-			<url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
 		</repository>
 	</repositories>
 	
@@ -106,9 +106,23 @@
 		</dependency>
 		<dependency>
 			<groupId>me.clip</groupId>
-			<artifactId>placeholderapi</artifactId>
+			<artifactId>PlaceholderAPI</artifactId>
 			<version>${libs.papi}</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.code.gson</groupId>
+					<artifactId>gson</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.bstats</groupId>
+					<artifactId>bstats-bukkit</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>me.rayzr522</groupId>
+					<artifactId>jsonmessage</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 	

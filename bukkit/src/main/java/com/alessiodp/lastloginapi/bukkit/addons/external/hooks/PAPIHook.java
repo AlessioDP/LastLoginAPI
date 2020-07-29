@@ -1,6 +1,5 @@
 package com.alessiodp.lastloginapi.bukkit.addons.external.hooks;
 
-import com.alessiodp.core.common.configuration.Constants;
 import com.alessiodp.core.common.utils.CommonUtils;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.addons.internal.LLPlaceholder;
@@ -17,8 +16,12 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class PAPIHook extends PlaceholderExpansion {
-	@NonNull
-	private final LastLoginPlugin plugin;
+	@NonNull private final LastLoginPlugin plugin;
+	
+	@Override
+	public boolean canRegister() {
+		return true;
+	}
 	
 	@Override
 	public String getName() {
@@ -27,12 +30,12 @@ public class PAPIHook extends PlaceholderExpansion {
 	
 	@Override
 	public String getIdentifier() {
-		return plugin.getPluginFallbackName();
+		return "lastloginapi";
 	}
 	
 	@Override
 	public String getAuthor() {
-		return plugin.getAuthor();
+		return "AlessioDP";
 	}
 	
 	@Override
@@ -54,30 +57,21 @@ public class PAPIHook extends PlaceholderExpansion {
 		return ret;
 	}
 	
-	public boolean register() {
-		boolean ret = false;
-		try {
-			Class.forName("me.clip.placeholderapi.PlaceholderHook").getMethod("onRequest", OfflinePlayer.class, String.class);
-			
-			if (PlaceholderAPI.isRegistered(getIdentifier())) {
-				PlaceholderAPI.unregisterExpansion(this);
-			}
-			ret = PlaceholderAPI.registerExpansion(this);
-		} catch (Exception ex) {
-			plugin.getLoggerManager().printError(Constants.DEBUG_ADDON_OUTDATED
-					.replace("{addon}", "PlaceholderAPI"));
-		}
-		return ret;
+	public String parsePlaceholders(OfflinePlayer player, String msg) {
+		return PlaceholderAPI.setPlaceholders(player, msg);
 	}
 	
 	@Override
 	public String onRequest(OfflinePlayer offlinePlayer, String identifier) {
-		plugin.getLoggerManager().logDebug(LLConstants.DEBUG_PLACEHOLDER_RECEIVE
-				.replace("{placeholder}", identifier), true);
-		LLPlayerImpl player = plugin.getPlayerManager().getPlayer(offlinePlayer.getUniqueId());
-		
-		LLPlaceholder placeholder = LLPlaceholder.getPlaceholder(identifier);
-		
-		return placeholder != null ? placeholder.formatPlaceholder(player, identifier) : "";
+		if (offlinePlayer != null) {
+			plugin.getLoggerManager().logDebug(LLConstants.DEBUG_PLACEHOLDER_RECEIVE
+					.replace("{placeholder}", identifier), true);
+			LLPlayerImpl player = plugin.getPlayerManager().getPlayer(offlinePlayer.getUniqueId());
+			
+			LLPlaceholder placeholder = LLPlaceholder.getPlaceholder(identifier);
+			
+			return placeholder != null ? placeholder.formatPlaceholder(player, identifier) : "";
+		}
+		return identifier;
 	}
 }

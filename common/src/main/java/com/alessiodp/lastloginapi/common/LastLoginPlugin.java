@@ -43,7 +43,6 @@ public abstract class LastLoginPlugin extends ADPPlugin {
 	@Override
 	protected void initializeCore() {
 		databaseManager = new LLDatabaseManager(this);
-		messageUtils = new MessageUtils();
 	}
 	
 	@Override

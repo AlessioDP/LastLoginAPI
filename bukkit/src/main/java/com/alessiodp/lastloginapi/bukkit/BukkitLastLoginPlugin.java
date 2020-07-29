@@ -13,6 +13,7 @@ import com.alessiodp.lastloginapi.bukkit.configuration.BukkitLLConfigurationMana
 import com.alessiodp.lastloginapi.bukkit.configuration.data.BukkitConfigMain;
 import com.alessiodp.lastloginapi.bukkit.events.BukkitEventManager;
 import com.alessiodp.lastloginapi.bukkit.listeners.BukkitJoinLeaveListener;
+import com.alessiodp.lastloginapi.bukkit.utils.BukkitMessageUtils;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.configuration.LLConstants;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class BukkitLastLoginPlugin extends LastLoginPlugin {
 	protected void initializeCore() {
 		scheduler = new ADPBukkitScheduler(this);
 		configurationManager = new BukkitLLConfigurationManager(this);
+		messageUtils = new BukkitMessageUtils();
 		
 		super.initializeCore();
 	}

@@ -12,6 +12,7 @@ import com.alessiodp.lastloginapi.bungeecord.configuration.BungeeLLConfiguration
 import com.alessiodp.lastloginapi.bungeecord.events.BungeeEventManager;
 import com.alessiodp.lastloginapi.bungeecord.listeners.BungeeJoinLeaveListener;
 import com.alessiodp.lastloginapi.common.configuration.LLConstants;
+import com.alessiodp.lastloginapi.common.utils.MessageUtils;
 import lombok.Getter;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
@@ -27,6 +28,7 @@ public class BungeeLastLoginPlugin extends LastLoginPlugin {
 	protected void initializeCore() {
 		scheduler = new ADPBungeeScheduler(this);
 		configurationManager = new BungeeLLConfigurationManager(this);
+		messageUtils = new MessageUtils();
 		
 		super.initializeCore();
 	}

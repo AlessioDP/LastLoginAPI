@@ -14,7 +14,9 @@ import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.configuration.data.Messages;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
 import com.alessiodp.lastloginapi.common.utils.LastLoginPermission;
+import lombok.NonNull;
 
+import java.util.List;
 import java.util.Set;
 
 public class CommandInfo extends ADPSubCommand {
@@ -115,5 +117,10 @@ public class CommandInfo extends ADPSubCommand {
 			player.sendMessage(message);
 		else
 			plugin.logConsole(Color.translateAndStripColor(message), false);
+	}
+	
+	@Override
+	public List<String> onTabComplete(@NonNull User sender, String[] args) {
+		return plugin.getCommandManager().getCommandUtils().tabCompletePlayerList(args, 1);
 	}
 }
