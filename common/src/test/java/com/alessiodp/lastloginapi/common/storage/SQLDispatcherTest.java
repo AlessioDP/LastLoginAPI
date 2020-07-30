@@ -29,7 +29,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -103,7 +103,7 @@ public class SQLDispatcherTest {
 			@Override
 			public ConnectionFactory initConnectionFactory() {
 				ConnectionFactory ret = super.initConnectionFactory();
-				ret.setDatabaseUrl("jdbc:h2:mem:" + UUID.randomUUID() + ";DB_CLOSE_DELAY=-1");
+				ret.setDatabaseUrl("jdbc:h2:mem:" + UUID.randomUUID() + ";DB_CLOSE_DELAY=-1;IGNORECASE=TRUE");
 				return ret;
 			}
 		};
@@ -182,6 +182,25 @@ public class SQLDispatcherTest {
 	private void playerName(LLSQLDispatcher dispatcher, PlayersDao dao) {
 		player(dispatcher, dao);
 		
-		assertNotNull(dispatcher.getPlayerByName("Test"));
+		assertFalse(dispatcher.getPlayerByName("Test").isEmpty());
+	}
+	
+	@Test
+	public void testPlayerNameInsensitive() {
+		LLSQLDispatcher dispatcher = getSQLDispatcherH2();
+		playerNameInsensitive(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(H2PlayersDao.class));
+		dispatcher.stop();
+		
+		dispatcher = getSQLDispatcherSQLite();
+		playerNameInsensitive(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(SQLitePlayersDao.class));
+		dispatcher.stop();
+	}
+	
+	
+	private void playerNameInsensitive(LLSQLDispatcher dispatcher, PlayersDao dao) {
+		player(dispatcher, dao);
+		
+		assertFalse(dispatcher.getPlayerByName("test").isEmpty());
+		assertFalse(dispatcher.getPlayerByName("TEST").isEmpty());
 	}
 }

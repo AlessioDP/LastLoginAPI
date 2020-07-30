@@ -7,7 +7,7 @@
 	<parent>
 		<artifactId>lastloginapi</artifactId>
 		<groupId>com.alessiodp.lastloginapi</groupId>
-		<version>1.4.1</version>
+		<version>1.4.2</version>
 	</parent>
 	
 	<artifactId>lastloginapi-bukkit</artifactId>
@@ -57,7 +57,7 @@
 		<repository>
 			<!-- PAPI repo -->
 			<id>placeholderapi</id>
-			<url>https://repo.extendedclip.com/content/repositories/dev/</url>
+			<url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
 		</repository>
 		<repository>
 			<!-- CodeMC repo (used by AuthMe & LoginSecurity) -->
@@ -106,7 +106,7 @@
 		</dependency>
 		<dependency>
 			<groupId>me.clip</groupId>
-			<artifactId>PlaceholderAPI</artifactId>
+			<artifactId>placeholderapi</artifactId>
 			<version>${libs.papi}</version>
 			<scope>provided</scope>
 			<exclusions>
