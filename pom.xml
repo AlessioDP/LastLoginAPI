@@ -74,7 +74,7 @@
 		<libs.adpcore>1.4.10</libs.adpcore>
 		<libs.authMe>5.6.0-beta1</libs.authMe>
 		<libs.loginSecurity>3.0.2</libs.loginSecurity>
-		<libs.papi>2.10.6</libs.papi>
+		<libs.papi>2.10.7</libs.papi>
 	</properties>
 	
 	<build>
