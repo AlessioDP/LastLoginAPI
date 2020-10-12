@@ -12,47 +12,47 @@ lastloginapi:
   #[Special tags]
   #=> %version%     = New version found
   #=> %thisversion% = Version LastLoginAPI
-  update-available: '&6New version of LastLoginAPI found: %version% (Current: %thisversion%)'
+  update-available: '&6Byla nalezena nová verze pluginu LastLoginAPI: %version% (současná: %thisversion%)'
   #[Special tags]
   #=> %config%      = The configuration file name that is outdated
-  configuration-outdated: '&cThe configuration file ''%config%'' of LastLoginAPI is outdated!'
+  configuration-outdated: '&cKonfigurační soubor ''%config%'' pluginu LastLoginAPI je zastaralý!'
   #[Special tags]
   #=> %permission%  = Missing permission
-  no-permission: '&cYou do not have access to that command'
+  no-permission: '&cNemáš oprávnění k použití tohoto příkazu'
   common-messages:
-    invalid-command: '&cInvalid command'
-    configuration-reloaded: '&aConfiguration reloaded'
+    invalid-command: '&cNeplatný příkaz'
+    configuration-reloaded: '&aKonfigurace znovu načtena'
   syntax:
-    wrong-message: '&cWrong syntax: Type &7/%syntax%'
-    player: 'player'
-    unknown: 'unknown'
+    wrong-message: '&cNesprávná syntaxe: Zadej &7/%syntax%'
+    player: 'hráč'
+    unknown: 'neznámý'
 #/ =============================== \
 #|        COMMANDS MESSAGES        |
 #\ =============================== /
 commands:
   info:
-    header: '&6============== &l%player%''s Info &r&6=============='
+    header: '&6============== &lInformace o hráči %player% &r&6=============='
     text:
-      - " login since: &7%last_login_elapsed%"
-      - " logout since: &7%last_logout_elapsed%"
+      - " přihlášen od: &7%last_login_elapsed%"
+      - " odhlášen od: &7%last_logout_elapsed%"
     footer: ''
-    player-not-found: '&c%player% not found!'
+    player-not-found: '&cHráč %player% nenalezen!'
   version:
     #[Special tags]
     #=> %version%    = LastLoginAPI version
     #=> %newversion% = Latest LastLoginAPI version
     #=> %platform%   = Platform of the plugin (e.g. Bukkit, BungeeCord)
-    updated: '&6&lLastLoginAPI &6%version% &7(%platform%) - Developed by &6AlessioDP'
-    outdated: "&6&lLastLoginAPI &6%version% &7(%platform%) - Developed by &6AlessioDP\n&aNew version found: &6%newversion%"
+    updated: '&6&lLastLoginAPI &6%version% &7(%platform%) - Vytvořil &6AlessioDP'
+    outdated: "&6&lLastLoginAPI &6%version% &7(%platform%) - Vytvořil &6AlessioDP\n&aNalezena nová verze: &6%newversion%"
 #/ =============================== \
 #|          HELP MESSAGES          |
 #\ =============================== /
 help:
-  header: '&6============= &lLastLoginAPI Help Page &r&6============='
+  header: '&6============= &lNápověda pluginu LastLoginAPI &r&6============='
   footer: ''
-  perform-command: 'Perform the command'
+  perform-command: 'Vykoná příkaz'
   console-help:
-    header: 'You can only make these commands:'
+    header: 'Můžeš provádět pouze následující příkazy:'
     command: ' > %command% - %description%'
   commands:
     #[Special tags]
@@ -65,9 +65,9 @@ help:
     reload: '{"text":"&6/%syntax% &7- %description%","clickEvent":{"action":"run_command","value":"/%run_command% "},"hoverEvent":{"action":"show_text","value":{"text":"&6%perform_command%"}}}'
     version: '{"text":"&6/%syntax% &7- %description%","clickEvent":{"action":"run_command","value":"/%run_command% "},"hoverEvent":{"action":"show_text","value":{"text":"&6%perform_command%"}}}'
   command-descriptions:
-    help: 'Show help pages'
-    info: 'Show player info'
-    reload: 'Reload LastLoginAPI configuration files'
-    version: 'Show LastLoginAPI information'
+    help: 'Zobrazení nápovědy'
+    info: 'Zobrazení informací o hráči'
+    reload: 'Znovu načtení konfiguračních souborů pluginu LastLoginAPI'
+    version: 'Zobrazení informací o pluginu LastLoginAPI'
 dont-edit-this:
   version: 2
