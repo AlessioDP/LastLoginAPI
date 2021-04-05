@@ -72,7 +72,7 @@
 		<dev.lombok>1.18.12</dev.lombok>
 		
 		<libs.adpcore>1.4.11</libs.adpcore>
-		<libs.authMe>5.6.0-beta1</libs.authMe>
+		<libs.authMe>5.6.0-beta2</libs.authMe>
 		<libs.loginSecurity>3.0.2</libs.loginSecurity>
 		<libs.papi>2.10.6</libs.papi>
 	</properties>
