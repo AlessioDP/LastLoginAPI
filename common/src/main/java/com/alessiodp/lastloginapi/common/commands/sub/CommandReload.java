@@ -2,19 +2,18 @@ package com.alessiodp.lastloginapi.common.commands.sub;
 
 import com.alessiodp.core.common.ADPPlugin;
 import com.alessiodp.core.common.commands.utils.ADPMainCommand;
-import com.alessiodp.core.common.commands.utils.ADPSubCommand;
 import com.alessiodp.core.common.commands.utils.CommandData;
 import com.alessiodp.core.common.user.User;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.commands.list.CommonCommands;
 import com.alessiodp.lastloginapi.common.commands.utils.LLCommandData;
-import com.alessiodp.lastloginapi.common.configuration.LLConstants;
+import com.alessiodp.lastloginapi.common.commands.utils.LLSubCommand;
 import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.configuration.data.Messages;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
 import com.alessiodp.lastloginapi.common.utils.LastLoginPermission;
 
-public class CommandReload extends ADPSubCommand {
+public class CommandReload extends LLSubCommand {
 	
 	public CommandReload(ADPPlugin plugin, ADPMainCommand mainCommand) {
 		super(
@@ -58,21 +57,8 @@ public class CommandReload extends ADPSubCommand {
 	public void onCommand(CommandData commandData) {
 		LLPlayerImpl player = ((LLCommandData) commandData).getPlayer();
 		
-		if (player != null)
-			plugin.getLoggerManager().logDebug(LLConstants.DEBUG_CMD_RELOAD
-					.replace("{player}", player.getName()), true);
-		else
-			plugin.getLoggerManager().logDebug(LLConstants.DEBUG_CMD_RELOAD_CONSOLE, true);
-		
 		plugin.reloadConfiguration();
 		
-		if (player != null) {
-			player.sendMessage(Messages.LLAPI_COMMON_CONFIGRELOAD);
-			
-			plugin.getLoggerManager().log(LLConstants.DEBUG_CMD_RELOADED
-					.replace("{player}", player.getName()), true);
-		} else {
-			plugin.getLoggerManager().log(LLConstants.DEBUG_CMD_RELOADED_CONSOLE, true);
-		}
+		sendMessage(commandData.getSender(), player, Messages.LLAPI_COMMON_CONFIGRELOAD);
 	}
 }

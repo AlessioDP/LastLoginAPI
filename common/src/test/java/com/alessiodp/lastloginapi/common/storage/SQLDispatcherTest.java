@@ -6,7 +6,6 @@ import com.alessiodp.core.common.bootstrap.ADPBootstrap;
 import com.alessiodp.core.common.logging.LoggerManager;
 import com.alessiodp.core.common.storage.StorageType;
 import com.alessiodp.core.common.storage.sql.connection.ConnectionFactory;
-import com.alessiodp.core.common.storage.sql.migrator.Migrator;
 import com.alessiodp.core.common.user.OfflineUser;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
@@ -15,6 +14,7 @@ import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
 import com.alessiodp.lastloginapi.common.storage.dispatchers.LLSQLDispatcher;
 import com.alessiodp.lastloginapi.common.storage.sql.dao.players.H2PlayersDao;
 import com.alessiodp.lastloginapi.common.storage.sql.dao.players.PlayersDao;
+import com.alessiodp.lastloginapi.common.storage.sql.dao.players.PostgreSQLPlayersDao;
 import com.alessiodp.lastloginapi.common.storage.sql.dao.players.SQLitePlayersDao;
 import org.junit.Before;
 import org.junit.Rule;
@@ -41,15 +41,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({
-		ADPPlugin.class,
-		ADPBootstrap.class,
-		ConfigMain.class,
-		LoggerManager.class,
-		Migrator.class,
-		LLSQLDispatcher.class,
-		OfflineUser.class,
-		LastLoginPlugin.class,
-		PlayerManager.class
+		ADPPlugin.class
 })
 public class SQLDispatcherTest {
 	@Rule
@@ -129,6 +121,69 @@ public class SQLDispatcherTest {
 		return ret;
 	}
 	
+	public static LLSQLDispatcher getSQLDispatcherMySQL(LastLoginPlugin plugin) {
+		// Manual test only
+		/*
+		ConfigMain.STORAGE_SETTINGS_GENERAL_SQL_PREFIX = "test_";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_CHARSET = "utf8";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_ADDRESS = "localhost";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_PORT = "3306";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_DATABASE = "lastloginapi";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_USERNAME = "root";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_PASSWORD = "";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_POOLSIZE = 10;
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_CONNLIFETIME = 1800000;
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_USESSL = false;
+		LLSQLDispatcher ret = new LLSQLDispatcher(plugin, StorageType.MYSQL);
+		ret.init();
+		
+		ret.getConnectionFactory().getJdbi().onDemand(PlayersDao.class).deleteAll();
+		return ret;*/
+		return null;
+	}
+	
+	public static LLSQLDispatcher getSQLDispatcherMariaDB(LastLoginPlugin plugin) {
+		// Manual test only
+		/*
+		ConfigMain.STORAGE_SETTINGS_GENERAL_SQL_PREFIX = "test_";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_CHARSET = "utf8";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_ADDRESS = "localhost";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_PORT = "3306";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_DATABASE = "lastloginapi";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_USERNAME = "root";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_PASSWORD = "";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_POOLSIZE = 10;
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_CONNLIFETIME = 1800000;
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_USESSL = false;
+		LLSQLDispatcher ret = new LLSQLDispatcher(plugin, StorageType.MARIADB);
+		ret.init();
+		
+		ret.getConnectionFactory().getJdbi().onDemand(PlayersDao.class).deleteAll();
+		return ret;*/
+		return null;
+	}
+	
+	public static LLSQLDispatcher getSQLDispatcherPostgreSQL(LastLoginPlugin plugin) {
+		// Manual test only
+		/*
+		ConfigMain.STORAGE_SETTINGS_GENERAL_SQL_PREFIX = "test_";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_CHARSET = "utf8";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_ADDRESS = "localhost";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_PORT = "5432";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_DATABASE = "lastloginapi";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_USERNAME = "postgres";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_PASSWORD = "";
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_POOLSIZE = 10;
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_CONNLIFETIME = 1800000;
+		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_USESSL = false;
+		LLSQLDispatcher ret = new LLSQLDispatcher(plugin, StorageType.POSTGRESQL);
+		ret.init();
+		
+		ret.getConnectionFactory().getJdbi().onDemand(PostgreSQLPlayersDao.class).deleteAll();
+		return ret;*/
+		return null;
+	}
+	
 	@Test
 	public void testPlayer() {
 		LLSQLDispatcher dispatcher = getSQLDispatcherH2();
@@ -138,6 +193,24 @@ public class SQLDispatcherTest {
 		dispatcher = getSQLDispatcherSQLite();
 		player(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(SQLitePlayersDao.class));
 		dispatcher.stop();
+		
+		dispatcher = getSQLDispatcherMySQL(mockPlugin);
+		if (dispatcher != null) {
+			player(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(PlayersDao.class));
+			dispatcher.stop();
+		}
+		
+		dispatcher = getSQLDispatcherMariaDB(mockPlugin);
+		if (dispatcher != null) {
+			player(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(PlayersDao.class));
+			dispatcher.stop();
+		}
+		
+		dispatcher = getSQLDispatcherPostgreSQL(mockPlugin);
+		if (dispatcher != null) {
+			player(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(PostgreSQLPlayersDao.class));
+			dispatcher.stop();
+		}
 	}
 	
 	
@@ -176,6 +249,24 @@ public class SQLDispatcherTest {
 		dispatcher = getSQLDispatcherSQLite();
 		playerName(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(SQLitePlayersDao.class));
 		dispatcher.stop();
+		
+		dispatcher = getSQLDispatcherMySQL(mockPlugin);
+		if (dispatcher != null) {
+			playerName(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(PlayersDao.class));
+			dispatcher.stop();
+		}
+		
+		dispatcher = getSQLDispatcherMariaDB(mockPlugin);
+		if (dispatcher != null) {
+			playerName(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(PlayersDao.class));
+			dispatcher.stop();
+		}
+		
+		dispatcher = getSQLDispatcherPostgreSQL(mockPlugin);
+		if (dispatcher != null) {
+			playerName(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(PostgreSQLPlayersDao.class));
+			dispatcher.stop();
+		}
 	}
 	
 	
@@ -194,6 +285,24 @@ public class SQLDispatcherTest {
 		dispatcher = getSQLDispatcherSQLite();
 		playerNameInsensitive(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(SQLitePlayersDao.class));
 		dispatcher.stop();
+		
+		dispatcher = getSQLDispatcherMySQL(mockPlugin);
+		if (dispatcher != null) {
+			playerNameInsensitive(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(PlayersDao.class));
+			dispatcher.stop();
+		}
+		
+		dispatcher = getSQLDispatcherMariaDB(mockPlugin);
+		if (dispatcher != null) {
+			playerNameInsensitive(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(PlayersDao.class));
+			dispatcher.stop();
+		}
+		
+		dispatcher = getSQLDispatcherPostgreSQL(mockPlugin);
+		if (dispatcher != null) {
+			playerNameInsensitive(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(PostgreSQLPlayersDao.class));
+			dispatcher.stop();
+		}
 	}
 	
 	

@@ -2,14 +2,12 @@ package com.alessiodp.lastloginapi.common.commands.sub;
 
 import com.alessiodp.core.common.ADPPlugin;
 import com.alessiodp.core.common.commands.utils.ADPMainCommand;
-import com.alessiodp.core.common.commands.utils.ADPSubCommand;
 import com.alessiodp.core.common.commands.utils.CommandData;
 import com.alessiodp.core.common.user.User;
-import com.alessiodp.core.common.utils.Color;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.commands.list.CommonCommands;
 import com.alessiodp.lastloginapi.common.commands.utils.LLCommandData;
-import com.alessiodp.lastloginapi.common.configuration.LLConstants;
+import com.alessiodp.lastloginapi.common.commands.utils.LLSubCommand;
 import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.configuration.data.Messages;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
@@ -19,7 +17,7 @@ import lombok.NonNull;
 import java.util.List;
 import java.util.Set;
 
-public class CommandInfo extends ADPSubCommand {
+public class CommandInfo extends LLSubCommand {
 	private final String syntaxConsole;
 	
 	public CommandInfo(ADPPlugin plugin, ADPMainCommand mainCommand) {
@@ -75,48 +73,36 @@ public class CommandInfo extends ADPSubCommand {
 	
 	@Override
 	public void onCommand(CommandData commandData) {
+		User sender = commandData.getSender();
 		LLPlayerImpl player = ((LLCommandData) commandData).getPlayer();
 		
-		if (player != null)
-			plugin.getLoggerManager().logDebug(LLConstants.DEBUG_CMD_INFO
-					.replace("{player}", player.getName())
-					.replace("{victim}", commandData.getArgs().length > 1 ? commandData.getArgs()[1] : ""), true);
-		else
-			plugin.getLoggerManager().logDebug(LLConstants.DEBUG_CMD_INFO_CONSOLE
-					.replace("{victim}", commandData.getArgs().length > 1 ? commandData.getArgs()[1] : ""), true);
-		
 		// Command handling
-		LLPlayerImpl targetPlayer = null;
+		LLPlayerImpl targetPlayer;
 		if (commandData.getArgs().length > 1) {
 			Set<LLPlayerImpl> players = ((LastLoginPlugin) plugin).getPlayerManager().getPlayerByName(commandData.getArgs()[1]);
 			if (players.size() > 0) {
 				targetPlayer = players.iterator().next();
 			} else {
-				sendMessage(player, Messages.CMD_INFO_PLAYERNOTFOUND.replace("%player%", commandData.getArgs()[1]));
+				sendMessage(sender, player, Messages.CMD_INFO_PLAYERNOTFOUND
+						.replace("%player%", commandData.getArgs()[1]));
 				return;
 			}
 		} else if (player == null) {
-			sendMessage(player, Messages.LLAPI_SYNTAX_WRONGMESSAGE.replace("%syntax%", getConsoleSyntax()));
+			sendMessage(sender, null, Messages.LLAPI_SYNTAX_WRONGMESSAGE
+					.replace("%syntax%", getConsoleSyntax()));
 			return;
 		} else {
 			targetPlayer = player;
 		}
 		
 		// Command starts
-		sendMessage(player, ((LastLoginPlugin) plugin).getMessageUtils().convertPlaceholders(Messages.CMD_INFO_HEADER, targetPlayer));
+		sendMessage(sender, player, ((LastLoginPlugin) plugin).getMessageUtils().convertPlaceholders(Messages.CMD_INFO_HEADER, targetPlayer));
 		
 		for (String string : Messages.CMD_INFO_TEXT) {
-			sendMessage(player, ((LastLoginPlugin) plugin).getMessageUtils().convertPlaceholders(string, targetPlayer));
+			sendMessage(sender, player, ((LastLoginPlugin) plugin).getMessageUtils().convertPlaceholders(string, targetPlayer));
 		}
 		
-		sendMessage(player, ((LastLoginPlugin) plugin).getMessageUtils().convertPlaceholders(Messages.CMD_INFO_FOOTER, targetPlayer));
-	}
-	
-	private void sendMessage(LLPlayerImpl player, String message) {
-		if (player != null)
-			player.sendMessage(message);
-		else
-			plugin.logConsole(Color.translateAndStripColor(message), false);
+		sendMessage(sender, player, ((LastLoginPlugin) plugin).getMessageUtils().convertPlaceholders(Messages.CMD_INFO_FOOTER, targetPlayer));
 	}
 	
 	@Override

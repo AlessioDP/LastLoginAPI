@@ -19,8 +19,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -28,7 +28,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class LLPlayerImpl implements LastLoginPlayer {
 	@EqualsAndHashCode.Exclude private final LastLoginPlugin plugin;
 	
-	@Getter private UUID playerUUID;
+	@Getter private final UUID playerUUID;
 	@Getter private String name;
 	@Getter private long lastLogin;
 	@Getter private long lastLogout;
@@ -104,10 +104,11 @@ public class LLPlayerImpl implements LastLoginPlayer {
 			setName(serverName);
 			
 			plugin.getScheduler().runAsync(() -> {
-				plugin.getLoggerManager().logDebug(LLConstants.DEBUG_PLAYER_UPDATENAME
-						.replace("{uuid}", getPlayerUUID().toString())
-						.replace("{old}", oldName)
-						.replace("{new}", serverName), true);
+				plugin.getLoggerManager().logDebug(String.format(LLConstants.DEBUG_PLAYER_UPDATENAME,
+						getPlayerUUID().toString(),
+						oldName,
+						serverName
+				), true);
 				
 				plugin.getEventManager().callEvent(plugin.getEventManager().prepareUpdateName(this, serverName, oldName));
 			});
@@ -156,8 +157,8 @@ public class LLPlayerImpl implements LastLoginPlayer {
 		}
 	}
 	
-	public List<ADPCommand> getAllowedCommands() {
-		List<ADPCommand> ret = new ArrayList<>();
+	public Set<ADPCommand> getAllowedCommands() {
+		Set<ADPCommand> ret = new HashSet<>();
 		User player = plugin.getPlayer(getPlayerUUID());
 		
 		if (player.hasPermission(LastLoginPermission.ADMIN_HELP))

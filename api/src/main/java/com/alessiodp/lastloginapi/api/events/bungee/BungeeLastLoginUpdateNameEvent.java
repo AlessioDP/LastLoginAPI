@@ -6,8 +6,8 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class BungeeLastLoginUpdateNameEvent extends BungeeLastLoginEvent implements IUpdateName {
 	private final LastLoginPlayer player;
-	private String newName;
-	private String oldName;
+	private final String newName;
+	private final String oldName;
 	
 	public BungeeLastLoginUpdateNameEvent(LastLoginPlayer player, String newName, String oldName) {
 		this.player = player;

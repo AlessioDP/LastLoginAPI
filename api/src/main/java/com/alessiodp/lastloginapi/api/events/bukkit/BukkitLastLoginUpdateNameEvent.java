@@ -6,8 +6,8 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class BukkitLastLoginUpdateNameEvent extends BukkitLastLoginEvent implements IUpdateName {
 	private final LastLoginPlayer player;
-	private String newName;
-	private String oldName;
+	private final String newName;
+	private final String oldName;
 	
 	public BukkitLastLoginUpdateNameEvent(LastLoginPlayer player, String newName, String oldName) {
 		super(true);

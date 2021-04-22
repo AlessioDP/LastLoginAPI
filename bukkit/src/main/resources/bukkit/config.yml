@@ -49,7 +49,9 @@ lastloginapi:
 storage:
   # [Database type]
   # What type of storage the plugin should use? Database storage types:
+  # => mariadb    | [Remote] Save the data into a MariaDB database
   # => mysql      | [Remote] Save the data into a MySQL database
+  # => postgresql | [Remote] Save the data into a PostgreSQL database
   # => sqlite     | [File]   Save the data into a SQLite database
   # => h2         | [File]   Save the data into a H2 database (default)
   database-storage-type: h2
@@ -68,8 +70,8 @@ storage:
     h2:
       database-file: database
 
-    # [MySQL settings]
-    mysql:
+    # [Remote SQL settings - MySQL/MariaDB/PostgreSQL]
+    remote-sql:
       address: localhost
       port: '3306'
       database: database
@@ -105,9 +107,11 @@ placeholders:
 
   last-login-date:
     # Date of latest login
-    format: 'yyyy-MM-dd'
-    format-online: 'Online'
-    format-unknown: 'Unknown'
+    # Warning: format and format-online use a DATE SYNTAX.
+    # https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+    format: "yyyy-MM-dd"
+    format-online: "'Online'"
+    format-unknown: "Unknown"
 
   last-login-elapsed:
     format:
@@ -156,4 +160,4 @@ commands:
     - version
 
 dont-edit-this:
-  version: 3
+  version: 4

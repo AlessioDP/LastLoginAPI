@@ -64,8 +64,8 @@ public class PAPIHook extends PlaceholderExpansion {
 	@Override
 	public String onRequest(OfflinePlayer offlinePlayer, String identifier) {
 		if (offlinePlayer != null) {
-			plugin.getLoggerManager().logDebug(LLConstants.DEBUG_PLACEHOLDER_RECEIVE
-					.replace("{placeholder}", identifier), true);
+			plugin.getLoggerManager().logDebug(String.format(LLConstants.DEBUG_PLACEHOLDER_RECEIVE, identifier), true);
+			
 			LLPlayerImpl player = plugin.getPlayerManager().getPlayer(offlinePlayer.getUniqueId());
 			
 			LLPlaceholder placeholder = LLPlaceholder.getPlaceholder(identifier);

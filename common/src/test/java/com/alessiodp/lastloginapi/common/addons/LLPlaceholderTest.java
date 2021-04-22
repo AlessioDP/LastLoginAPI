@@ -1,6 +1,7 @@
 package com.alessiodp.lastloginapi.common.addons;
 
 import com.alessiodp.core.common.ADPPlugin;
+import com.alessiodp.core.common.logging.LoggerManager;
 import com.alessiodp.core.common.user.OfflineUser;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.addons.internal.LLPlaceholder;
@@ -26,10 +27,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({
-		ConfigMain.class,
-		LastLoginPlugin.class,
-		LLPlayerImpl.class,
-		LLPlaceholder.class
+		ADPPlugin.class
 })
 public class LLPlaceholderTest {
 	private LastLoginPlugin mockPlugin;
@@ -48,11 +46,15 @@ public class LLPlaceholderTest {
 		mockStatic(ADPPlugin.class);
 		when(ADPPlugin.getInstance()).thenReturn(mockPlugin);
 		
+		// Mock logger
+		LoggerManager mockLoggerManager = mock(LoggerManager.class);
+		when(mockPlugin.getLoggerManager()).thenReturn(mockLoggerManager);
+		
 		// Setup player
 		player = new LLPlayerImpl(mockPlugin, UUID.randomUUID(), PLAYER_NAME, PLAYER_LOGIN, PLAYER_LOGOUT);
 		
 		// Setup MessageUtils
-		when(mockPlugin.getMessageUtils()).thenReturn(new MessageUtils());
+		when(mockPlugin.getMessageUtils()).thenReturn(new MessageUtils(mockPlugin));
 	}
 	
 	@Test
@@ -92,11 +94,11 @@ public class LLPlaceholderTest {
 		
 		// Setup config
 		ConfigMain.PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT = "yyyy-MM-dd";
-		ConfigMain.PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_ONLINE = "ONLINE";
+		ConfigMain.PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_ONLINE = "'ONLINE'";
 		ConfigMain.PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_UNKNOWN = "UNKNOWN";
 		
 		when(mockOfflineUser.isOnline()).thenReturn(true);
-		assertEquals(ConfigMain.PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_ONLINE, placeholder.formatPlaceholder(player, identifier));
+		assertEquals("ONLINE", placeholder.formatPlaceholder(player, identifier));
 		
 		when(mockOfflineUser.isOnline()).thenReturn(false);
 		assertEquals("1970-04-26", placeholder.formatPlaceholder(player, identifier));
@@ -104,7 +106,7 @@ public class LLPlaceholderTest {
 		player.setAccessible(true);
 		player.setLastLogin(0);
 		player.setAccessible(false);
-		assertEquals(ConfigMain.PLACEHOLDERS_LAST_LOGIN_DATE_FORMAT_UNKNOWN, placeholder.formatPlaceholder(player, identifier));
+		assertEquals("UNKNOWN", placeholder.formatPlaceholder(player, identifier));
 	}
 	
 	@Test

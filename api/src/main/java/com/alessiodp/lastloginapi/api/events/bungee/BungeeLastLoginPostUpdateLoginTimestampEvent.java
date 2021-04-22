@@ -6,7 +6,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class BungeeLastLoginPostUpdateLoginTimestampEvent extends BungeeLastLoginEvent implements IPostUpdateTimestamp {
 	private final LastLoginPlayer player;
-	private long timestamp;
+	private final long timestamp;
 	
 	public BungeeLastLoginPostUpdateLoginTimestampEvent(LastLoginPlayer player, long timestamp) {
 		this.player = player;

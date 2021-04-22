@@ -2,7 +2,6 @@ package com.alessiodp.lastloginapi.common.storage;
 
 import com.alessiodp.core.common.ADPPlugin;
 import com.alessiodp.core.common.addons.ADPLibraryManager;
-import com.alessiodp.core.common.bootstrap.ADPBootstrap;
 import com.alessiodp.core.common.logging.LoggerManager;
 import com.alessiodp.core.common.storage.StorageType;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
@@ -30,12 +29,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({
-		ADPPlugin.class,
-		ADPBootstrap.class,
-		ConfigMain.class,
-		LoggerManager.class,
-		LLSQLDispatcher.class,
-		LastLoginPlugin.class
+		ADPPlugin.class
 })
 public class MigrationsTest {
 	@Rule
@@ -104,7 +98,7 @@ public class MigrationsTest {
 	}
 	
 	@Test
-	public void testDatabaseFreshSQLite() throws IOException {
+	public void testDatabaseFreshSQLite() {
 		ConfigMain.STORAGE_SETTINGS_SQLITE_DBFILE = "database_sqlite.db";
 		
 		LLSQLDispatcher dispatcher = new LLSQLDispatcher(mockPlugin, StorageType.SQLITE);
@@ -118,7 +112,7 @@ public class MigrationsTest {
 	}
 	
 	@Test
-	public void testDatabaseFreshH2() throws IOException {
+	public void testDatabaseFreshH2() {
 		ConfigMain.STORAGE_SETTINGS_H2_DBFILE = "database_h2.db";
 		
 		LLSQLDispatcher dispatcher = new LLSQLDispatcher(mockPlugin, StorageType.H2);
@@ -129,5 +123,47 @@ public class MigrationsTest {
 		});
 		
 		dispatcher.stop();
+	}
+	
+	@Test
+	public void testDatabaseFreshMySQL() {
+		LLSQLDispatcher dispatcher = SQLDispatcherTest.getSQLDispatcherMySQL(mockPlugin);
+		if (dispatcher != null) {
+			dispatcher.init();
+			
+			dispatcher.getConnectionFactory().getJdbi().useHandle(handle -> {
+				handle.execute("SELECT 1 FROM <prefix>players");
+			});
+			
+			dispatcher.stop();
+		}
+	}
+	
+	@Test
+	public void testDatabaseFreshMariaDB() {
+		LLSQLDispatcher dispatcher = SQLDispatcherTest.getSQLDispatcherMariaDB(mockPlugin);
+		if (dispatcher != null) {
+			dispatcher.init();
+			
+			dispatcher.getConnectionFactory().getJdbi().useHandle(handle -> {
+				handle.execute("SELECT 1 FROM <prefix>players");
+			});
+			
+			dispatcher.stop();
+		}
+	}
+	
+	@Test
+	public void testDatabaseFreshPostgreSQL() {
+		LLSQLDispatcher dispatcher = SQLDispatcherTest.getSQLDispatcherPostgreSQL(mockPlugin);
+		if (dispatcher != null) {
+			dispatcher.init();
+			
+			dispatcher.getConnectionFactory().getJdbi().useHandle(handle -> {
+				handle.execute("SELECT 1 FROM <prefix>players");
+			});
+			
+			dispatcher.stop();
+		}
 	}
 }

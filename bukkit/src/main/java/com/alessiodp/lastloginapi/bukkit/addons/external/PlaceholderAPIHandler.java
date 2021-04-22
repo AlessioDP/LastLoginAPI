@@ -17,15 +17,14 @@ public class PlaceholderAPIHandler {
 	private static PAPIHook hook;
 	
 	public void init() {
-		active = false;
-		if (Bukkit.getPluginManager().isPluginEnabled(ADDON_NAME)) {
+		if (!active && Bukkit.getPluginManager().isPluginEnabled(ADDON_NAME)) {
 			hook = new PAPIHook(plugin);
 			
+			// This is executed only 1 time, must be sync
 			if (hook.register()) {
 				active = true;
 				
-				plugin.getLoggerManager().log(Constants.DEBUG_ADDON_HOOKED
-						.replace("{addon}", ADDON_NAME), true);
+				plugin.getLoggerManager().log(String.format(Constants.DEBUG_ADDON_HOOKED, ADDON_NAME), true);
 			}
 		}
 	}

@@ -61,8 +61,8 @@ storage:
     h2:
       database-file: database
 
-    # [MySQL settings]
-    mysql:
+    # [Remote SQL settings - MySQL/MariaDB/PostgreSQL]
+    remote-sql:
       address: localhost
       port: '3306'
       database: database
@@ -98,9 +98,11 @@ placeholders:
 
   last-login-date:
     # Date of latest login
-    format: 'yyyy-MM-dd'
-    format-online: 'Online'
-    format-unknown: 'Unknown'
+    # Warning: format and format-online use a DATE SYNTAX.
+    # https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+    format: "yyyy-MM-dd"
+    format-online: "'Online'"
+    format-unknown: "Unknown"
 
   last-login-elapsed:
     format:
@@ -149,4 +151,4 @@ commands:
     - version
 
 dont-edit-this:
-  version: 2
+  version: 3

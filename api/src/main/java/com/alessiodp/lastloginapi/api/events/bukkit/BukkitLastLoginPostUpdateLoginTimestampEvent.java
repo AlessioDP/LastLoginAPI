@@ -6,7 +6,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class BukkitLastLoginPostUpdateLoginTimestampEvent extends BukkitLastLoginEvent implements IPostUpdateTimestamp {
 	private final LastLoginPlayer player;
-	private long timestamp;
+	private final long timestamp;
 	
 	public BukkitLastLoginPostUpdateLoginTimestampEvent(LastLoginPlayer player, long timestamp) {
 		super(true);

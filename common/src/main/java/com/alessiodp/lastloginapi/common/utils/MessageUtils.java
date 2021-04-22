@@ -2,9 +2,12 @@ package com.alessiodp.lastloginapi.common.utils;
 
 import com.alessiodp.core.common.utils.CommonUtils;
 import com.alessiodp.core.common.utils.DurationUtils;
+import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.addons.internal.LLPlaceholder;
+import com.alessiodp.lastloginapi.common.configuration.LLConstants;
 import com.alessiodp.lastloginapi.common.configuration.data.Messages;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
+import lombok.RequiredArgsConstructor;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -13,7 +16,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@RequiredArgsConstructor
 public class MessageUtils {
+	private final LastLoginPlugin plugin;
 	private final Pattern PLACEHOLDER_PATTERN = Pattern.compile("([%][^%]+[%])");
 	
 	public String convertPlaceholders(String message, LLPlayerImpl player) {
@@ -51,7 +56,10 @@ public class MessageUtils {
 		String ret = format;
 		try {
 			ret = DateTimeFormatter.ofPattern(format).format(date);
-		} catch (IllegalArgumentException ignored) {}
+		} catch (IllegalArgumentException ex) {
+			plugin.getLoggerManager().printError(LLConstants.DEBUG_FAILED_PARSE_DATE);
+			ex.printStackTrace();
+		}
 		return ret;
 	}
 	

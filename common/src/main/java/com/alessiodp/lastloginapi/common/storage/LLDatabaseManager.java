@@ -23,15 +23,16 @@ public class LLDatabaseManager extends DatabaseManager implements ILLDatabase {
 	protected IDatabaseDispatcher initializeDispatcher(StorageType storageType) {
 		IDatabaseDispatcher ret = null;
 		switch (storageType) {
+			case MARIADB:
 			case MYSQL:
+			case POSTGRESQL:
 			case SQLITE:
 			case H2:
 				ret = new LLSQLDispatcher(plugin, storageType);
 				break;
 			default:
 				// Unsupported storage type
-				plugin.getLoggerManager().printError(Constants.DEBUG_DB_INIT_FAILED_UNSUPPORTED
-						.replace("{type}", ConfigMain.STORAGE_TYPE_DATABASE));
+				plugin.getLoggerManager().printError(String.format(Constants.DEBUG_DB_INIT_FAILED_UNSUPPORTED, ConfigMain.STORAGE_TYPE_DATABASE));
 				break;
 		}
 		return ret;
@@ -39,10 +40,8 @@ public class LLDatabaseManager extends DatabaseManager implements ILLDatabase {
 	
 	@Override
 	public void updatePlayer(LLPlayerImpl player) {
-		plugin.getScheduler().runAsync(() -> {
-			plugin.getLoggerManager().logDebug(LLConstants.DEBUG_DB_UPDATEPLAYER
-					.replace("{player}", player.getName())
-					.replace("{uuid}", player.getPlayerUUID().toString()), true);
+		executeSafelyAsync(() -> {
+			plugin.getLoggerManager().logDebug(String.format(LLConstants.DEBUG_DB_UPDATEPLAYER, player.getName(), player.getPlayerUUID().toString()), true);
 			
 			((ILLDatabase) database).updatePlayer(player);
 		});
@@ -50,9 +49,8 @@ public class LLDatabaseManager extends DatabaseManager implements ILLDatabase {
 	
 	@Override
 	public LLPlayerImpl getPlayer(UUID playerUuid) {
-		return plugin.getScheduler().runSupplyAsync(() -> {
-			plugin.getLoggerManager().logDebug(LLConstants.DEBUG_DB_GETPLAYER
-					.replace("{uuid}", playerUuid.toString()), true);
+		return executeSafelySupplyAsync(() -> {
+			plugin.getLoggerManager().logDebug(String.format(LLConstants.DEBUG_DB_GETPLAYER, playerUuid.toString()), true);
 			
 			return ((ILLDatabase) database).getPlayer(playerUuid);
 		}).join();
@@ -60,9 +58,8 @@ public class LLDatabaseManager extends DatabaseManager implements ILLDatabase {
 	
 	@Override
 	public Set<LLPlayerImpl> getPlayerByName(String playerName) {
-		return plugin.getScheduler().runSupplyAsync(() -> {
-			plugin.getLoggerManager().logDebug(LLConstants.DEBUG_DB_GETPLAYER_BYNAME
-					.replace("{player}", playerName), true);
+		return executeSafelySupplyAsync(() -> {
+			plugin.getLoggerManager().logDebug(String.format(LLConstants.DEBUG_DB_GETPLAYER_BYNAME, playerName), true);
 			
 			return ((ILLDatabase) database).getPlayerByName(playerName);
 		}).join();

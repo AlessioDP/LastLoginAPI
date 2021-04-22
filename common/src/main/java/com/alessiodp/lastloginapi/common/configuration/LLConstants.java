@@ -14,28 +14,22 @@ public class LLConstants {
 	
 	
 	// Versions
-	public static final int VERSION_BUKKIT_CONFIG = 3;
+	public static final int VERSION_BUKKIT_CONFIG = 4;
 	public static final int VERSION_BUKKIT_MESSAGES = 2;
-	public static final int VERSION_BUNGEE_CONFIG = 2;
+	public static final int VERSION_BUNGEE_CONFIG = 3;
 	public static final int VERSION_BUNGEE_MESSAGES = 2;
 	
 	// Debug messages
 	public static final String DEBUG_API_CANCELLED_UPDATE_LAST_LOGIN = "Event update last login cancelled";
 	public static final String DEBUG_API_CANCELLED_UPDATE_LAST_LOGOUT = "Event update last logout cancelled";
 	
-	public static final String DEBUG_DB_UPDATEPLAYER = "Update player for {player} [{uuid}]";
-	public static final String DEBUG_DB_GETPLAYER = "Get player request for '{uuid}'";
-	public static final String DEBUG_DB_GETPLAYER_BYNAME = "Get player request by name for '{player}'";
-	public static final String DEBUG_PLACEHOLDER_RECEIVE = "Received PAPI placeholder request for '{placeholder}'";
-	public static final String DEBUG_PLAYER_UPDATENAME = "Changed name of '{uuid}' from '{old}' to '{new}'";
+	public static final String DEBUG_FAILED_PARSE_DATE = "Failed to parse format date";
 	
-	public static final String DEBUG_CMD_HELP = "{player} performed help command";
-	public static final String DEBUG_CMD_INFO = "{player} performed info command on '{victim}'";
-	public static final String DEBUG_CMD_INFO_CONSOLE = "Console performed info command on '{victim}'";
-	public static final String DEBUG_CMD_RELOAD = "{player} performed reload command";
-	public static final String DEBUG_CMD_RELOAD_CONSOLE = "Console performed reload command";
-	public static final String DEBUG_CMD_RELOADED = "Configuration reloaded by {player}";
-	public static final String DEBUG_CMD_RELOADED_CONSOLE = "Configuration reloaded";
-	public static final String DEBUG_CMD_VERSION = "{player} performed version command";
-	public static final String DEBUG_CMD_VERSION_CONSOLE = "Performed version command";
+	public static final String DEBUG_DB_UPDATEPLAYER = "Update player request for %s (uuid: %s)";
+	public static final String DEBUG_DB_GETPLAYER = "Get player request for %s";
+	public static final String DEBUG_DB_GETPLAYER_BYNAME = "Get player by name request for %s";
+	
+	public static final String DEBUG_PLACEHOLDER_RECEIVE = "Received PAPI placeholder request for '%s'";
+	
+	public static final String DEBUG_PLAYER_UPDATENAME = "Changed name of %s from '%s' to '%s'";
 }

@@ -8,12 +8,16 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import java.util.Set;
 
 public interface SQLitePlayersDao extends PlayersDao {
+	String QUERY_UPDATE = "INSERT OR REPLACE INTO `<prefix>players` (`uuid`, `name`, `lastLogin`, `lastLogout`)" +
+			" VALUES (?, ?, ?, ?)";
+	String QUERY_GET_BY_NAME = "SELECT * FROM `<prefix>players` WHERE name = ? COLLATE NOCASE";
+	
 	@Override
-	@SqlUpdate("INSERT OR REPLACE INTO `<prefix>players` (`uuid`, `name`, `lastLogin`, `lastLogout`) VALUES (?, ?, ?, ?)")
+	@SqlUpdate(QUERY_UPDATE)
 	void insert(String uuid, String name, Long lastLogin, Long lastLogout);
 	
 	@Override
-	@SqlQuery("SELECT * FROM `<prefix>players` WHERE name = ? COLLATE NOCASE")
+	@SqlQuery(QUERY_GET_BY_NAME)
 	@RegisterRowMapper(LLPlayerRowMapper.class)
 	Set<LLPlayerImpl> getPlayerByName(String name);
 }
