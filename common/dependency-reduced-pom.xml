@@ -3,7 +3,7 @@
   <parent>
     <artifactId>lastloginapi</artifactId>
     <groupId>com.alessiodp.lastloginapi</groupId>
-    <version>1.5.0</version>
+    <version>1.5.1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>lastloginapi-common</artifactId>
@@ -51,6 +51,14 @@
               <shadedPattern>com.alessiodp.lastloginapi.core.common.addons.external.simpleyaml</shadedPattern>
             </relocation>
           </relocations>
+          <filters>
+            <filter>
+              <artifact>*:*</artifact>
+              <excludes>
+                <exclude>META-INF/MANIFEST.MF</exclude>
+              </excludes>
+            </filter>
+          </filters>
         </configuration>
       </plugin>
     </plugins>
@@ -59,7 +67,7 @@
     <dependency>
       <groupId>com.alessiodp.lastloginapi</groupId>
       <artifactId>lastloginapi-api</artifactId>
-      <version>1.5.0</version>
+      <version>1.5.1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

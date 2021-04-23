@@ -3,7 +3,7 @@
   <parent>
     <artifactId>lastloginapi</artifactId>
     <groupId>com.alessiodp.lastloginapi</groupId>
-    <version>1.5.0</version>
+    <version>1.5.1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>lastloginapi-bungeecord</artifactId>
@@ -42,6 +42,14 @@
               <include>com.alessiodp.core:core-bungeecord</include>
             </includes>
           </artifactSet>
+          <filters>
+            <filter>
+              <artifact>*:*</artifact>
+              <excludes>
+                <exclude>META-INF/MANIFEST.MF</exclude>
+              </excludes>
+            </filter>
+          </filters>
         </configuration>
       </plugin>
     </plugins>
@@ -50,7 +58,7 @@
     <dependency>
       <groupId>com.alessiodp.lastloginapi</groupId>
       <artifactId>lastloginapi-common</artifactId>
-      <version>1.5.0</version>
+      <version>1.5.1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
