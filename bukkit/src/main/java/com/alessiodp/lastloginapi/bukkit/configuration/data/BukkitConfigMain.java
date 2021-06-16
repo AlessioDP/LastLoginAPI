@@ -19,6 +19,10 @@ public class BukkitConfigMain extends ConfigMain {
 	@ConfigOption(path = "lastloginapi.login-security.enable")
 	public static boolean		LASTLOGINAPI_LOGINSECURITY_ENABLE;
 	
+	// Commands settings
+	@ConfigOption(path = "commands.main-commands.lastloginapi.description")
+	public static String		COMMANDS_MAIN_LLAPI_DESCRIPTION;
+	
 	public BukkitConfigMain(LastLoginPlugin plugin) {
 		super(plugin);
 	}

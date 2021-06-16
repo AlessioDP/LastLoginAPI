@@ -137,10 +137,13 @@ placeholders:
 commands:
   # Enable tab support (/llapib <tab> to see every allowed command)
   tab-support: true
-  llapi-description: LastLoginAPI help page
   main-commands:
+    lastloginapi:
+      command: 'llapib'
+      aliases:
+        - 'lastloginapib'
+  sub-commands:
     help: help
-    llapi: llapib
     info: info
     reload: reload
     version: version
@@ -151,4 +154,4 @@ commands:
     - version
 
 dont-edit-this:
-  version: 3
+  version: 4

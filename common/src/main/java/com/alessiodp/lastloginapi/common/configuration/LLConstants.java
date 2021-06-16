@@ -14,9 +14,9 @@ public class LLConstants {
 	
 	
 	// Versions
-	public static final int VERSION_BUKKIT_CONFIG = 4;
+	public static final int VERSION_BUKKIT_CONFIG = 5;
 	public static final int VERSION_BUKKIT_MESSAGES = 2;
-	public static final int VERSION_BUNGEE_CONFIG = 3;
+	public static final int VERSION_BUNGEE_CONFIG = 4;
 	public static final int VERSION_BUNGEE_MESSAGES = 2;
 	
 	// Debug messages

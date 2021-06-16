@@ -20,9 +20,9 @@ import java.util.Map;
 
 public class CommandLLAPI extends ADPMainCommand {
 	public CommandLLAPI(LastLoginPlugin plugin) {
-		super(plugin, CommonCommands.LLAPI, ConfigMain.COMMANDS_CMD_LLAPI, true);
+		super(plugin, CommonCommands.LLAPI, ConfigMain.COMMANDS_MAIN_LLAPI_COMMAND, true);
 		
-		description = ConfigMain.COMMANDS_DESCRIPTION_LLAPI;
+		aliases = ConfigMain.COMMANDS_MAIN_LLAPI_ALIASES;
 		subCommands = new HashMap<>();
 		subCommandsByEnum = new HashMap<>();
 		tabSupport = ConfigMain.COMMANDS_TABSUPPORT;
@@ -56,16 +56,16 @@ public class CommandLLAPI extends ADPMainCommand {
 				if (exists(subCommand) && getSubCommand(subCommand).isExecutableByConsole()) {
 					plugin.getCommandManager().getCommandUtils().executeCommand(sender, getCommandName(), getSubCommand(subCommand), args);
 				} else {
-					plugin.logConsole(Color.translateAndStripColor(Messages.LLAPI_COMMON_INVALIDCMD), false);
+					plugin.logConsole(Color.translateAndStripColor(Messages.LLAPI_COMMON_INVALIDCMD));
 				}
 			} else {
 				// Print help
-				plugin.logConsole(Messages.HELP_CONSOLEHELP_HEADER, false);
+				plugin.logConsole(Messages.HELP_CONSOLEHELP_HEADER);
 				for(Map.Entry<ADPCommand, ADPExecutableCommand> e : plugin.getCommandManager().getOrderedCommands().entrySet()) {
 					if (e.getValue().isExecutableByConsole()  && e.getValue().isListedInHelp()) {
 						plugin.logConsole(Messages.HELP_CONSOLEHELP_COMMAND
 								.replace("%command%", e.getValue().getConsoleSyntax())
-								.replace("%description%", e.getValue().getDescription()), false);
+								.replace("%description%", e.getValue().getDescription()));
 					}
 				}
 			}

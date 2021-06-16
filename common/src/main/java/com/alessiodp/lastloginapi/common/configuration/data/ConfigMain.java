@@ -99,18 +99,19 @@ public abstract class ConfigMain extends ConfigurationFile {
 	// Commands settings
 	@ConfigOption(path = "commands.tab-support")
 	public static boolean		COMMANDS_TABSUPPORT;
-	@ConfigOption(path = "commands.llapi-description")
-	public static String		COMMANDS_DESCRIPTION_LLAPI;
 	
-	@ConfigOption(path = "commands.main-commands.help")
+	@ConfigOption(path = "commands.main-commands.lastloginapi.command")
+	public static String		COMMANDS_MAIN_LLAPI_COMMAND;
+	@ConfigOption(path = "commands.main-commands.lastloginapi.aliases")
+	public static List<String>	COMMANDS_MAIN_LLAPI_ALIASES;
+	
+	@ConfigOption(path = "commands.sub-commands.help")
 	public static String		COMMANDS_CMD_HELP;
-	@ConfigOption(path = "commands.main-commands.llapi")
-	public static String		COMMANDS_CMD_LLAPI;
-	@ConfigOption(path = "commands.main-commands.info")
+	@ConfigOption(path = "commands.sub-commands.info")
 	public static String		COMMANDS_CMD_INFO;
-	@ConfigOption(path = "commands.main-commands.reload")
+	@ConfigOption(path = "commands.sub-commands.reload")
 	public static String		COMMANDS_CMD_RELOAD;
-	@ConfigOption(path = "commands.main-commands.version")
+	@ConfigOption(path = "commands.sub-commands.version")
 	public static String		COMMANDS_CMD_VERSION;
 	
 	@ConfigOption(path = "commands.order")

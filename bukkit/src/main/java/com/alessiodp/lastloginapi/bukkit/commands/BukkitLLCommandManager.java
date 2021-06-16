@@ -2,9 +2,9 @@ package com.alessiodp.lastloginapi.bukkit.commands;
 
 import com.alessiodp.core.bukkit.commands.utils.BukkitCommandUtils;
 import com.alessiodp.core.common.ADPPlugin;
+import com.alessiodp.lastloginapi.bukkit.commands.main.BukkitCommandLLAPI;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.commands.LLCommandManager;
-import com.alessiodp.lastloginapi.common.commands.main.CommandLLAPI;
 
 import java.util.ArrayList;
 
@@ -23,6 +23,6 @@ public class BukkitLLCommandManager extends LLCommandManager {
 	@Override
 	public void registerCommands() {
 		mainCommands = new ArrayList<>();
-		mainCommands.add(new CommandLLAPI((LastLoginPlugin) plugin));
+		mainCommands.add(new BukkitCommandLLAPI((LastLoginPlugin) plugin));
 	}
 }
