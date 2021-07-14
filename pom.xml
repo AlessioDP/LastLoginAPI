@@ -78,7 +78,7 @@
 		<!-- External libraries -->
 		<libs.configurate>4.1.1</libs.configurate>
 		<libs.h2>1.4.200</libs.h2>
-		<libs.hikaricp>4.0.3</libs.hikaricp>
+		<libs.hikaricp>5.0.0</libs.hikaricp>
 		<libs.jdbi>3.20.1</libs.jdbi>
 		<libs.mariadb>2.7.2</libs.mariadb>
 		<libs.mysql>8.0.25</libs.mysql>
