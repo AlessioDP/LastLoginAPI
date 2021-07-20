@@ -81,7 +81,7 @@
 		<libs.hikaricp>4.0.3</libs.hikaricp>
 		<libs.jdbi>3.20.1</libs.jdbi>
 		<libs.mariadb>2.7.2</libs.mariadb>
-		<libs.mysql>8.0.25</libs.mysql>
+		<libs.mysql>8.0.26</libs.mysql>
 		<libs.nashorn>15.2</libs.nashorn>
 		<libs.postgresql>42.2.21</libs.postgresql>
 		<libs.slf4j>1.7.30</libs.slf4j>
