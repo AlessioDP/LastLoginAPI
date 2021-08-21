@@ -92,10 +92,10 @@ public class LLSQLDispatcher extends SQLDispatcher implements ILLDatabase {
 	protected TreeSet<String> lookupMigrateScripts() {
 		TreeSet<String> ret = super.lookupMigrateScripts();
 		switch (storageType) {
+			case MARIADB:
 			case MYSQL:
 			case SQLITE:
 				ret.add("0__Conversion.sql");
-			case MARIADB:
 			case POSTGRESQL:
 			case H2:
 				ret.add("1__Initial_database.sql");
@@ -128,9 +128,9 @@ public class LLSQLDispatcher extends SQLDispatcher implements ILLDatabase {
 	protected int getBackwardMigration() {
 		switch (storageType) {
 			case H2:
-			case MARIADB:
 			case POSTGRESQL:
 				return -1;
+			case MARIADB:
 			case MYSQL:
 			case SQLITE:
 			default:

@@ -1,7 +1,7 @@
 package com.alessiodp.lastloginapi.api.events;
 
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginAPI;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public interface LastLoginEvent {
 	/**
@@ -9,7 +9,7 @@ public interface LastLoginEvent {
 	 *
 	 * @return Returns the {@link LastLoginAPI}
 	 */
-	@NonNull
+	@NotNull
 	LastLoginAPI getApi();
 	
 	/**

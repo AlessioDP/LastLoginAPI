@@ -2,7 +2,7 @@ package com.alessiodp.lastloginapi.api.events.bungee;
 
 import com.alessiodp.lastloginapi.api.events.common.IUpdateName;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class BungeeLastLoginUpdateNameEvent extends BungeeLastLoginEvent implements IUpdateName {
 	private final LastLoginPlayer player;
@@ -15,7 +15,7 @@ public class BungeeLastLoginUpdateNameEvent extends BungeeLastLoginEvent impleme
 		this.oldName = oldName;
 	}
 	
-	@NonNull
+	@NotNull
 	@Override
 	public LastLoginPlayer getPlayer() {
 		return player;

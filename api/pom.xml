@@ -7,7 +7,7 @@
 	<parent>
 		<artifactId>lastloginapi</artifactId>
 		<groupId>com.alessiodp.lastloginapi</groupId>
-		<version>1.5.2</version>
+		<version>1.6.0</version>
 	</parent>
 	
 	<artifactId>lastloginapi-api</artifactId>
@@ -19,8 +19,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven.compiler.version}</version>
 				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -44,28 +44,21 @@
 	
 	<dependencies>
 		<dependency>
-			<groupId>org.checkerframework</groupId>
-			<artifactId>checker-qual</artifactId>
-			<version>3.13.0</version>
+			<groupId>org.jetbrains</groupId>
+			<artifactId>annotations</artifactId>
+			<version>${libs.api.annotations}</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.google.errorprone</groupId>
-			<artifactId>javac</artifactId>
-			<version>9+181-r4173-1</version>
-			<scope>provided</scope>
-		</dependency>
-		
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.17-R0.1-SNAPSHOT</version>
+			<version>${libs.api.spigot}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.md-5</groupId>
 			<artifactId>bungeecord-api</artifactId>
-			<version>1.17-R0.1-SNAPSHOT</version>
+			<version>${libs.api.bungeecord}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

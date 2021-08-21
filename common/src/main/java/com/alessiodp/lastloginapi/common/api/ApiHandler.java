@@ -4,7 +4,7 @@ import com.alessiodp.lastloginapi.api.interfaces.LastLoginAPI;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import lombok.RequiredArgsConstructor;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 import java.util.UUID;
@@ -19,13 +19,13 @@ public class ApiHandler implements LastLoginAPI {
 	}
 	
 	@Override
-	@NonNull
-	public LastLoginPlayer getPlayer(@NonNull UUID playerUuid) {
+	@NotNull
+	public LastLoginPlayer getPlayer(@NotNull UUID playerUuid) {
 		return plugin.getPlayerManager().getPlayer(playerUuid);
 	}
 	
 	@Override
-	public Set<? extends LastLoginPlayer> getPlayerByName(@NonNull String name) {
+	public Set<? extends LastLoginPlayer> getPlayerByName(@NotNull String name) {
 		return plugin.getDatabaseManager().getPlayerByName(name);
 	}
 }

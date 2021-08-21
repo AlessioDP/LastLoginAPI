@@ -1,6 +1,6 @@
 package com.alessiodp.lastloginapi.api.interfaces;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 import java.util.UUID;
@@ -17,7 +17,7 @@ public interface LastLoginAPI {
 	 * @param playerUuid The {@link UUID} of the player
 	 * @return Returns the {@link LastLoginPlayer} instance of the relative player
 	 */
-	@NonNull LastLoginPlayer getPlayer(@NonNull UUID playerUuid);
+	@NotNull LastLoginPlayer getPlayer(@NotNull UUID playerUuid);
 	
 	/**
 	 * Get the player by his name.
@@ -26,5 +26,5 @@ public interface LastLoginAPI {
 	 * @param name The name of the player
 	 * @return Returns a list of {@link LastLoginPlayer} that have the given name
 	 */
-	Set<? extends LastLoginPlayer> getPlayerByName(@NonNull String name);
+	Set<? extends LastLoginPlayer> getPlayerByName(@NotNull String name);
 }

@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -78,7 +78,7 @@ public class LLPlayerImpl implements LastLoginPlayer {
 	}
 	
 	@Override
-	public void setName(@NonNull String name) {
+	public void setName(@NotNull String name) {
 		updateValue(() -> this.name = name);
 	}
 	
@@ -99,7 +99,7 @@ public class LLPlayerImpl implements LastLoginPlayer {
 	
 	public void updateName() {
 		String serverName = plugin.getOfflinePlayer(getPlayerUUID()).getName();
-		if (!serverName.isEmpty() && !serverName.equals(getName())) {
+		if (serverName != null && !serverName.isEmpty() && !serverName.equals(getName())) {
 			String oldName = getName();
 			setName(serverName);
 			

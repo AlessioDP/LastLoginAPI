@@ -2,7 +2,7 @@ package com.alessiodp.lastloginapi.api.events.bungee;
 
 import com.alessiodp.lastloginapi.api.events.common.IUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @deprecated Use {@link BungeeLastLoginPreUpdateLoginTimestampEvent} instead
@@ -19,7 +19,7 @@ public class BungeeLastLoginUpdateLogoutTimestampEvent extends BungeeLastLoginEv
 		this.timestamp = timestamp;
 	}
 	
-	@NonNull
+	@NotNull
 	@Override
 	public LastLoginPlayer getPlayer() {
 		return player;

@@ -15,10 +15,10 @@ import com.alessiodp.lastloginapi.api.events.common.IUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.events.EventManager;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class BukkitEventManager extends EventManager {
-	public BukkitEventManager(@NonNull LastLoginPlugin plugin) {
+	public BukkitEventManager(@NotNull LastLoginPlugin plugin) {
 		super(plugin, new BukkitEventDispatcher(plugin));
 	}
 	

@@ -21,7 +21,7 @@ public class AuthMeHandler implements Listener {
 	
 	public void init() {
 		active = false;
-		if (BukkitConfigMain.LASTLOGINAPI_AUTHME_ENABLE) {
+		if (BukkitConfigMain.LASTLOGINAPI_LOGINPLUGINS_AUTHME) {
 			if (Bukkit.getPluginManager().isPluginEnabled(ADDON_NAME)) {
 				active = true;
 				
@@ -29,7 +29,7 @@ public class AuthMeHandler implements Listener {
 				
 				plugin.getLoggerManager().log(String.format(Constants.DEBUG_ADDON_HOOKED, ADDON_NAME), true);
 			} else {
-				BukkitConfigMain.LASTLOGINAPI_AUTHME_ENABLE = false;
+				BukkitConfigMain.LASTLOGINAPI_LOGINPLUGINS_AUTHME = false;
 				active = false;
 				
 				plugin.getLoggerManager().log(String.format(Constants.DEBUG_ADDON_FAILED, ADDON_NAME), true);
@@ -39,7 +39,7 @@ public class AuthMeHandler implements Listener {
 	
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerLogin(LoginEvent event) {
-		if (active && BukkitConfigMain.LASTLOGINAPI_AUTHME_ENABLE) {
+		if (active && BukkitConfigMain.LASTLOGINAPI_LOGINPLUGINS_AUTHME) {
 			JoinLeaveListener.updateLastLogin(plugin, event.getPlayer().getUniqueId());
 		}
 	}

@@ -3,7 +3,7 @@
   <parent>
     <artifactId>lastloginapi</artifactId>
     <groupId>com.alessiodp.lastloginapi</groupId>
-    <version>1.5.2</version>
+    <version>1.6.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>output</artifactId>
@@ -35,12 +35,8 @@
               <shadedPattern>com.alessiodp.lastloginapi.core</shadedPattern>
             </relocation>
             <relocation>
-              <pattern>net.byteflux.libby</pattern>
-              <shadedPattern>com.alessiodp.lastloginapi.core.common.addons.external.libby</shadedPattern>
-            </relocation>
-            <relocation>
-              <pattern>org.spongepowered.configurate</pattern>
-              <shadedPattern>com.alessiodp.lastloginapi.libs.configurate</shadedPattern>
+              <pattern>org.h2</pattern>
+              <shadedPattern>com.alessiodp.lastloginapi.libs.h2</shadedPattern>
             </relocation>
             <relocation>
               <pattern>com.zaxxer.hikari</pattern>
@@ -72,6 +68,7 @@
               <artifact>*:*</artifact>
               <excludes>
                 <exclude>META-INF/MANIFEST.MF</exclude>
+                <exclude>META-INF/**</exclude>
               </excludes>
             </filter>
           </filters>

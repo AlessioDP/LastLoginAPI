@@ -25,12 +25,19 @@ public class BukkitJoinLeaveListener extends JoinLeaveListener implements Listen
 	public void onPlayerJoinMonitor(PlayerJoinEvent event) {
 		super.onPlayerJoinMonitor(
 				new BukkitUser(plugin, event.getPlayer()),
-				!BukkitConfigMain.LASTLOGINAPI_AUTHME_ENABLE && !BukkitConfigMain.LASTLOGINAPI_LOGINSECURITY_ENABLE
+				canUpdateLastLogin()
 		);
 	}
 	
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		super.onPlayerQuit(new BukkitUser(plugin, event.getPlayer()));
+	}
+	
+	private boolean canUpdateLastLogin() {
+		return !BukkitConfigMain.LASTLOGINAPI_LOGINPLUGINS_AUTHME
+				&& !BukkitConfigMain.LASTLOGINAPI_LOGINPLUGINS_LOGINSECURITY
+				&& !BukkitConfigMain.LASTLOGINAPI_LOGINPLUGINS_NLOGIN
+				&& !BukkitConfigMain.LASTLOGINAPI_LOGINPLUGINS_OPENLOGIN;
 	}
 }

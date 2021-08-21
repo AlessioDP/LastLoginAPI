@@ -7,7 +7,7 @@
 	<parent>
 		<artifactId>lastloginapi</artifactId>
 		<groupId>com.alessiodp.lastloginapi</groupId>
-		<version>1.5.2</version>
+		<version>1.6.0</version>
 	</parent>
 	
 	<artifactId>lastloginapi-common</artifactId>
@@ -39,16 +39,6 @@
 							<include>com.alessiodp.core:core-common</include>
 						</includes>
 					</artifactSet>
-					<relocations>
-						<relocation>
-							<pattern>net.byteflux.libby</pattern>
-							<shadedPattern>com.alessiodp.lastloginapi.core.common.addons.external.libby</shadedPattern>
-						</relocation>
-						<relocation>
-							<pattern>org.simpleyaml</pattern>
-							<shadedPattern>com.alessiodp.lastloginapi.core.common.addons.external.simpleyaml</shadedPattern>
-						</relocation>
-					</relocations>
 					<filters>
 						<filter>
 							<artifact>*:*</artifact>
@@ -82,9 +72,25 @@
 			<artifactId>lastloginapi-api</artifactId>
 			<version>${project.version}</version>
 			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.spigotmc</groupId>
+					<artifactId>spigot-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.md-5</groupId>
+					<artifactId>bungeecord-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.jetbrains</groupId>
+			<artifactId>annotations</artifactId>
+			<version>${libs.api.annotations}</version>
 		</dependency>
 		
 		<!-- Test dependencies -->
+		
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>

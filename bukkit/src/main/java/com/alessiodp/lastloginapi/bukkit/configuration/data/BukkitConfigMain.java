@@ -14,10 +14,14 @@ public class BukkitConfigMain extends ConfigMain {
 	// LastLoginAPI settings
 	@ConfigOption(path = "lastloginapi.bungeecord.enable")
 	public static boolean		LASTLOGINAPI_BUNGEECORD_ENABLE;
-	@ConfigOption(path = "lastloginapi.authme.enable")
-	public static boolean		LASTLOGINAPI_AUTHME_ENABLE;
-	@ConfigOption(path = "lastloginapi.login-security.enable")
-	public static boolean		LASTLOGINAPI_LOGINSECURITY_ENABLE;
+	@ConfigOption(path = "lastloginapi.login-plugins.authme")
+	public static boolean		LASTLOGINAPI_LOGINPLUGINS_AUTHME;
+	@ConfigOption(path = "lastloginapi.login-plugins.login-security")
+	public static boolean		LASTLOGINAPI_LOGINPLUGINS_LOGINSECURITY;
+	@ConfigOption(path = "lastloginapi.login-plugins.nlogin")
+	public static boolean		LASTLOGINAPI_LOGINPLUGINS_NLOGIN;
+	@ConfigOption(path = "lastloginapi.login-plugins.openlogin")
+	public static boolean		LASTLOGINAPI_LOGINPLUGINS_OPENLOGIN;
 	
 	// Commands settings
 	@ConfigOption(path = "commands.main-commands.lastloginapi.description")

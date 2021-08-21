@@ -3,6 +3,7 @@ package com.alessiodp.lastloginapi.common;
 import com.alessiodp.core.common.ADPPlugin;
 import com.alessiodp.core.common.bootstrap.ADPBootstrap;
 import com.alessiodp.core.common.configuration.Constants;
+import com.alessiodp.core.common.libraries.LibraryUsage;
 import com.alessiodp.core.common.logging.ConsoleColor;
 import com.alessiodp.lastloginapi.api.LastLogin;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginAPI;
@@ -17,6 +18,9 @@ import com.alessiodp.lastloginapi.common.storage.LLDatabaseManager;
 import com.alessiodp.lastloginapi.common.utils.LLPlayerUtils;
 import com.alessiodp.lastloginapi.common.utils.MessageUtils;
 import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class LastLoginPlugin extends ADPPlugin {
 	// Plugin fields
@@ -112,4 +116,15 @@ public abstract class LastLoginPlugin extends ADPPlugin {
 	}
 	
 	public abstract boolean isBungeeCordEnabled();
+	
+	@Override
+	public List<LibraryUsage> getLibrariesUsages() {
+		return Arrays.asList(
+				LibraryUsage.H2,
+				LibraryUsage.MYSQL,
+				LibraryUsage.MARIADB,
+				LibraryUsage.POSTGRESQL,
+				LibraryUsage.SQLITE
+		);
+	}
 }

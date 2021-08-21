@@ -27,14 +27,6 @@ lastloginapi:
       format: "%date% [%time%] %message%\n"
       file: log.txt
 
-  # [Enable BungeeCord support]
-  # Everything is handled by LastLoginAPI in BungeeCord
-  # This plugin will only get data from the database without write into it
-  # Be sure to use a remote database synchronized with BungeeCord version
-  bungeecord:
-    enable: false
-
-
 
 # / =============================== \
 # |        STORAGE  SETTINGS        |

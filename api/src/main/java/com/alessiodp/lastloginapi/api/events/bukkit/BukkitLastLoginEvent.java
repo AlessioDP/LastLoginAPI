@@ -4,7 +4,7 @@ import com.alessiodp.lastloginapi.api.events.LastLoginEvent;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginAPI;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class BukkitLastLoginEvent extends Event implements LastLoginEvent {
 	private LastLoginAPI api;
@@ -15,7 +15,7 @@ public class BukkitLastLoginEvent extends Event implements LastLoginEvent {
 	}
 	
 	@Override
-	@NonNull
+	@NotNull
 	public LastLoginAPI getApi() {
 		return api;
 	}
@@ -26,7 +26,7 @@ public class BukkitLastLoginEvent extends Event implements LastLoginEvent {
 	}
 	
 	@Override
-	@NonNull
+	@NotNull
 	public HandlerList getHandlers() {
 		return HANDLERS;
 	}

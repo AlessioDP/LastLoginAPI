@@ -17,8 +17,11 @@ public class BukkitMetricsHandler extends MetricsHandler {
 	protected void registerMetrics() {
 		Metrics metrics = new Metrics((JavaPlugin) plugin.getBootstrap(), plugin.getBstatsId());
 		
-		metrics.addCustomChart(new SimplePie("authme_support", () -> {
-			if (BukkitConfigMain.LASTLOGINAPI_AUTHME_ENABLE)
+		metrics.addCustomChart(new SimplePie("login_support", () -> {
+			if (BukkitConfigMain.LASTLOGINAPI_LOGINPLUGINS_AUTHME
+					|| BukkitConfigMain.LASTLOGINAPI_LOGINPLUGINS_LOGINSECURITY
+					|| BukkitConfigMain.LASTLOGINAPI_LOGINPLUGINS_NLOGIN
+					|| BukkitConfigMain.LASTLOGINAPI_LOGINPLUGINS_OPENLOGIN)
 				return "Enabled";
 			return "Disabled";
 		}));

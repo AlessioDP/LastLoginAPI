@@ -34,13 +34,12 @@ lastloginapi:
   bungeecord:
     enable: false
 
-  authme:
+  login-plugins:
     # Update timestamps only on successful login
-    enable: false
-
-  login-security:
-    # Update timestamps only on successful login
-    enable: false
+    authme: false
+    login-security: false
+    nlogin: false
+    openlogin: false
 
 
 # / =============================== \
@@ -164,4 +163,4 @@ commands:
     - version
 
 dont-edit-this:
-  version: 5
+  version: 6

@@ -2,7 +2,7 @@ package com.alessiodp.lastloginapi.api.events.bukkit;
 
 import com.alessiodp.lastloginapi.api.events.common.IUpdateName;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class BukkitLastLoginUpdateNameEvent extends BukkitLastLoginEvent implements IUpdateName {
 	private final LastLoginPlayer player;
@@ -16,7 +16,7 @@ public class BukkitLastLoginUpdateNameEvent extends BukkitLastLoginEvent impleme
 		this.oldName = oldName;
 	}
 	
-	@NonNull
+	@NotNull
 	@Override
 	public LastLoginPlayer getPlayer() {
 		return player;

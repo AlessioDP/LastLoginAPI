@@ -3,7 +3,7 @@ package com.alessiodp.lastloginapi.api.events.common;
 import com.alessiodp.lastloginapi.api.events.Cancellable;
 import com.alessiodp.lastloginapi.api.events.LastLoginEvent;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @deprecated Use {@link IPreUpdateTimestamp} instead
@@ -15,7 +15,7 @@ public interface IUpdateTimestamp extends LastLoginEvent, Cancellable {
 	 *
 	 * @return Returns the {@link LastLoginPlayer}
 	 */
-	@NonNull
+	@NotNull
 	LastLoginPlayer getPlayer();
 	
 	/**

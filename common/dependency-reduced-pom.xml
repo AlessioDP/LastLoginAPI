@@ -3,7 +3,7 @@
   <parent>
     <artifactId>lastloginapi</artifactId>
     <groupId>com.alessiodp.lastloginapi</groupId>
-    <version>1.5.2</version>
+    <version>1.6.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>lastloginapi-common</artifactId>
@@ -41,16 +41,6 @@
               <include>com.alessiodp.core:core-common</include>
             </includes>
           </artifactSet>
-          <relocations>
-            <relocation>
-              <pattern>net.byteflux.libby</pattern>
-              <shadedPattern>com.alessiodp.lastloginapi.core.common.addons.external.libby</shadedPattern>
-            </relocation>
-            <relocation>
-              <pattern>org.simpleyaml</pattern>
-              <shadedPattern>com.alessiodp.lastloginapi.core.common.addons.external.simpleyaml</shadedPattern>
-            </relocation>
-          </relocations>
           <filters>
             <filter>
               <artifact>*:*</artifact>
@@ -67,7 +57,23 @@
     <dependency>
       <groupId>com.alessiodp.lastloginapi</groupId>
       <artifactId>lastloginapi-api</artifactId>
-      <version>1.5.2</version>
+      <version>1.6.0</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>spigot-api</artifactId>
+          <groupId>org.spigotmc</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>bungeecord-api</artifactId>
+          <groupId>net.md-5</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>22.0.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -85,13 +91,13 @@
     <dependency>
       <groupId>org.mariadb.jdbc</groupId>
       <artifactId>mariadb-java-client</artifactId>
-      <version>2.7.2</version>
+      <version>2.7.3</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.25</version>
+      <version>8.0.26</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -103,13 +109,19 @@
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.2.21</version>
+      <version>42.2.23</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>checker-qual</artifactId>
+          <groupId>org.checkerframework</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.xerial</groupId>
       <artifactId>sqlite-jdbc</artifactId>
-      <version>3.34.0</version>
+      <version>3.36.0.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>

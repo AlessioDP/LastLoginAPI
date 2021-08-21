@@ -2,7 +2,7 @@ package com.alessiodp.lastloginapi.api.events.bukkit;
 
 import com.alessiodp.lastloginapi.api.events.common.IPostUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class BukkitLastLoginPostUpdateLogoutTimestampEvent extends BukkitLastLoginEvent implements IPostUpdateTimestamp {
 	private final LastLoginPlayer player;
@@ -14,7 +14,7 @@ public class BukkitLastLoginPostUpdateLogoutTimestampEvent extends BukkitLastLog
 		this.timestamp = timestamp;
 	}
 	
-	@NonNull
+	@NotNull
 	@Override
 	public LastLoginPlayer getPlayer() {
 		return player;

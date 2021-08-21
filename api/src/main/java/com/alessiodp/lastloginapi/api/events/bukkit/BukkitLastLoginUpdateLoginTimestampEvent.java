@@ -2,7 +2,7 @@ package com.alessiodp.lastloginapi.api.events.bukkit;
 
 import com.alessiodp.lastloginapi.api.events.common.IUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @deprecated Use {@link BukkitLastLoginPreUpdateLoginTimestampEvent} instead
@@ -20,7 +20,7 @@ public class BukkitLastLoginUpdateLoginTimestampEvent extends BukkitLastLoginEve
 		this.timestamp = timestamp;
 	}
 	
-	@NonNull
+	@NotNull
 	@Override
 	public LastLoginPlayer getPlayer() {
 		return player;

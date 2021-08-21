@@ -15,10 +15,10 @@ import com.alessiodp.lastloginapi.api.events.common.IUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.events.EventManager;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class BungeeEventManager extends EventManager {
-	public BungeeEventManager(@NonNull LastLoginPlugin plugin) {
+	public BungeeEventManager(@NotNull LastLoginPlugin plugin) {
 		super(plugin, new BungeeEventDispatcher(plugin));
 	}
 	
