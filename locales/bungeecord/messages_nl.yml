@@ -12,47 +12,47 @@ lastloginapi:
   #[Special tags]
   #=> %version%     = New version found
   #=> %thisversion% = Version LastLoginAPI
-  update-available: '&6New version of LastLoginAPI found: %version% (Current: %thisversion%)'
+  update-available: '&6Nieuwe versie van LastLoginAPI gevonden: %version% (Current: %thisversion%)'
   #[Special tags]
   #=> %config%      = The configuration file name that is outdated
-  configuration-outdated: '&cThe configuration file ''%config%'' of LastLoginAPI is outdated!'
+  configuration-outdated: '&cHet configuratiebestand ''%config%'' of LastLoginAPI is verouderd!'
   #[Special tags]
   #=> %permission%  = Missing permission
-  no-permission: '&cYou do not have access to that command'
+  no-permission: '&cJe hebt geen toegang tot die opdracht'
   common-messages:
-    invalid-command: '&cInvalid command'
-    configuration-reloaded: '&aConfiguration reloaded'
+    invalid-command: '&congeldige opdracht'
+    configuration-reloaded: '&aconfiguratie herladen'
   syntax:
-    wrong-message: '&cWrong syntax: Type &7/%syntax%'
-    player: 'player'
-    unknown: 'unknown'
+    wrong-message: '&cVerkeerde syntaxis: Type &7/%syntax%'
+    player: 'speler'
+    unknown: 'ongekend'
 #/ =============================== \
 #|        COMMANDS MESSAGES        |
 #\ =============================== /
 commands:
   info:
-    header: '&6============== &l%player%''s Info &r&6=============='
+    header: '&6============== &l%player%''s Info &r&6=========='
     text:
-      - " login since: &7%last_login_elapsed%"
-      - " logout since: &7%last_logout_elapsed%"
+      - " ingelogd sinds: &7%last_login_elapsed%"
+      - " uitgelogd sinds: &7%last_logout_elapsed%"
     footer: ''
-    player-not-found: '&c%player% not found!'
+    player-not-found: '&c%player% niet gevonden!'
   version:
     #[Special tags]
     #=> %version%    = LastLoginAPI version
     #=> %newversion% = Latest LastLoginAPI version
     #=> %platform%   = Platform of the plugin (e.g. Bukkit, BungeeCord)
-    updated: '&6&lLastLoginAPI &6%version% &7(%platform%) - Developed by &6AlessioDP'
-    outdated: "&6&lLastLoginAPI &6%version% &7(%platform%) - Developed by &6AlessioDP\n&aNew version found: &6%newversion%"
+    updated: '&6&lLastLoginAPI &6%version% &7(%platform%) - Ontwikkeld door &6AlessioDP'
+    outdated: "&6&lLastLoginAPI &6%version% &7(%platform%) - Ontwikkeld door &6AlessioDP\n&aNieuwe versie gevonden: &6%newversion%"
 #/ =============================== \
 #|          HELP MESSAGES          |
 #\ =============================== /
 help:
   header: '&6============= &lLastLoginAPI Help Page &r&6============='
   footer: ''
-  perform-command: 'Perform the command'
+  perform-command: 'Voer het commando uit'
   console-help:
-    header: 'You can only make these commands:'
+    header: 'Je kunt alleen deze commando''s maken:'
     command: ' > %command% - %description%'
   commands:
     #[Special tags]
@@ -65,9 +65,9 @@ help:
     reload: '{"text":"&6/%syntax% &7- %description%","clickEvent":{"action":"run_command","value":"/%run_command% "},"hoverEvent":{"action":"show_text","value":{"text":"&6%perform_command%"}}}'
     version: '{"text":"&6/%syntax% &7- %description%","clickEvent":{"action":"run_command","value":"/%run_command% "},"hoverEvent":{"action":"show_text","value":{"text":"&6%perform_command%"}}}'
   command-descriptions:
-    help: 'Show help pages'
-    info: 'Show player info'
-    reload: 'Reload LastLoginAPI configuration files'
-    version: 'Show LastLoginAPI information'
+    help: 'Toont de hulp pagina''s'
+    info: 'Toon speler info'
+    reload: 'LastLoginAPI configuratiebestanden opnieuw geladen'
+    version: 'LastLoginAPI informatie weergeven'
 dont-edit-this:
   version: 2
