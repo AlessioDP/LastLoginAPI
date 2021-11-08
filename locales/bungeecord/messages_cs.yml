@@ -12,47 +12,47 @@ lastloginapi:
   #[Special tags]
   #=> %version%     = New version found
   #=> %thisversion% = Version LastLoginAPI
-  update-available: '&6Найдена новая версия LastLoginAPI: %version% (Текущая: %thisversion%)'
+  update-available: '&6Byla nalezena nová verze pluginu LastLoginAPI: %version% (současná: %thisversion%)'
   #[Special tags]
   #=> %config%      = The configuration file name that is outdated
-  configuration-outdated: '&cФайл конфигурации ''%config%'' плагина LastLoginAPI устарел!'
+  configuration-outdated: '&cKonfigurační soubor ''%config%'' pluginu LastLoginAPI je zastaralý!'
   #[Special tags]
   #=> %permission%  = Missing permission
-  no-permission: '&cУ вас нет доступа к этой команде'
+  no-permission: '&cNemáš oprávnění k použití tohoto příkazu'
   common-messages:
-    invalid-command: '&cНеверная команда'
-    configuration-reloaded: '&aКонфигурация перезагружена'
+    invalid-command: '&cNeplatný příkaz'
+    configuration-reloaded: '&aKonfigurace znovu načtena'
   syntax:
-    wrong-message: '&cНеверный синтакс: Напишите &7/%syntax%'
-    player: 'игрок'
-    unknown: 'неизвестно'
+    wrong-message: '&cNesprávná syntaxe: Zadej &7/%syntax%'
+    player: 'hráč'
+    unknown: 'neznámý'
 #/ =============================== \
 #|        COMMANDS MESSAGES        |
 #\ =============================== /
 commands:
   info:
-    header: '&6============ &lИнформация игрока %player%&r&6=============='
+    header: '&6============== &lInformace o hráči %player% &r&6=============='
     text:
-      - " вход: &7%last_login_elapsed%"
-      - " выход: &7%last_logout_elapsed%"
+      - " přihlášen od: &7%last_login_elapsed%"
+      - " odhlášen od: &7%last_logout_elapsed%"
     footer: ''
-    player-not-found: '&cИгрок %player% не найден!'
+    player-not-found: '&cHráč %player% nenalezen!'
   version:
     #[Special tags]
     #=> %version%    = LastLoginAPI version
     #=> %newversion% = Latest LastLoginAPI version
     #=> %platform%   = Platform of the plugin (e.g. Bukkit, BungeeCord)
-    updated: '&6&lLastLoginAPI &6%version% &7(%platform%) - Разработано &6AlessioDP'
-    outdated: "&6&lLastLoginAPI &6%version% &7(%platform%) - Разработано &6AlessioDP\n&aНайдена новая версия: &6%newversion%"
+    updated: '&6&lLastLoginAPI &6%version% &7(%platform%) - Vytvořil &6AlessioDP'
+    outdated: "&6&lLastLoginAPI &6%version% &7(%platform%) - Vytvořil &6AlessioDP\n&aNalezena nová verze: &6%newversion%"
 #/ =============================== \
 #|          HELP MESSAGES          |
 #\ =============================== /
 help:
-  header: '&6============= &lLastLoginAPI Страница Помощи &r&6============='
+  header: '&6============= &lNápověda pluginu LastLoginAPI &r&6============='
   footer: ''
-  perform-command: 'Выполнить команду'
+  perform-command: 'Vykoná příkaz'
   console-help:
-    header: 'Вы можете использовать только эти команды:'
+    header: 'Můžeš provádět pouze následující příkazy:'
     command: ' > %command% - %description%'
   commands:
     #[Special tags]
@@ -65,9 +65,9 @@ help:
     reload: '{"text":"&6/%syntax% &7- %description%","clickEvent":{"action":"run_command","value":"/%run_command% "},"hoverEvent":{"action":"show_text","value":{"text":"&6%perform_command%"}}}'
     version: '{"text":"&6/%syntax% &7- %description%","clickEvent":{"action":"run_command","value":"/%run_command% "},"hoverEvent":{"action":"show_text","value":{"text":"&6%perform_command%"}}}'
   command-descriptions:
-    help: 'Показать помощь по плагину'
-    info: 'Показать информацию о игроке'
-    reload: 'Перезагрузить файлы конфига LastLoginAPI'
-    version: 'Показать информацию LastLoginAPI'
+    help: 'Zobrazení nápovědy'
+    info: 'Zobrazení informací o hráči'
+    reload: 'Znovu načtení konfiguračních souborů pluginu LastLoginAPI'
+    version: 'Zobrazení informací o pluginu LastLoginAPI'
 dont-edit-this:
   version: 2
