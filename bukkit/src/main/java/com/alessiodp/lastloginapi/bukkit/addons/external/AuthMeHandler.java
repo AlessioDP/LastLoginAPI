@@ -6,16 +6,16 @@ import com.alessiodp.lastloginapi.bukkit.configuration.data.BukkitConfigMain;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.listeners.JoinLeaveListener;
 import fr.xephi.authme.events.LoginEvent;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
 public class AuthMeHandler implements Listener {
-	@NonNull private final LastLoginPlugin plugin;
+	@NotNull private final LastLoginPlugin plugin;
 	private static final String ADDON_NAME = "AuthMe";
 	private static boolean active;
 	

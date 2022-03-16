@@ -7,16 +7,16 @@ import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.listeners.JoinLeaveListener;
 import com.nickuc.openlogin.bukkit.api.events.AsyncLoginEvent;
 import com.nickuc.openlogin.bukkit.api.events.AsyncRegisterEvent;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
 public class OpeNLoginHandler implements Listener {
-	@NonNull private final LastLoginPlugin plugin;
+	@NotNull private final LastLoginPlugin plugin;
 	private static final String ADDON_NAME = "OpeNLogin";
 	private static boolean active;
 	

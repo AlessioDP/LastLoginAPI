@@ -5,7 +5,7 @@ import com.alessiodp.core.bungeecord.addons.internal.title.BungeeTitleHandler;
 import com.alessiodp.core.bungeecord.scheduling.ADPBungeeScheduler;
 import com.alessiodp.core.common.bootstrap.ADPBootstrap;
 import com.alessiodp.core.common.configuration.Constants;
-import com.alessiodp.lastloginapi.bungeecord.addons.BungeeAddonManager;
+import com.alessiodp.lastloginapi.bungeecord.addons.BungeeLLAddonManager;
 import com.alessiodp.lastloginapi.bungeecord.commands.BungeeLLCommandManager;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.bungeecord.addons.external.BungeeMetricsHandler;
@@ -43,7 +43,7 @@ public class BungeeLastLoginPlugin extends LastLoginPlugin {
 	
 	@Override
 	protected void postHandle() {
-		addonManager = new BungeeAddonManager(this);
+		addonManager = new BungeeLLAddonManager(this);
 		eventManager = new BungeeEventManager(this);
 		
 		super.postHandle();
@@ -53,12 +53,12 @@ public class BungeeLastLoginPlugin extends LastLoginPlugin {
 	
 	@Override
 	protected void initializeJsonHandler() {
-		jsonHandler = new BungeeJsonHandler();
+		jsonHandler = new BungeeJsonHandler(this);
 	}
 	
 	@Override
 	protected void initializeTitleHandler() {
-		titleHandler = new BungeeTitleHandler();
+		titleHandler = new BungeeTitleHandler(this);
 	}
 	
 	@Override

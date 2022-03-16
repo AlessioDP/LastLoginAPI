@@ -5,18 +5,18 @@ import com.alessiodp.lastloginapi.bukkit.bootstrap.BukkitLastLoginBootstrap;
 import com.alessiodp.lastloginapi.bukkit.configuration.data.BukkitConfigMain;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.listeners.JoinLeaveListener;
-import com.nickuc.login.api.events.AsyncLoginEvent;
-import com.nickuc.login.api.events.AsyncRegisterEvent;
-import lombok.NonNull;
+import com.nickuc.openlogin.bukkit.api.events.AsyncLoginEvent;
+import com.nickuc.openlogin.bukkit.api.events.AsyncRegisterEvent;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
 public class NLoginHandler implements Listener {
-	@NonNull private final LastLoginPlugin plugin;
+	@NotNull private final LastLoginPlugin plugin;
 	private static final String ADDON_NAME = "NLogin";
 	private static boolean active;
 	

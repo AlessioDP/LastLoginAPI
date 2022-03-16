@@ -12,7 +12,7 @@ import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.configuration.data.Messages;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
 import com.alessiodp.lastloginapi.common.utils.LastLoginPermission;
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Set;
@@ -45,17 +45,17 @@ public class CommandInfo extends LLSubCommand {
 	}
 	
 	@Override
-	public String getRunCommand() {
+	public @NotNull String getRunCommand() {
 		return baseSyntax();
 	}
 	
 	@Override
-	public String getConsoleSyntax() {
+	public @NotNull String getConsoleSyntax() {
 		return syntaxConsole;
 	}
 	
 	@Override
-	public boolean preRequisites(CommandData commandData) {
+	public boolean preRequisites(@NotNull CommandData commandData) {
 		User sender = commandData.getSender();
 		if (sender.isPlayer()) {
 			LLPlayerImpl player = ((LastLoginPlugin) plugin).getPlayerManager().getPlayer(sender.getUUID());
@@ -72,7 +72,7 @@ public class CommandInfo extends LLSubCommand {
 	}
 	
 	@Override
-	public void onCommand(CommandData commandData) {
+	public void onCommand(@NotNull CommandData commandData) {
 		User sender = commandData.getSender();
 		LLPlayerImpl player = ((LLCommandData) commandData).getPlayer();
 		
@@ -106,7 +106,7 @@ public class CommandInfo extends LLSubCommand {
 	}
 	
 	@Override
-	public List<String> onTabComplete(@NonNull User sender, String[] args) {
+	public List<String> onTabComplete(@NotNull User sender, String[] args) {
 		return plugin.getCommandManager().getCommandUtils().tabCompletePlayerList(args, 1);
 	}
 }

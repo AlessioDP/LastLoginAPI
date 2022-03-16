@@ -4,7 +4,7 @@ import com.alessiodp.core.common.user.User;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
 import lombok.Getter;
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ public class PlayerManager {
 	
 	@Getter private HashMap<UUID, LLPlayerImpl> listPlayers;
 	
-	public PlayerManager(@NonNull LastLoginPlugin plugin) {
+	public PlayerManager(@NotNull LastLoginPlugin plugin) {
 		this.plugin = plugin;
 		listPlayers = new HashMap<>();
 	}

@@ -57,8 +57,7 @@ public class MessageUtils {
 		try {
 			ret = DateTimeFormatter.ofPattern(format).format(date);
 		} catch (IllegalArgumentException ex) {
-			plugin.getLoggerManager().printError(LLConstants.DEBUG_FAILED_PARSE_DATE);
-			ex.printStackTrace();
+			plugin.getLoggerManager().logError(LLConstants.DEBUG_FAILED_PARSE_DATE, ex);
 		}
 		return ret;
 	}

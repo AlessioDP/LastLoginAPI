@@ -10,9 +10,9 @@ import com.alessiodp.lastloginapi.bukkit.addons.external.NLoginHandler;
 import com.alessiodp.lastloginapi.bukkit.addons.external.OpeNLoginHandler;
 import com.alessiodp.lastloginapi.bukkit.addons.external.PlaceholderAPIHandler;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
-public class BukkitAddonManager extends AddonManager {
+public class BukkitLLAddonManager extends AddonManager {
 	private final AuthMeHandler authMeHandler;
 	private final EssentialsChatHandler essentialsChat;
 	private final LoginSecurityHandler loginSecurity;
@@ -20,7 +20,7 @@ public class BukkitAddonManager extends AddonManager {
 	private final OpeNLoginHandler opeNLoginHandler;
 	private final PlaceholderAPIHandler placeholderAPI;
 	
-	public BukkitAddonManager(@NonNull ADPPlugin plugin) {
+	public BukkitLLAddonManager(@NotNull ADPPlugin plugin) {
 		super(plugin);
 		
 		authMeHandler = new AuthMeHandler((LastLoginPlugin) plugin);
@@ -35,11 +35,17 @@ public class BukkitAddonManager extends AddonManager {
 	public void loadAddons() {
 		plugin.getLoggerManager().logDebug(Constants.DEBUG_ADDON_INIT, true);
 		
+		placeholderAPI.init();
+		
+		// Schedule sync later (post load plugins)
+		plugin.getScheduler().getSyncExecutor().execute(this::postLoadAddons);
+	}
+	
+	public void postLoadAddons() {
 		authMeHandler.init();
 		essentialsChat.init();
 		loginSecurity.init();
 		nLoginHandler.init();
 		opeNLoginHandler.init();
-		placeholderAPI.init();
 	}
 }

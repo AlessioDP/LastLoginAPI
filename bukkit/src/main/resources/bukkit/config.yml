@@ -1,10 +1,10 @@
-# / ===================================================== \
-# |  This is the main configuration file of LastLoginAPI  |
-# \ ===================================================== /
+# / ================================================================ \
+# |    This is the main Bukkit configuration file of LastLoginAPI    |
+# \ ================================================================ /
 #
 # For any problem be sure to:
-# - Read the entire documentation on: https://alessiodp.com/docs/lastloginapi/
-# - Join our Discord for further help: https://discord.alessiodp.com/
+# - Read the entire documentation on: https://alessiodp.com/docs/lastloginapi
+# - Join our Discord for further help: https://discord.alessiodp.com
 #
 
 # / =============================== \
@@ -26,6 +26,9 @@ lastloginapi:
       enable: false
       format: "%date% [%time%] %message%\n"
       file: log.txt
+
+  # Automatic upgrade configs if outdated, otherwise just alert
+  automatic-upgrade-configs: false
 
   # [Enable BungeeCord support]
   # Everything is handled by LastLoginAPI in BungeeCord
@@ -83,6 +86,9 @@ storage:
       # Property used to alert when the connection is not using a valid SSL certificate
       use-ssl: false
       charset: 'utf8'
+      # Additional parameters for connections (jdbc:....?thisIsA=Parameter)
+      # Only for MariaDB/MySQL, syntax: '?pameter1=value1&parameter2=value2'
+      additional-parameters: ''
 
 
 # / =============================== \
@@ -138,6 +144,10 @@ placeholders:
       smallest: "s's'"
     format-unknown: 'Unknown'
 
+  status:
+    format-online: 'Online'
+    format-offline: 'Offline'
+
 
 # / =============================== \
 # |        COMMANDS SETTINGS        |
@@ -163,4 +173,4 @@ commands:
     - version
 
 dont-edit-this:
-  version: 6
+  version: 7

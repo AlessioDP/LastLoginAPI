@@ -5,18 +5,18 @@ import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.addons.internal.LLPlaceholder;
 import com.alessiodp.lastloginapi.common.configuration.LLConstants;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 public class PAPIHook extends PlaceholderExpansion {
-	@NonNull private final LastLoginPlugin plugin;
+	@NotNull private final LastLoginPlugin plugin;
 	
 	@Override
 	public boolean canRegister() {
@@ -24,22 +24,22 @@ public class PAPIHook extends PlaceholderExpansion {
 	}
 	
 	@Override
-	public String getName() {
+	public @NotNull String getName() {
 		return plugin.getPluginName();
 	}
 	
 	@Override
-	public String getIdentifier() {
+	public @NotNull String getIdentifier() {
 		return "lastloginapi";
 	}
 	
 	@Override
-	public String getAuthor() {
+	public @NotNull String getAuthor() {
 		return "AlessioDP";
 	}
 	
 	@Override
-	public String getVersion() {
+	public @NotNull String getVersion() {
 		return plugin.getVersion();
 	}
 	
@@ -49,7 +49,7 @@ public class PAPIHook extends PlaceholderExpansion {
 	}
 	
 	@Override
-	public List<String> getPlaceholders() {
+	public @NotNull List<String> getPlaceholders() {
 		List<String> ret = new ArrayList<>();
 		for (LLPlaceholder placeholder : LLPlaceholder.values()) {
 			ret.add("%" + getIdentifier() + "_" + CommonUtils.toLowerCase(placeholder.name()) + "%");
@@ -62,7 +62,7 @@ public class PAPIHook extends PlaceholderExpansion {
 	}
 	
 	@Override
-	public String onRequest(OfflinePlayer offlinePlayer, String identifier) {
+	public String onRequest(OfflinePlayer offlinePlayer, @NotNull String identifier) {
 		if (offlinePlayer != null) {
 			plugin.getLoggerManager().logDebug(String.format(LLConstants.DEBUG_PLACEHOLDER_RECEIVE, identifier), true);
 			

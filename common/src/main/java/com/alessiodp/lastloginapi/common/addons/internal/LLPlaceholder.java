@@ -23,7 +23,9 @@ public enum LLPlaceholder {
 	LAST_LOGOUT_ELAPSED_MINUTES,
 	LAST_LOGOUT_ELAPSED_HOURS,
 	LAST_LOGOUT_ELAPSED_DAYS,
-	LAST_LOGOUT_TIMESTAMP;
+	LAST_LOGOUT_TIMESTAMP,
+	
+	STATUS;
 	
 	private final LastLoginPlugin plugin;
 	@Getter private final String syntax;
@@ -47,7 +49,7 @@ public enum LLPlaceholder {
 		if (player != null) {
 			switch (this) {
 				case NAME:
-					if (player.getName() != null && !player.getName().isEmpty())
+					if (!player.getName().isEmpty())
 						return ConfigMain.PLACEHOLDERS_NAME_FORMAT.replace("%name%", player.getName());
 					return ConfigMain.PLACEHOLDERS_NAME_FORMAT_UNKNOWN;
 				case LAST_LOGIN_DATE:
@@ -113,6 +115,8 @@ public enum LLPlaceholder {
 					return player.getLastLogout() == 0 ? "0" : Long.toString(((System.currentTimeMillis() / 1000L) - player.getLastLogout()) / (60 * 60 * 24L));
 				case LAST_LOGOUT_TIMESTAMP:
 					return player.getLastLogout() == 0 ? "0" : Long.toString(player.getLastLogout());
+				case STATUS:
+					return player.isOnline() ? ConfigMain.PLACEHOLDERS_STATUS_FORMAT_ONLINE : ConfigMain.PLACEHOLDERS_STATUS_FORMAT_OFFLINE;
 				default:
 					return null;
 			}

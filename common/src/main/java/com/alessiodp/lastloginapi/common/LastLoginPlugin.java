@@ -105,7 +105,6 @@ public abstract class LastLoginPlugin extends ADPPlugin {
 	
 	private void reloadAdpUpdater() {
 		getAdpUpdater().reload(
-				getPluginFallbackName(),
 				LLConstants.PLUGIN_SPIGOTCODE,
 				ConfigMain.LASTLOGINAPI_UPDATES_CHECK,
 				ConfigMain.LASTLOGINAPI_UPDATES_WARN,

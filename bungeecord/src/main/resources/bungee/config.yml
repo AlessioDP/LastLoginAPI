@@ -1,10 +1,10 @@
-# / ===================================================== \
-# |  This is the main configuration file of LastLoginAPI  |
-# \ ===================================================== /
+# / ================================================================ \
+# |  This is the main BungeeCord configuration file of LastLoginAPI  |
+# \ ================================================================ /
 #
 # For any problem be sure to:
-# - Read the entire documentation on: https://alessiodp.com/docs/lastloginapi/
-# - Join our Discord for further help: https://discord.alessiodp.com/
+# - Read the entire documentation on: https://alessiodp.com/docs/lastloginapi
+# - Join our Discord for further help: https://discord.alessiodp.com
 #
 
 # / =============================== \
@@ -27,6 +27,9 @@ lastloginapi:
       format: "%date% [%time%] %message%\n"
       file: log.txt
 
+  # Automatic upgrade configs if outdated, otherwise just alert
+  automatic-upgrade-configs: false
+
 
 # / =============================== \
 # |        STORAGE  SETTINGS        |
@@ -34,7 +37,9 @@ lastloginapi:
 storage:
   # [Database type]
   # What type of storage the plugin should use? Database storage types:
+  # => mariadb    | [Remote] Save the data into a MariaDB database
   # => mysql      | [Remote] Save the data into a MySQL database
+  # => postgresql | [Remote] Save the data into a PostgreSQL database
   # => sqlite     | [File]   Save the data into a SQLite database
   # => h2         | [File]   Save the data into a H2 database (default)
   database-storage-type: h2
@@ -67,6 +72,9 @@ storage:
       # Property used to alert when the connection is not using a valid SSL certificate
       use-ssl: false
       charset: 'utf8'
+      # Additional parameters for connections (jdbc:....?thisIsA=Parameter)
+      # Only for MariaDB/MySQL, syntax: '?pameter1=value1&parameter2=value2'
+      additional-parameters: ''
 
 
 # / =============================== \
@@ -122,6 +130,10 @@ placeholders:
       smallest: "s's'"
     format-unknown: 'Unknown'
 
+  status:
+    format-online: 'Online'
+    format-offline: 'Offline'
+
 
 # / =============================== \
 # |        COMMANDS SETTINGS        |
@@ -146,4 +158,4 @@ commands:
     - version
 
 dont-edit-this:
-  version: 4
+  version: 5

@@ -4,14 +4,11 @@ import com.alessiodp.core.bukkit.events.BukkitEventDispatcher;
 import com.alessiodp.lastloginapi.api.events.bukkit.BukkitLastLoginPostUpdateLoginTimestampEvent;
 import com.alessiodp.lastloginapi.api.events.bukkit.BukkitLastLoginPostUpdateLogoutTimestampEvent;
 import com.alessiodp.lastloginapi.api.events.bukkit.BukkitLastLoginPreUpdateLoginTimestampEvent;
-import com.alessiodp.lastloginapi.api.events.bukkit.BukkitLastLoginUpdateLoginTimestampEvent;
-import com.alessiodp.lastloginapi.api.events.bukkit.BukkitLastLoginUpdateLogoutTimestampEvent;
 import com.alessiodp.lastloginapi.api.events.bukkit.BukkitLastLoginUpdateNameEvent;
 import com.alessiodp.lastloginapi.api.events.bukkit.BukkitLastLoginPreUpdateLogoutTimestampEvent;
 import com.alessiodp.lastloginapi.api.events.common.IPostUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.events.common.IPreUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.events.common.IUpdateName;
-import com.alessiodp.lastloginapi.api.events.common.IUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.events.EventManager;
@@ -23,11 +20,6 @@ public class BukkitEventManager extends EventManager {
 	}
 	
 	@Override
-	public IUpdateTimestamp prepareDeprecatedUpdateLoginTimestamp(LastLoginPlayer player, long timestamp) {
-		return new BukkitLastLoginUpdateLoginTimestampEvent(player, timestamp);
-	}
-	
-	@Override
 	public IPreUpdateTimestamp preparePreUpdateLoginTimestamp(LastLoginPlayer player, long timestamp) {
 		return new BukkitLastLoginPreUpdateLoginTimestampEvent(player, timestamp);
 	}
@@ -35,11 +27,6 @@ public class BukkitEventManager extends EventManager {
 	@Override
 	public IPostUpdateTimestamp preparePostUpdateLoginTimestamp(LastLoginPlayer player, long timestamp) {
 		return new BukkitLastLoginPostUpdateLoginTimestampEvent(player, timestamp);
-	}
-	
-	@Override
-	public IUpdateTimestamp prepareDeprecatedUpdateLogoutTimestamp(LastLoginPlayer player, long timestamp) {
-		return new BukkitLastLoginUpdateLogoutTimestampEvent(player, timestamp);
 	}
 	
 	@Override

@@ -12,7 +12,7 @@ public class LastLogin {
 	/**
 	 * Get the {@link LastLoginAPI} instance
 	 *
-	 * @return Returns the {@link LastLoginAPI} interface
+	 * @return the {@link LastLoginAPI} interface
 	 * @throws IllegalStateException if LastLoginAPI has not been initialized, in other words,
 	 *                               LastLoginAPI has not been loaded
 	 */
@@ -26,7 +26,7 @@ public class LastLogin {
 	/**
 	 * Set the LastLoginAPI instance. This should not be used.
 	 *
-	 * @param instance The LastLoginAPI instance.
+	 * @param instance the LastLoginAPI instance.
 	 */
 	public static void setApi(LastLoginAPI instance) {
 		api = instance;
@@ -35,7 +35,7 @@ public class LastLogin {
 	/**
 	 * Flag to know if LastLoginAPI has been hooked
 	 *
-	 * @return Returns true if the API has been hooked at least one time
+	 * @return true if the API has been hooked at least one time
 	 */
 	public static boolean isFlagHook() {
 		return flagHook;

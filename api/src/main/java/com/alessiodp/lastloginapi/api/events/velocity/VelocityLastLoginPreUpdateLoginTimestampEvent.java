@@ -1,20 +1,15 @@
-package com.alessiodp.lastloginapi.api.events.bukkit;
+package com.alessiodp.lastloginapi.api.events.velocity;
 
-import com.alessiodp.lastloginapi.api.events.common.IUpdateTimestamp;
+import com.alessiodp.lastloginapi.api.events.common.IPreUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * @deprecated Use {@link BukkitLastLoginPreUpdateLoginTimestampEvent} instead
- */
-@Deprecated
-public class BukkitLastLoginUpdateLoginTimestampEvent extends BukkitLastLoginEvent implements IUpdateTimestamp {
+public class VelocityLastLoginPreUpdateLoginTimestampEvent extends VelocityLastLoginEvent implements IPreUpdateTimestamp {
 	private boolean cancelled;
 	private final LastLoginPlayer player;
 	private long timestamp;
 	
-	public BukkitLastLoginUpdateLoginTimestampEvent(LastLoginPlayer player, long timestamp) {
-		super(false);
+	public VelocityLastLoginPreUpdateLoginTimestampEvent(LastLoginPlayer player, long timestamp) {
 		cancelled = false;
 		this.player = player;
 		this.timestamp = timestamp;

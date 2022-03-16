@@ -14,6 +14,11 @@ public abstract class LLConfigurationManager extends ConfigurationManager {
 	}
 	
 	@Override
+	protected boolean isAutoUpgradeEnabled() {
+		return ConfigMain.LASTLOGINAPI_AUTOMATIC_UPGRADE_CONFIGS;
+	}
+	
+	@Override
 	protected void performChanges() {
 		plugin.getDatabaseManager().setDatabaseType(StorageType.getEnum(ConfigMain.STORAGE_TYPE_DATABASE));
 		plugin.getLoginAlertsManager().setPermission(LastLoginPermission.ADMIN_WARNINGS);

@@ -2,10 +2,10 @@ package com.alessiodp.lastloginapi.bungeecord.addons;
 
 import com.alessiodp.core.common.ADPPlugin;
 import com.alessiodp.core.common.addons.AddonManager;
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
-public class BungeeAddonManager extends AddonManager {
-	public BungeeAddonManager(@NonNull ADPPlugin plugin) {
+public class BungeeLLAddonManager extends AddonManager {
+	public BungeeLLAddonManager(@NotNull ADPPlugin plugin) {
 		super(plugin);
 	}
 	

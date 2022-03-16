@@ -7,54 +7,59 @@ import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.addons.internal.LLPlaceholder;
 import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
+import com.alessiodp.lastloginapi.common.storage.LLDatabaseManager;
 import com.alessiodp.lastloginapi.common.utils.MessageUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.MockRepository;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({
-		ADPPlugin.class
-})
 public class LLPlaceholderTest {
-	private LastLoginPlugin mockPlugin;
-	private LLPlayerImpl player;
-	
+	private static final LastLoginPlugin mockPlugin = mock(LastLoginPlugin.class);
+	private static final LLDatabaseManager mockDatabaseManager = mock(LLDatabaseManager.class);
+	private static MockedStatic<ADPPlugin> staticPlugin;
 	private static final String PLAYER_NAME = "Test";
 	private static final Long PLAYER_LOGIN = 10000000L;
 	private static final Long PLAYER_LOGOUT = 10000000L;
 	
-	@Before
-	public void setUp() {
-		MockRepository.clear();
-		mockPlugin = mock(LastLoginPlugin.class);
-		
-		// Mock getInstance
-		mockStatic(ADPPlugin.class);
-		when(ADPPlugin.getInstance()).thenReturn(mockPlugin);
-		
-		// Mock logger
+	private LLPlayerImpl player;
+	
+	@BeforeAll
+	public static void setUp() {
 		LoggerManager mockLoggerManager = mock(LoggerManager.class);
 		when(mockPlugin.getLoggerManager()).thenReturn(mockLoggerManager);
+		when(mockPlugin.getDatabaseManager()).thenReturn(mockDatabaseManager);
 		
-		// Setup player
-		player = new LLPlayerImpl(mockPlugin, UUID.randomUUID(), PLAYER_NAME, PLAYER_LOGIN, PLAYER_LOGOUT);
-		
-		// Setup MessageUtils
 		when(mockPlugin.getMessageUtils()).thenReturn(new MessageUtils(mockPlugin));
+		
+		// Mock names
+		OfflineUser mockOfflineUser = mock(OfflineUser.class);
+		when(mockPlugin.getOfflinePlayer(any())).thenReturn(mockOfflineUser);
+		when(mockOfflineUser.getName()).thenReturn("Dummy");
+		
+		staticPlugin = Mockito.mockStatic(ADPPlugin.class);
+		when(ADPPlugin.getInstance()).thenReturn(mockPlugin);
+	}
+	
+	@BeforeEach
+	public void setUpEach() {
+		player = new LLPlayerImpl(mockPlugin, UUID.randomUUID(), PLAYER_NAME, PLAYER_LOGIN, PLAYER_LOGOUT);
+	}
+	
+	@AfterAll
+	public static void tearDown() {
+		staticPlugin.close();
 	}
 	
 	@Test
@@ -313,5 +318,25 @@ public class LLPlaceholderTest {
 		assertNotNull(placeholder);
 		
 		assertEquals(Long.toString(PLAYER_LOGOUT), placeholder.formatPlaceholder(player, identifier));
+	}
+	
+	@Test
+	public void testStatus() {
+		String identifier = "status";
+		LLPlaceholder placeholder = LLPlaceholder.getPlaceholder(identifier);
+		assertNotNull(placeholder);
+		
+		// Mock offline player
+		OfflineUser mockOfflineUser = mock(OfflineUser.class);
+		when(mockPlugin.getOfflinePlayer(any())).thenReturn(mockOfflineUser);
+		
+		// Setup config
+		ConfigMain.PLACEHOLDERS_STATUS_FORMAT_ONLINE = "online";
+		ConfigMain.PLACEHOLDERS_STATUS_FORMAT_OFFLINE = "offline";
+		
+		when(mockOfflineUser.isOnline()).thenReturn(true);
+		assertEquals(ConfigMain.PLACEHOLDERS_STATUS_FORMAT_ONLINE, placeholder.formatPlaceholder(player, identifier));
+		when(mockOfflineUser.isOnline()).thenReturn(false);
+		assertEquals(ConfigMain.PLACEHOLDERS_STATUS_FORMAT_OFFLINE, placeholder.formatPlaceholder(player, identifier));
 	}
 }

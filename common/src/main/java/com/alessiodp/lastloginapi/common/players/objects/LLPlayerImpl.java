@@ -2,11 +2,12 @@ package com.alessiodp.lastloginapi.common.players.objects;
 
 import com.alessiodp.core.common.commands.list.ADPCommand;
 import com.alessiodp.core.common.commands.utils.ADPPermission;
+import com.alessiodp.core.common.user.OfflineUser;
 import com.alessiodp.core.common.user.User;
 import com.alessiodp.core.common.utils.Color;
+import com.alessiodp.core.common.utils.CommonUtils;
 import com.alessiodp.lastloginapi.api.events.common.IPostUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.events.common.IPreUpdateTimestamp;
-import com.alessiodp.lastloginapi.api.events.common.IUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.commands.list.CommonCommands;
@@ -42,7 +43,7 @@ public class LLPlayerImpl implements LastLoginPlayer {
 		this.plugin = plugin;
 		
 		playerUUID = uuid;
-		name = plugin.getOfflinePlayer(uuid).getName();
+		name = CommonUtils.ifNonNullReturn(plugin.getOfflinePlayer(uuid), OfflineUser::getName, "");
 		if (name == null)
 			name = "";
 		lastLogin = 0;
@@ -94,34 +95,33 @@ public class LLPlayerImpl implements LastLoginPlayer {
 	
 	@Override
 	public boolean isOnline() {
-		return plugin.getOfflinePlayer(playerUUID).isOnline();
+		OfflineUser offlineUser = plugin.getOfflinePlayer(playerUUID);
+		return offlineUser != null && offlineUser.isOnline();
 	}
 	
 	public void updateName() {
-		String serverName = plugin.getOfflinePlayer(getPlayerUUID()).getName();
-		if (serverName != null && !serverName.isEmpty() && !serverName.equals(getName())) {
-			String oldName = getName();
-			setName(serverName);
-			
-			plugin.getScheduler().runAsync(() -> {
-				plugin.getLoggerManager().logDebug(String.format(LLConstants.DEBUG_PLAYER_UPDATENAME,
-						getPlayerUUID().toString(),
-						oldName,
-						serverName
-				), true);
+		OfflineUser offlineUser = plugin.getOfflinePlayer(getPlayerUUID());
+		if (offlineUser != null) {
+			String serverName = offlineUser.getName();
+			if (serverName != null && !serverName.isEmpty() && !serverName.equals(getName())) {
+				String oldName = getName();
+				setName(serverName);
 				
-				plugin.getEventManager().callEvent(plugin.getEventManager().prepareUpdateName(this, serverName, oldName));
-			});
+				plugin.getScheduler().runAsync(() -> {
+					plugin.getLoggerManager().logDebug(String.format(LLConstants.DEBUG_PLAYER_UPDATENAME,
+							getPlayerUUID(),
+							oldName,
+							serverName
+					), true);
+					
+					plugin.getEventManager().callEvent(plugin.getEventManager().prepareUpdateName(this, serverName, oldName));
+				});
+			}
 		}
 	}
 	
 	public void updateLastLogin() {
-		// Deprecated event
-		IUpdateTimestamp eventDeprecated = plugin.getEventManager().prepareDeprecatedUpdateLoginTimestamp(this, System.currentTimeMillis() / 1000L);
-		plugin.getEventManager().callEvent(eventDeprecated);
-		
-		IPreUpdateTimestamp eventPre = plugin.getEventManager().preparePreUpdateLoginTimestamp(this, eventDeprecated.getTimestamp());
-		eventPre.setCancelled(eventDeprecated.isCancelled());
+		IPreUpdateTimestamp eventPre = plugin.getEventManager().preparePreUpdateLoginTimestamp(this, System.currentTimeMillis() / 1000L);
 		plugin.getEventManager().callEvent(eventPre);
 		
 		if (!eventPre.isCancelled()) {
@@ -137,12 +137,7 @@ public class LLPlayerImpl implements LastLoginPlayer {
 	}
 	
 	public void updateLastLogout() {
-		// Deprecated event
-		IUpdateTimestamp eventDeprecated = plugin.getEventManager().prepareDeprecatedUpdateLogoutTimestamp(this, System.currentTimeMillis() / 1000L);
-		plugin.getEventManager().callEvent(eventDeprecated);
-		
-		IPreUpdateTimestamp eventPre = plugin.getEventManager().preparePreUpdateLogoutTimestamp(this, eventDeprecated.getTimestamp());
-		eventPre.setCancelled(eventDeprecated.isCancelled());
+		IPreUpdateTimestamp eventPre = plugin.getEventManager().preparePreUpdateLogoutTimestamp(this, System.currentTimeMillis() / 1000L);
 		plugin.getEventManager().callEvent(eventPre);
 		
 		if (!eventPre.isCancelled()) {
@@ -161,15 +156,16 @@ public class LLPlayerImpl implements LastLoginPlayer {
 		Set<ADPCommand> ret = new HashSet<>();
 		User player = plugin.getPlayer(getPlayerUUID());
 		
-		if (player.hasPermission(LastLoginPermission.ADMIN_HELP))
-			ret.add(CommonCommands.HELP);
-		if (player.hasPermission(LastLoginPermission.ADMIN_INFO))
-			ret.add(CommonCommands.INFO);
-		if (player.hasPermission(LastLoginPermission.ADMIN_RELOAD))
-			ret.add(CommonCommands.RELOAD);
-		if (player.hasPermission(LastLoginPermission.ADMIN_VERSION))
-			ret.add(CommonCommands.VERSION);
-		
+		if (player != null) {
+			if (player.hasPermission(LastLoginPermission.ADMIN_HELP))
+				ret.add(CommonCommands.HELP);
+			if (player.hasPermission(LastLoginPermission.ADMIN_INFO))
+				ret.add(CommonCommands.INFO);
+			if (player.hasPermission(LastLoginPermission.ADMIN_RELOAD))
+				ret.add(CommonCommands.RELOAD);
+			if (player.hasPermission(LastLoginPermission.ADMIN_VERSION))
+				ret.add(CommonCommands.VERSION);
+		}
 		return ret;
 	}
 	

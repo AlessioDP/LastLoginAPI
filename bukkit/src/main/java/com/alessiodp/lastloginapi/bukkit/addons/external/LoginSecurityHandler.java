@@ -7,16 +7,16 @@ import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.listeners.JoinLeaveListener;
 import com.lenis0012.bukkit.loginsecurity.events.AuthActionEvent;
 import com.lenis0012.bukkit.loginsecurity.session.AuthActionType;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
 public class LoginSecurityHandler implements Listener {
-	@NonNull private final LastLoginPlugin plugin;
+	@NotNull private final LastLoginPlugin plugin;
 	private static final String ADDON_NAME = "LoginSecurity";
 	private static boolean active;
 	

@@ -14,6 +14,7 @@ import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.configuration.data.Messages;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
 import com.alessiodp.lastloginapi.common.utils.LastLoginPermission;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.Set;
@@ -36,7 +37,7 @@ public class CommandHelp extends LLSubCommand {
 	}
 	
 	@Override
-	public boolean preRequisites(CommandData commandData) {
+	public boolean preRequisites(@NotNull CommandData commandData) {
 		User sender = commandData.getSender();
 		LLPlayerImpl player = ((LastLoginPlugin) plugin).getPlayerManager().getPlayer(sender.getUUID());
 		
@@ -51,7 +52,7 @@ public class CommandHelp extends LLSubCommand {
 	}
 	
 	@Override
-	public void onCommand(CommandData commandData) {
+	public void onCommand(@NotNull CommandData commandData) {
 		LLPlayerImpl player = ((LLCommandData) commandData).getPlayer();
 		
 		// Command starts
@@ -62,7 +63,7 @@ public class CommandHelp extends LLSubCommand {
 			if (allowedCommands.contains(e.getKey()) && e.getValue().isListedInHelp()) {
 				player.sendMessage(e.getValue().getHelp()
 						.replace("%syntax%", e.getValue().getSyntaxForUser(commandData.getSender()))
-						.replace("%description%", e.getValue().getDescription())
+						.replace("%description%", e.getValue().getDescription() != null ? e.getValue().getDescription() : "")
 						.replace("%run_command%", e.getValue().getRunCommand())
 						.replace("%perform_command%", Messages.HELP_PERFORM_COMMAND));
 			}

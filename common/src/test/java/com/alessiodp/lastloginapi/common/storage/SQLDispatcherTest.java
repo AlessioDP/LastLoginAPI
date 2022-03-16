@@ -15,42 +15,32 @@ import com.alessiodp.lastloginapi.common.storage.sql.dao.players.H2PlayersDao;
 import com.alessiodp.lastloginapi.common.storage.sql.dao.players.PlayersDao;
 import com.alessiodp.lastloginapi.common.storage.sql.dao.players.PostgreSQLPlayersDao;
 import com.alessiodp.lastloginapi.common.storage.sql.dao.players.SQLitePlayersDao;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
-import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.powermock.api.mockito.PowerMockito.doAnswer;
-import static org.powermock.api.mockito.PowerMockito.doNothing;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({
-		ADPPlugin.class
-})
 public class SQLDispatcherTest {
-	@Rule
-	public TemporaryFolder testFolder = new TemporaryFolder();
+	private static final LastLoginPlugin mockPlugin = mock(LastLoginPlugin.class);
+	private static MockedStatic<ADPPlugin> staticPlugin;
 	
-	private LastLoginPlugin mockPlugin;
-	
-	@Before
-	public void setUp() {
-		mockPlugin = mock(LastLoginPlugin.class);
+	@BeforeAll
+	public static void setUp() {
 		ADPBootstrap mockBootstrap = mock(ADPBootstrap.class);
 		LoggerManager mockLoggerManager = mock(LoggerManager.class);
 		when(mockPlugin.getPluginFallbackName()).thenReturn("lastloginapi");
@@ -59,21 +49,17 @@ public class SQLDispatcherTest {
 		when(mockPlugin.getLoggerManager()).thenReturn(mockLoggerManager);
 		when(mockPlugin.getVersion()).thenReturn("1.0.0");
 		
-		// Mock static ADPPlugin, used in DAOs
-		mockStatic(ADPPlugin.class);
-		when(ADPPlugin.getInstance()).thenReturn(mockPlugin);
-		
 		// Mock debug methods
-		when(mockPlugin.getResource(anyString())).thenAnswer((mock) -> getClass().getClassLoader().getResourceAsStream(mock.getArgument(0)));
+		when(mockPlugin.getResource(anyString())).thenAnswer((mock) -> ClassLoader.getSystemResourceAsStream(mock.getArgument(0)));
 		when(mockLoggerManager.isDebugEnabled()).thenReturn(true);
-		doAnswer((args) -> {
+		Mockito.doAnswer((args) -> {
 			System.out.println((String) args.getArgument(0));
 			return null;
 		}).when(mockLoggerManager).logDebug(anyString(), anyBoolean());
-		doAnswer((args) -> {
+		Mockito.doAnswer((args) -> {
 			((Exception) args.getArgument(1)).printStackTrace();
 			return null;
-		}).when(mockLoggerManager).printErrorStacktrace(any(), any());
+		}).when(mockLoggerManager).logError(any(), any());
 		
 		// Mock names
 		OfflineUser mockOfflineUser = mock(OfflineUser.class);
@@ -81,6 +67,14 @@ public class SQLDispatcherTest {
 		when(mockOfflineUser.getName()).thenReturn("Dummy");
 		
 		ConfigMain.STORAGE_SETTINGS_GENERAL_SQL_PREFIX = "test_";
+		
+		staticPlugin = Mockito.mockStatic(ADPPlugin.class);
+		when(ADPPlugin.getInstance()).thenReturn(mockPlugin);
+	}
+	
+	@AfterAll
+	public static void tearDown() {
+		staticPlugin.close();
 	}
 	
 	private LLSQLDispatcher getSQLDispatcherH2() {
@@ -97,17 +91,13 @@ public class SQLDispatcherTest {
 		return ret;
 	}
 	
-	private LLSQLDispatcher getSQLDispatcherSQLite() {
+	private LLSQLDispatcher getSQLDispatcherSQLite(Path temporaryDirectory) {
 		ConfigMain.STORAGE_SETTINGS_SQLITE_DBFILE = "";
 		LLSQLDispatcher ret = new LLSQLDispatcher(mockPlugin, StorageType.SQLITE) {
 			@Override
 			public ConnectionFactory initConnectionFactory() {
 				ConnectionFactory ret = super.initConnectionFactory();
-				try {
-					ret.setDatabaseUrl("jdbc:sqlite:" + testFolder.newFile("database.db").toPath().toString());
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				ret.setDatabaseUrl("jdbc:sqlite:" + temporaryDirectory.resolve("database.db"));
 				return ret;
 			}
 		};
@@ -117,7 +107,7 @@ public class SQLDispatcherTest {
 	
 	public static LLSQLDispatcher getSQLDispatcherMySQL(LastLoginPlugin plugin) {
 		// Manual test only
-		/*
+		/*ignored
 		ConfigMain.STORAGE_SETTINGS_GENERAL_SQL_PREFIX = "test_";
 		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_CHARSET = "utf8";
 		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_ADDRESS = "localhost";
@@ -138,7 +128,7 @@ public class SQLDispatcherTest {
 	
 	public static LLSQLDispatcher getSQLDispatcherMariaDB(LastLoginPlugin plugin) {
 		// Manual test only
-		/*
+		/*ignored
 		ConfigMain.STORAGE_SETTINGS_GENERAL_SQL_PREFIX = "test_";
 		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_CHARSET = "utf8";
 		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_ADDRESS = "localhost";
@@ -159,7 +149,7 @@ public class SQLDispatcherTest {
 	
 	public static LLSQLDispatcher getSQLDispatcherPostgreSQL(LastLoginPlugin plugin) {
 		// Manual test only
-		/*
+		/*ignored
 		ConfigMain.STORAGE_SETTINGS_GENERAL_SQL_PREFIX = "test_";
 		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_CHARSET = "utf8";
 		ConfigMain.STORAGE_SETTINGS_REMOTE_SQL_ADDRESS = "localhost";
@@ -179,12 +169,12 @@ public class SQLDispatcherTest {
 	}
 	
 	@Test
-	public void testPlayer() {
+	public void testPlayer(@TempDir Path tempDir) {
 		LLSQLDispatcher dispatcher = getSQLDispatcherH2();
 		player(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(H2PlayersDao.class));
 		dispatcher.stop();
 		
-		dispatcher = getSQLDispatcherSQLite();
+		dispatcher = getSQLDispatcherSQLite(tempDir);
 		player(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(SQLitePlayersDao.class));
 		dispatcher.stop();
 		
@@ -235,12 +225,12 @@ public class SQLDispatcherTest {
 	}
 	
 	@Test
-	public void testPlayerName() {
+	public void testPlayerName(@TempDir Path tempDir) {
 		LLSQLDispatcher dispatcher = getSQLDispatcherH2();
 		playerName(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(H2PlayersDao.class));
 		dispatcher.stop();
 		
-		dispatcher = getSQLDispatcherSQLite();
+		dispatcher = getSQLDispatcherSQLite(tempDir);
 		playerName(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(SQLitePlayersDao.class));
 		dispatcher.stop();
 		
@@ -271,12 +261,12 @@ public class SQLDispatcherTest {
 	}
 	
 	@Test
-	public void testPlayerNameInsensitive() {
+	public void testPlayerNameInsensitive(@TempDir Path tempDir) {
 		LLSQLDispatcher dispatcher = getSQLDispatcherH2();
 		playerNameInsensitive(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(H2PlayersDao.class));
 		dispatcher.stop();
 		
-		dispatcher = getSQLDispatcherSQLite();
+		dispatcher = getSQLDispatcherSQLite(tempDir);
 		playerNameInsensitive(dispatcher, dispatcher.getConnectionFactory().getJdbi().onDemand(SQLitePlayersDao.class));
 		dispatcher.stop();
 		

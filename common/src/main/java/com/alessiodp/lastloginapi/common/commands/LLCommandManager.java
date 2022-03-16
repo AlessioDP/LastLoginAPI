@@ -5,6 +5,7 @@ import com.alessiodp.core.common.commands.CommandManager;
 import com.alessiodp.core.common.commands.utils.CommandData;
 import com.alessiodp.lastloginapi.common.commands.utils.LLCommandData;
 import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedList;
 
@@ -20,7 +21,7 @@ public abstract class LLCommandManager extends CommandManager {
 	}
 	
 	@Override
-	public CommandData initializeCommandData() {
+	public @NotNull CommandData initializeCommandData() {
 		return new LLCommandData();
 	}
 }

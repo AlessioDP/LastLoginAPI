@@ -11,13 +11,16 @@ public class LLConstants {
 	public static final String PLUGIN_SPIGOTCODE = "66348";
 	public static final int PLUGIN_BSTATS_BUKKIT_ID = 4369;
 	public static final int PLUGIN_BSTATS_BUNGEE_ID = 4447;
+	public static final int PLUGIN_BSTATS_VELOCITY_ID = 14641;
 	
 	
 	// Versions
-	public static final int VERSION_BUKKIT_CONFIG = 6;
+	public static final int VERSION_BUKKIT_CONFIG = 7;
 	public static final int VERSION_BUKKIT_MESSAGES = 2;
-	public static final int VERSION_BUNGEE_CONFIG = 4;
+	public static final int VERSION_BUNGEE_CONFIG = 5;
 	public static final int VERSION_BUNGEE_MESSAGES = 2;
+	public static final int VERSION_VELOCITY_CONFIG = 1;
+	public static final int VERSION_VELOCITY_MESSAGES = 1;
 	
 	// Debug messages
 	public static final String DEBUG_API_CANCELLED_UPDATE_LAST_LOGIN = "Event update last login cancelled";

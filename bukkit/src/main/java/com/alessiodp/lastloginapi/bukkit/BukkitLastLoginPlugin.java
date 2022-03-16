@@ -6,7 +6,7 @@ import com.alessiodp.core.bukkit.addons.internal.title.BukkitTitleHandler;
 import com.alessiodp.core.bukkit.scheduling.ADPBukkitScheduler;
 import com.alessiodp.core.common.bootstrap.ADPBootstrap;
 import com.alessiodp.core.common.configuration.Constants;
-import com.alessiodp.lastloginapi.bukkit.addons.BukkitAddonManager;
+import com.alessiodp.lastloginapi.bukkit.addons.BukkitLLAddonManager;
 import com.alessiodp.lastloginapi.bukkit.addons.external.BukkitMetricsHandler;
 import com.alessiodp.lastloginapi.bukkit.bootstrap.BukkitLastLoginBootstrap;
 import com.alessiodp.lastloginapi.bukkit.commands.BukkitLLCommandManager;
@@ -46,7 +46,7 @@ public class BukkitLastLoginPlugin extends LastLoginPlugin {
 	
 	@Override
 	protected void postHandle() {
-		addonManager = new BukkitAddonManager(this);
+		addonManager = new BukkitLLAddonManager(this);
 		eventManager = new BukkitEventManager(this);
 		
 		super.postHandle();
@@ -57,14 +57,14 @@ public class BukkitLastLoginPlugin extends LastLoginPlugin {
 	@Override
 	protected void initializeJsonHandler() {
 		if (((BukkitLastLoginBootstrap) getBootstrap()).isSpigot())
-			jsonHandler = new SpigotJsonHandler();
+			jsonHandler = new SpigotJsonHandler(this);
 		else
-			jsonHandler = new BukkitJsonHandler();
+			jsonHandler = new BukkitJsonHandler(this);
 	}
 	
 	@Override
 	protected void initializeTitleHandler() {
-		titleHandler = new BukkitTitleHandler();
+		titleHandler = new BukkitTitleHandler(this);
 	}
 	
 	@Override

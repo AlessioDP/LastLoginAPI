@@ -21,6 +21,9 @@ public abstract class ConfigMain extends ConfigurationFile {
 	@ConfigOption(path = "lastloginapi.logging.save-file.file")
 	public static String		LASTLOGINAPI_LOGGING_SAVE_FILE;
 	
+	@ConfigOption(path = "lastloginapi.automatic-upgrade-configs")
+	public static boolean		LASTLOGINAPI_AUTOMATIC_UPGRADE_CONFIGS;
+	
 	
 	// Storage settings
 	@ConfigOption(path = "storage.database-storage-type")
@@ -49,7 +52,8 @@ public abstract class ConfigMain extends ConfigurationFile {
 	public static boolean		STORAGE_SETTINGS_REMOTE_SQL_USESSL;
 	@ConfigOption(path = "storage.storage-settings.remote-sql.charset")
 	public static String		STORAGE_SETTINGS_REMOTE_SQL_CHARSET;
-	
+	@ConfigOption(path = "storage.storage-settings.remote-sql.additional-parameters")
+	public static String		STORAGE_SETTINGS_REMOTE_SQL_ADDITIONAL_PARAMETERS;
 	
 	// Placeholders
 	@ConfigOption(path = "placeholders.name.format")
@@ -94,7 +98,10 @@ public abstract class ConfigMain extends ConfigurationFile {
 	public static String		PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT_SMALLEST;
 	@ConfigOption(path = "placeholders.last-logout-elapsed.format-unknown")
 	public static String		PLACEHOLDERS_LAST_LOGOUT_ELAPSED_FORMAT_UNKNOWN;
-	
+	@ConfigOption(path = "placeholders.status.format-online")
+	public static String		PLACEHOLDERS_STATUS_FORMAT_ONLINE;
+	@ConfigOption(path = "placeholders.status.format-offline")
+	public static String		PLACEHOLDERS_STATUS_FORMAT_OFFLINE;
 	
 	// Commands settings
 	@ConfigOption(path = "commands.tab-support")

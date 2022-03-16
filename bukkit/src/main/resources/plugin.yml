@@ -5,7 +5,7 @@ website: ${plugin.website}
 version: ${plugin.version}
 main: com.alessiodp.lastloginapi.bukkit.bootstrap.BukkitLastLoginBootstrap
 api-version: 1.13
-softdepend: [AuthMe, LoginSecurity, NLogin, OpeNLogin, PlaceholderAPI]
+softdepend: [PlaceholderAPI]
 permissions:
   lastloginapi.help:
     description: Allow access to /llapi help

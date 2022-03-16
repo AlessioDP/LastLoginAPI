@@ -5,13 +5,10 @@ import com.alessiodp.lastloginapi.api.events.bungee.BungeeLastLoginPostUpdateLog
 import com.alessiodp.lastloginapi.api.events.bungee.BungeeLastLoginPostUpdateLogoutTimestampEvent;
 import com.alessiodp.lastloginapi.api.events.bungee.BungeeLastLoginPreUpdateLoginTimestampEvent;
 import com.alessiodp.lastloginapi.api.events.bungee.BungeeLastLoginPreUpdateLogoutTimestampEvent;
-import com.alessiodp.lastloginapi.api.events.bungee.BungeeLastLoginUpdateLoginTimestampEvent;
-import com.alessiodp.lastloginapi.api.events.bungee.BungeeLastLoginUpdateLogoutTimestampEvent;
 import com.alessiodp.lastloginapi.api.events.bungee.BungeeLastLoginUpdateNameEvent;
 import com.alessiodp.lastloginapi.api.events.common.IPostUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.events.common.IPreUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.events.common.IUpdateName;
-import com.alessiodp.lastloginapi.api.events.common.IUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.events.EventManager;
@@ -23,11 +20,6 @@ public class BungeeEventManager extends EventManager {
 	}
 	
 	@Override
-	public IUpdateTimestamp prepareDeprecatedUpdateLoginTimestamp(LastLoginPlayer player, long timestamp) {
-		return new BungeeLastLoginUpdateLoginTimestampEvent(player, timestamp);
-	}
-	
-	@Override
 	public IPreUpdateTimestamp preparePreUpdateLoginTimestamp(LastLoginPlayer player, long timestamp) {
 		return new BungeeLastLoginPreUpdateLoginTimestampEvent(player, timestamp);
 	}
@@ -35,11 +27,6 @@ public class BungeeEventManager extends EventManager {
 	@Override
 	public IPostUpdateTimestamp preparePostUpdateLoginTimestamp(LastLoginPlayer player, long timestamp) {
 		return new BungeeLastLoginPostUpdateLoginTimestampEvent(player, timestamp);
-	}
-	
-	@Override
-	public IUpdateTimestamp prepareDeprecatedUpdateLogoutTimestamp(LastLoginPlayer player, long timestamp) {
-		return new BungeeLastLoginUpdateLogoutTimestampEvent(player, timestamp);
 	}
 	
 	@Override

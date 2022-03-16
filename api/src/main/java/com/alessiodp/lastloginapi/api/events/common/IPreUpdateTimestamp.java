@@ -9,7 +9,7 @@ public interface IPreUpdateTimestamp extends LastLoginEvent, Cancellable {
 	/**
 	 * Get the player
 	 *
-	 * @return Returns the {@link LastLoginPlayer}
+	 * @return the {@link LastLoginPlayer}
 	 */
 	@NotNull
 	LastLoginPlayer getPlayer();
@@ -17,14 +17,14 @@ public interface IPreUpdateTimestamp extends LastLoginEvent, Cancellable {
 	/**
 	 * The timestamp that is gonna to be set
 	 *
-	 * @return The timestamp
+	 * @return the timestamp
 	 */
 	long getTimestamp();
 	
 	/**
 	 * Set a new timestamp
 	 *
-	 * @param timestamp The timestamp to set
+	 * @param timestamp the timestamp to set
 	 */
 	void setTimestamp(long timestamp);
 }

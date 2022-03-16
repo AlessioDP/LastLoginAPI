@@ -14,8 +14,8 @@ public interface LastLoginAPI {
 	/**
 	 * Get the player by his {@link UUID}
 	 *
-	 * @param playerUuid The {@link UUID} of the player
-	 * @return Returns the {@link LastLoginPlayer} instance of the relative player
+	 * @param playerUuid the {@link UUID} of the player
+	 * @return the {@link LastLoginPlayer} instance of the relative player
 	 */
 	@NotNull LastLoginPlayer getPlayer(@NotNull UUID playerUuid);
 	
@@ -23,8 +23,8 @@ public interface LastLoginAPI {
 	 * Get the player by his name.
 	 * It can be possible to have multiple players with the same name.
 	 *
-	 * @param name The name of the player
-	 * @return Returns a list of {@link LastLoginPlayer} that have the given name
+	 * @param name the name of the player
+	 * @return a list of {@link LastLoginPlayer} that have the given name
 	 */
 	Set<? extends LastLoginPlayer> getPlayerByName(@NotNull String name);
 }

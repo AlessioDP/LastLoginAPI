@@ -12,6 +12,7 @@ import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.configuration.data.Messages;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
 import com.alessiodp.lastloginapi.common.utils.LastLoginPermission;
+import org.jetbrains.annotations.NotNull;
 
 public class CommandVersion extends LLSubCommand {
 	
@@ -32,12 +33,12 @@ public class CommandVersion extends LLSubCommand {
 	}
 	
 	@Override
-	public String getRunCommand() {
+	public @NotNull String getRunCommand() {
 		return baseSyntax();
 	}
 	
 	@Override
-	public boolean preRequisites(CommandData commandData) {
+	public boolean preRequisites(@NotNull CommandData commandData) {
 		User sender = commandData.getSender();
 		if (sender.isPlayer()) {
 			LLPlayerImpl player = ((LastLoginPlugin) plugin).getPlayerManager().getPlayer(sender.getUUID());
@@ -54,7 +55,7 @@ public class CommandVersion extends LLSubCommand {
 	}
 	
 	@Override
-	public void onCommand(CommandData commandData) {
+	public void onCommand(@NotNull CommandData commandData) {
 		User sender = commandData.getSender();
 		LLPlayerImpl player = ((LLCommandData) commandData).getPlayer();
 		

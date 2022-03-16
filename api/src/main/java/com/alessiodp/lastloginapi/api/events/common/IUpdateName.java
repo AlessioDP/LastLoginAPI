@@ -8,7 +8,7 @@ public interface IUpdateName extends LastLoginEvent {
 	/**
 	 * Get the player
 	 *
-	 * @return Returns the {@link LastLoginPlayer}
+	 * @return the {@link LastLoginPlayer}
 	 */
 	@NotNull
 	LastLoginPlayer getPlayer();
@@ -16,14 +16,14 @@ public interface IUpdateName extends LastLoginEvent {
 	/**
 	 * Get the new name that is gonna be set
 	 *
-	 * @return The new name
+	 * @return the new name
 	 */
 	String getNewName();
 	
 	/**
 	 * Get the old name
 	 *
-	 * @return The old name
+	 * @return the old name
 	 */
 	String getOldName();
 }

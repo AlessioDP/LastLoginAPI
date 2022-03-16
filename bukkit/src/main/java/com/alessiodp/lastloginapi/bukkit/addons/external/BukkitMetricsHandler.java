@@ -5,11 +5,11 @@ import com.alessiodp.core.bukkit.addons.external.bstats.charts.SimplePie;
 import com.alessiodp.core.common.ADPPlugin;
 import com.alessiodp.core.common.addons.external.MetricsHandler;
 import com.alessiodp.lastloginapi.bukkit.configuration.data.BukkitConfigMain;
-import lombok.NonNull;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 public class BukkitMetricsHandler extends MetricsHandler {
-	public BukkitMetricsHandler(@NonNull ADPPlugin plugin) {
+	public BukkitMetricsHandler(@NotNull ADPPlugin plugin) {
 		super(plugin);
 	}
 	

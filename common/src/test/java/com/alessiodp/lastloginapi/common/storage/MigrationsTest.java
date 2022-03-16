@@ -3,16 +3,16 @@ package com.alessiodp.lastloginapi.common.storage;
 import com.alessiodp.core.common.ADPPlugin;
 import com.alessiodp.core.common.logging.LoggerManager;
 import com.alessiodp.core.common.storage.StorageType;
+import com.alessiodp.core.common.user.OfflineUser;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.configuration.data.ConfigMain;
 import com.alessiodp.lastloginapi.common.storage.dispatchers.LLSQLDispatcher;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,35 +20,39 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({
-		ADPPlugin.class
-})
 public class MigrationsTest {
-	@Rule
-	public TemporaryFolder testFolder = new TemporaryFolder();
-	
-	private LastLoginPlugin mockPlugin;
+	private static final LastLoginPlugin mockPlugin = Mockito.mock(LastLoginPlugin.class);
 	private final Path testingPath = Paths.get("../testing/");
+	private static MockedStatic<ADPPlugin> staticPlugin;
 	
-	@Before
-	public void setUp() throws IOException {
-		mockPlugin = mock(LastLoginPlugin.class);
+	@BeforeAll
+	public static void setUp(@TempDir Path tempDir) {
 		LoggerManager mockLoggerManager = mock(LoggerManager.class);
-		mockStatic(ADPPlugin.class);
-		when(ADPPlugin.getInstance()).thenReturn(mockPlugin);
 		when(mockPlugin.getLoggerManager()).thenReturn(mockLoggerManager);
 		when(mockPlugin.getPluginFallbackName()).thenReturn("lastloginapi");
-		when(mockPlugin.getFolder()).thenReturn(testFolder.newFolder().toPath());
-		when(mockPlugin.getResource(anyString())).thenAnswer((mock) -> getClass().getClassLoader().getResourceAsStream(mock.getArgument(0)));
+		when(mockPlugin.getFolder()).thenReturn(tempDir);
+		when(mockPlugin.getResource(anyString())).thenAnswer((mock) -> ClassLoader.getSystemResourceAsStream(mock.getArgument(0)));
 		when(mockLoggerManager.isDebugEnabled()).thenReturn(true);
 		
+		// Mock names
+		OfflineUser mockOfflineUser = mock(OfflineUser.class);
+		when(mockPlugin.getOfflinePlayer(any())).thenReturn(mockOfflineUser);
+		when(mockOfflineUser.getName()).thenReturn("Dummy");
+		
 		ConfigMain.STORAGE_SETTINGS_GENERAL_SQL_PREFIX = "test_";
+		
+		staticPlugin = Mockito.mockStatic(ADPPlugin.class);
+		when(ADPPlugin.getInstance()).thenReturn(mockPlugin);
+	}
+	
+	@AfterAll
+	public static void tearDown() {
+		staticPlugin.close();
 	}
 	
 	private void prepareDatabase(String database) throws IOException {

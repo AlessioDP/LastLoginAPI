@@ -1,0 +1,161 @@
+# / ================================================================ \
+# |   This is the main Velocity configuration file of LastLoginAPI   |
+# \ ================================================================ /
+#
+# For any problem be sure to:
+# - Read the entire documentation on: https://alessiodp.com/docs/lastloginapi
+# - Join our Discord for further help: https://discord.alessiodp.com
+#
+
+# / =============================== \
+# |      LASTLOGINAPI SETTINGS      |
+# \ =============================== /
+lastloginapi:
+  # [Check for plugins updates]
+  # LastLoginAPI will check for updates when the server finishes to load.
+  updates:
+    check: true
+    warn: true
+
+  # [Enable logging system]
+  # => debug:      Print debug messages
+  # => save-file:  Save any log into a text file
+  logging:
+    debug: false
+    save-file:
+      enable: false
+      format: "%date% [%time%] %message%\n"
+      file: log.txt
+
+  # Automatic upgrade configs if outdated, otherwise just alert
+  automatic-upgrade-configs: false
+
+
+# / =============================== \
+# |        STORAGE  SETTINGS        |
+# \ =============================== /
+storage:
+  # [Database type]
+  # What type of storage the plugin should use? Database storage types:
+  # => mariadb    | [Remote] Save the data into a MariaDB database
+  # => mysql      | [Remote] Save the data into a MySQL database
+  # => postgresql | [Remote] Save the data into a PostgreSQL database
+  # => sqlite     | [File]   Save the data into a SQLite database
+  # => h2         | [File]   Save the data into a H2 database (default)
+  database-storage-type: h2
+
+  storage-settings:
+    # [General SQL settings]
+    # General settings for sql databases, recommended to use default values
+    general-sql-settings:
+      prefix: 'lastloginapi_'
+
+    # [SQLite settings]
+    sqlite:
+      database-file: database.db
+
+    # [H2 settings]
+    h2:
+      database-file: database
+
+    # [Remote SQL settings - MySQL/MariaDB/PostgreSQL]
+    remote-sql:
+      address: localhost
+      port: '3306'
+      database: database
+      username: username
+      password: password
+      # Size of the connection pool
+      pool-size: 10
+      # Lifetime of each connection, in milliseconds (Default: 30 minutes = 1800000ms)
+      connection-lifetime: 1800000
+      # Property used to alert when the connection is not using a valid SSL certificate
+      use-ssl: false
+      charset: 'utf8'
+      # Additional parameters for connections (jdbc:....?thisIsA=Parameter)
+      # Only for MariaDB/MySQL, syntax: '?pameter1=value1&parameter2=value2'
+      additional-parameters: ''
+
+
+# / =============================== \
+# |      PLACEHOLDERS SETTINGS      |
+# \ =============================== /
+placeholders:
+  # Formats:
+  # => format: The text to show when the player is offline
+  # => online: The text to show when the player is online
+  # => unknown: The text to show when a player isn't found
+  #   You can use %time_elapsed% and %date% to insert above formats
+  # Time elapsed formats:
+  # => large    = More than 1 day
+  # => medium   = More than 1 hour
+  # => small    = More than 1 minute
+  # => smallest = More than 1 second
+  name:
+    # The name of the player
+    format: '%name%'
+    format-unknown: 'Unknown'
+
+  last-login-date:
+    # Date of latest login
+    # Warning: format and format-online use a DATE SYNTAX.
+    # https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+    format: "yyyy-MM-dd"
+    format-online: "'Online'"
+    format-unknown: "Unknown"
+
+  last-login-elapsed:
+    format:
+      large: "d'd' H'h'"
+      medium: "H'h' m'm'"
+      small: "m'm' s's'"
+      smallest: "s's'"
+    format-online:
+      large: "d'd' H'h'"
+      medium: "H'h' m'm'"
+      small: "m'm' s's'"
+      smallest: "s's'"
+    format-unknown: 'Unknown'
+
+  last-logout-date:
+    # Date of latest logout
+    format: 'yyyy-MM-dd'
+    format-unknown: 'Unknown'
+
+  last-logout-elapsed:
+    format:
+      large: "d'd' H'h'"
+      medium: "H'h' m'm'"
+      small: "m'm' s's'"
+      smallest: "s's'"
+    format-unknown: 'Unknown'
+
+  status:
+    format-online: 'Online'
+    format-offline: 'Offline'
+
+
+# / =============================== \
+# |        COMMANDS SETTINGS        |
+# \ =============================== /
+commands:
+  # Enable tab support (/llapib <tab> to see every allowed command)
+  tab-support: true
+  main-commands:
+    lastloginapi:
+      command: 'llapib'
+      aliases:
+        - 'lastloginapib'
+  sub-commands:
+    help: help
+    info: info
+    reload: reload
+    version: version
+  order:
+    - help
+    - info
+    - reload
+    - version
+
+dont-edit-this:
+  version: 4

@@ -5,8 +5,8 @@ import com.alessiodp.core.common.user.User;
 import com.alessiodp.core.common.utils.IPlayerUtils;
 import com.alessiodp.lastloginapi.common.LastLoginPlugin;
 import com.alessiodp.lastloginapi.common.players.objects.LLPlayerImpl;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +16,7 @@ public class LLPlayerUtils implements IPlayerUtils {
 	private final LastLoginPlugin plugin;
 	
 	@Override
-	public Set<ADPCommand> getAllowedCommands(@NonNull User user) {
+	public Set<ADPCommand> getAllowedCommands(@NotNull User user) {
 		Set<ADPCommand> ret = new HashSet<>();
 		LLPlayerImpl player = plugin.getPlayerManager().getPlayer(user.getUUID());
 		if (player != null) {

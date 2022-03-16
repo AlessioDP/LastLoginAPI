@@ -8,7 +8,7 @@ public interface IPostUpdateTimestamp extends LastLoginEvent {
 	/**
 	 * Get the player
 	 *
-	 * @return Returns the {@link LastLoginPlayer}
+	 * @return the {@link LastLoginPlayer}
 	 */
 	@NotNull
 	LastLoginPlayer getPlayer();
@@ -16,7 +16,7 @@ public interface IPostUpdateTimestamp extends LastLoginEvent {
 	/**
 	 * The timestamp that is gonna to be set
 	 *
-	 * @return The timestamp
+	 * @return the timestamp
 	 */
 	long getTimestamp();
 }

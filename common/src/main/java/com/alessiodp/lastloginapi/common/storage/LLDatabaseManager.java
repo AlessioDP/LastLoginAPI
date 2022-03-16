@@ -32,7 +32,7 @@ public class LLDatabaseManager extends DatabaseManager implements ILLDatabase {
 				break;
 			default:
 				// Unsupported storage type
-				plugin.getLoggerManager().printError(String.format(Constants.DEBUG_DB_INIT_FAILED_UNSUPPORTED, ConfigMain.STORAGE_TYPE_DATABASE));
+				plugin.getLoggerManager().logError(String.format(Constants.DEBUG_DB_INIT_FAILED_UNSUPPORTED, ConfigMain.STORAGE_TYPE_DATABASE));
 				break;
 		}
 		return ret;
@@ -41,7 +41,7 @@ public class LLDatabaseManager extends DatabaseManager implements ILLDatabase {
 	@Override
 	public void updatePlayer(LLPlayerImpl player) {
 		executeSafelyAsync(() -> {
-			plugin.getLoggerManager().logDebug(String.format(LLConstants.DEBUG_DB_UPDATEPLAYER, player.getName(), player.getPlayerUUID().toString()), true);
+			plugin.getLoggerManager().logDebug(String.format(LLConstants.DEBUG_DB_UPDATEPLAYER, player.getName(), player.getPlayerUUID()), true);
 			
 			((ILLDatabase) database).updatePlayer(player);
 		});

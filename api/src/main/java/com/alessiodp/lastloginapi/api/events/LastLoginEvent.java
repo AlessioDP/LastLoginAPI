@@ -7,7 +7,7 @@ public interface LastLoginEvent {
 	/**
 	 * Get the LastLogin API instance
 	 *
-	 * @return Returns the {@link LastLoginAPI}
+	 * @return the {@link LastLoginAPI}
 	 */
 	@NotNull
 	LastLoginAPI getApi();

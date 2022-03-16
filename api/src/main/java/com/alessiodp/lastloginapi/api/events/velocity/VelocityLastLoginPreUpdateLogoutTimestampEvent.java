@@ -1,19 +1,15 @@
-package com.alessiodp.lastloginapi.api.events.bungee;
+package com.alessiodp.lastloginapi.api.events.velocity;
 
-import com.alessiodp.lastloginapi.api.events.common.IUpdateTimestamp;
+import com.alessiodp.lastloginapi.api.events.common.IPreUpdateTimestamp;
 import com.alessiodp.lastloginapi.api.interfaces.LastLoginPlayer;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * @deprecated Use {@link BungeeLastLoginPreUpdateLoginTimestampEvent} instead
- */
-@Deprecated
-public class BungeeLastLoginUpdateLoginTimestampEvent extends BungeeLastLoginEvent implements IUpdateTimestamp {
+public class VelocityLastLoginPreUpdateLogoutTimestampEvent extends VelocityLastLoginEvent implements IPreUpdateTimestamp {
 	private boolean cancelled;
 	private final LastLoginPlayer player;
 	private long timestamp;
 	
-	public BungeeLastLoginUpdateLoginTimestampEvent(LastLoginPlayer player, long timestamp) {
+	public VelocityLastLoginPreUpdateLogoutTimestampEvent(LastLoginPlayer player, long timestamp) {
 		cancelled = false;
 		this.player = player;
 		this.timestamp = timestamp;
