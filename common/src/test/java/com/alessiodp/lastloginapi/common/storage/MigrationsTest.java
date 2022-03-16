@@ -26,7 +26,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class MigrationsTest {
-	private static final LastLoginPlugin mockPlugin = Mockito.mock(LastLoginPlugin.class);
+	private static final LastLoginPlugin mockPlugin = mock(LastLoginPlugin.class);
 	private final Path testingPath = Paths.get("../testing/");
 	private static MockedStatic<ADPPlugin> staticPlugin;
 	
