@@ -35,11 +35,6 @@ public class VelocityLastLoginBootstrap extends ADPVelocityBootstrap {
 	}
 	
 	@Override
-	public void stopPlugin() {
-	
-	}
-	
-	@Override
 	public @NotNull String getAuthor() {
 		return VelocityConstants.AUTHORS;
 	}
