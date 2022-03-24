@@ -3,7 +3,7 @@
   <parent>
     <artifactId>lastloginapi</artifactId>
     <groupId>com.alessiodp.lastloginapi</groupId>
-    <version>1.7.0</version>
+    <version>1.7.1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>lastloginapi-common</artifactId>
@@ -63,7 +63,7 @@
     <dependency>
       <groupId>com.alessiodp.lastloginapi</groupId>
       <artifactId>lastloginapi-api</artifactId>
-      <version>1.7.0</version>
+      <version>1.7.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>

@@ -7,7 +7,7 @@
 	<parent>
 		<artifactId>lastloginapi</artifactId>
 		<groupId>com.alessiodp.lastloginapi</groupId>
-		<version>1.7.0</version>
+		<version>1.7.1</version>
 	</parent>
 	
 	<artifactId>lastloginapi-common</artifactId>
