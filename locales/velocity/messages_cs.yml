@@ -33,8 +33,8 @@ commands:
   info:
     header: '&6============== &lInformace o hráči %player% &r&6=============='
     text:
-      - "&6Last login since: &7%last_login_elapsed%"
-      - "&6Last logout since: &7%last_logout_elapsed%"
+      - "&6Poslední přihlášení: &7%last_login_elapsed%"
+      - "&6Poslední odhlášení: &7%last_logout_elapsed%"
     footer: ''
     player-not-found: '&cHráč %player% nenalezen!'
   version:
