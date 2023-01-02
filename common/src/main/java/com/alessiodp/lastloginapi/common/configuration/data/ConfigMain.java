@@ -128,14 +128,4 @@ public abstract class ConfigMain extends ConfigurationFile {
 	protected ConfigMain(LastLoginPlugin plugin) {
 		super(plugin);
 	}
-	
-	@Override
-	public void loadDefaults() {
-		loadDefaultConfigOptions();
-	}
-	
-	@Override
-	public void loadConfiguration() {
-		loadConfigOptions();
-	}
 }
