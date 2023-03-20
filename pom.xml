@@ -95,7 +95,7 @@
 		<libs.loginSecurity>3.1</libs.loginSecurity>
 		<libs.nlogin>10.0</libs.nlogin>
 		<libs.openlogin>1.3</libs.openlogin>
-		<libs.placeholderApi>2.11.2</libs.placeholderApi>
+		<libs.placeholderApi>2.11.3</libs.placeholderApi>
 	</properties>
 	
 	<build>
