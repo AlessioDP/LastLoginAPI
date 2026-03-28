@@ -6,13 +6,13 @@ import com.alessiodp.core.velocity.bootstrap.ADPVelocityBootstrap;
 import com.alessiodp.lastloginapi.common.configuration.LLConstants;
 import com.alessiodp.lastloginapi.velocity.VelocityConstants;
 import com.alessiodp.lastloginapi.velocity.VelocityLastLoginPlugin;
+import com.google.inject.Inject;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
-import javax.inject.Inject;
 import java.nio.file.Path;
 
 @Plugin(
