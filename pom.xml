@@ -6,7 +6,7 @@
 	
 	<groupId>com.alessiodp.lastloginapi</groupId>
 	<artifactId>lastloginapi</artifactId>
-	<version>1.7.4</version>
+	<version>1.7.5</version>
 	<packaging>pom</packaging>
 	
 	<name>LastLoginAPI</name>
@@ -74,14 +74,14 @@
 		
 		<!-- Dev libraries -->
 		<dev.annotations>23.1.0</dev.annotations>
-		<dev.lombok>1.18.24</dev.lombok>
-		<dev.mockito>4.11.0</dev.mockito>
+		<dev.lombok>1.18.44</dev.lombok>
+		<dev.mockito>5.23.0</dev.mockito>
 		<dev.junit>5.9.1</dev.junit>
 		
 		<libs.adpcore>1.8.10</libs.adpcore>
-		<libs.api.spigot>1.19.3-R0.1-SNAPSHOT</libs.api.spigot>
-		<libs.api.bungeecord>1.19-R0.1-SNAPSHOT</libs.api.bungeecord>
-		<libs.api.velocity>3.1.1</libs.api.velocity>
+		<libs.api.spigot>26.1-R0.1-SNAPSHOT</libs.api.spigot>
+		<libs.api.bungeecord>1.21-R0.4-SNAPSHOT</libs.api.bungeecord>
+		<libs.api.velocity>3.5.0-SNAPSHOT</libs.api.velocity>
 		<!-- ADP Core Test Libraries -->
 		<libs.h2>1.4.200</libs.h2>
 		<libs.hikaricp>5.0.1</libs.hikaricp>
@@ -95,7 +95,7 @@
 		<libs.loginSecurity>3.1</libs.loginSecurity>
 		<libs.nlogin>10.0</libs.nlogin>
 		<libs.openlogin>1.3</libs.openlogin>
-		<libs.placeholderApi>2.11.2</libs.placeholderApi>
+		<libs.placeholderApi>2.11.6</libs.placeholderApi>
 	</properties>
 	
 	<build>
@@ -135,6 +135,11 @@
 			<!-- Maven central -->
 			<id>maven-central-repo</id>
 			<url>https://repo.maven.apache.org/</url>
+		</repository>
+		<repository>
+			<!-- Sonatype repo -->
+			<id>sonatype-repo</id>
+			<url>https://central.sonatype.com</url>
 		</repository>
 		<repository>
 			<!-- AlessioDP repo -->
@@ -177,7 +182,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
-			<artifactId>mockito-inline</artifactId>
+			<artifactId>mockito-core</artifactId>
 			<version>${dev.mockito}</version>
 			<scope>test</scope>
 		</dependency>

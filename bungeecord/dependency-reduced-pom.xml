@@ -3,7 +3,7 @@
   <parent>
     <artifactId>lastloginapi</artifactId>
     <groupId>com.alessiodp.lastloginapi</groupId>
-    <version>1.7.4</version>
+    <version>1.7.5</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>lastloginapi-bungeecord</artifactId>
@@ -58,24 +58,32 @@
     <dependency>
       <groupId>com.alessiodp.lastloginapi</groupId>
       <artifactId>lastloginapi-common</artifactId>
-      <version>1.7.4</version>
+      <version>1.7.5</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.24</version>
+      <version>1.18.44</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
-      <artifactId>mockito-inline</artifactId>
-      <version>4.11.0</version>
+      <artifactId>mockito-core</artifactId>
+      <version>5.23.0</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
-          <artifactId>mockito-core</artifactId>
-          <groupId>org.mockito</groupId>
+          <artifactId>byte-buddy</artifactId>
+          <groupId>net.bytebuddy</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>byte-buddy-agent</artifactId>
+          <groupId>net.bytebuddy</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>objenesis</artifactId>
+          <groupId>org.objenesis</groupId>
         </exclusion>
       </exclusions>
     </dependency>
